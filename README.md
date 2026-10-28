@@ -75,7 +75,8 @@ so nothing is sent yet; "Report a bug" opens a prefilled GitHub issue instead.
 ## Building
 
 ```
-cd Source && dotnet build -c Release     # output: 1.7/Assemblies/AgentBridge.dll
+cd Source && dotnet build -c Release     # Source/bin/AgentBridge.dll, copied to 1.7/Assemblies/
+dotnet build -c Release -p:SkipModCopy=true   # while RimWorld runs: never overwrite a loaded assembly
 ```
 
 Reference assemblies come from NuGet (`Krafs.Rimworld.Ref`, `Lib.Harmony`), so no game install is needed to build.
