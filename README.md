@@ -1,5 +1,7 @@
 # Agent Bridge for RimWorld
 
+**English** · [Русский](README.ru.md)
+
 Control RimWorld 1.7 from AI agents and scripts — Claude Code, Codex, any MCP client, or plain HTTP — with JSON
 commands instead of screenshots and mouse coordinates.
 
@@ -80,6 +82,7 @@ dotnet build -c Release -p:SkipModCopy=true   # while RimWorld runs: never overw
 ```
 
 Reference assemblies come from NuGet (`Krafs.Rimworld.Ref`, `Lib.Harmony`), so no game install is needed to build.
+Releasing to Steam Workshop: [docs/RELEASING.md](docs/RELEASING.md).
 `python Tools/rwb_smoke.py` runs a live test of ~70 commands against a throwaway colony (`rwb.py quicktest`).
 
 ## License

@@ -1,5 +1,7 @@
 # Protocol (rwb-1)
 
+**English** · [Русский](PROTOCOL.ru.md)
+
 - Transport: HTTP/1.1 on `127.0.0.1:<port>` (default 8765, next free up to +9). Keep-alive supported.
 - Discovery: descriptor JSON `{protocol, version, port, token, pid, gameRoot, managed, runtime, os, assemblies}` at
   `~/.local/state/rimworld-agent-bridge/descriptor.json` or `%LOCALAPPDATA%\AgentBridge\descriptor.json`

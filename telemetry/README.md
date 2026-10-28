@@ -1,5 +1,7 @@
 # Telemetry receiver
 
+**English** · [Русский](README.ru.md)
+
 Options considered for collecting reports from players:
 
 | Option | Verdict |

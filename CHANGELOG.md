@@ -1,5 +1,7 @@
 # Changelog
 
+**English** · [Русский](CHANGELOG.ru.md)
+
 ## 0.4.0 — first public repository
 - Standalone mod (was an internal tool of the Zero Sun project); MIT license.
 - Own HTTP server on TcpListener (keep-alive, no URL ACL on Windows) and dependency-free JSON.

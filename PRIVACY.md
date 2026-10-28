@@ -1,5 +1,7 @@
 # Privacy
 
+**English** · [Русский](PRIVACY.ru.md)
+
 Agent Bridge serves only `127.0.0.1` (your own computer) and requires a random token. Agents on your machine can
 control the game; nothing on the network can.
 

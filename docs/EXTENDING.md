@@ -1,5 +1,7 @@
 # Adding commands from your mod
 
+**English** · [Русский](EXTENDING.ru.md)
+
 Your mod does **not** need to reference Agent Bridge. Declare an attribute with this exact name anywhere in your
 assembly and mark public static methods with it:
 
