@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <!-- Agent Bridge cover. Agents are shown as stylised name badges, not official logos. -->
+  <defs>
+    <radialGradient id="sky" cx="72%" cy="45%" r="80%">
+      <stop offset="0" stop-color="#1b2433"/>
+      <stop offset="0.55" stop-color="#0f141d"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </radialGradient>
+    <radialGradient id="planet" cx="50%" cy="0%" r="100%">
+      <stop offset="0" stop-color="#3a2a1f"/>
+      <stop offset="0.35" stop-color="#1d1611"/>
+      <stop offset="1" stop-color="#0b0907"/>
+    </radialGradient>
+    <linearGradient id="atmo" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9a4a" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ff9a4a" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="core" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffd9a8"/>
+      <stop offset="0.45" stop-color="#f08a3c"/>
+      <stop offset="1" stop-color="#8a3a12"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff9a4a" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ff9a4a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="claudeG" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f4b08f"/><stop offset="1" stop-color="#b8522e"/></radialGradient>
+    <radialGradient id="codexG" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#e9fff7"/><stop offset="1" stop-color="#3f8f7a"/></radialGradient>
+    <radialGradient id="geminiG" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#c9d8ff"/><stop offset="1" stop-color="#5a5fd6"/></radialGradient>
+    <linearGradient id="beamC" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e88a62"/><stop offset="1" stop-color="#ffb070" stop-opacity="0.15"/></linearGradient>
+    <linearGradient id="beamX" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7fe0c2"/><stop offset="1" stop-color="#ffb070" stop-opacity="0.15"/></linearGradient>
+    <linearGradient id="beamG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9aa6ff"/><stop offset="1" stop-color="#ffb070" stop-opacity="0.15"/></linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter>
+    <pattern id="hex" width="28" height="48.5" patternUnits="userSpaceOnUse" patternTransform="scale(1.2)">
+      <path d="M14 0 L28 8 L28 24 L14 32 L0 24 L0 8 Z M14 32 L14 48.5" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- sky, grid, stars -->
+  <rect width="1280" height="720" fill="url(#sky)"/>
+  <rect width="1280" height="720" fill="url(#hex)"/>
+  <g fill="#ffffff">
+    <circle cx="96" cy="64" r="1.2" opacity=".6"/><circle cx="210" cy="140" r="0.9" opacity=".4"/><circle cx="388" cy="52" r="1.4" opacity=".55"/>
+    <circle cx="560" cy="118" r="1" opacity=".35"/><circle cx="660" cy="40" r="1.1" opacity=".5"/><circle cx="1210" cy="84" r="1.3" opacity=".55"/>
+    <circle cx="1120" cy="30" r="0.8" opacity=".4"/><circle cx="980" cy="58" r="1" opacity=".35"/><circle cx="48" cy="300" r="1" opacity=".35"/>
+    <circle cx="1250" cy="330" r="1.2" opacity=".45"/><circle cx="300" cy="250" r="0.8" opacity=".3"/><circle cx="740" cy="190" r="0.9" opacity=".3"/>
+  </g>
+
+  <!-- the rim: planet horizon -->
+  <ellipse cx="640" cy="1260" rx="1150" ry="640" fill="url(#atmo)" opacity="0.35" filter="url(#soft)"/>
+  <ellipse cx="640" cy="1268" rx="1120" ry="620" fill="url(#planet)"/>
+  <path d="M-480 1268 A1120 620 0 0 1 1760 1268" fill="none" stroke="#ffb070" stroke-opacity="0.55" stroke-width="2"/>
+
+  <!-- faint protocol text behind the title -->
+  <g font-family="'Fira Mono','DejaVu Sans Mono',monospace" font-size="15" fill="#9fb3c8" opacity="0.16">
+    <text x="64" y="470">{"cmd":"snapshot","fields":["colonists","hostiles"]}</text>
+    <text x="64" y="494">{"cmd":"draft","ids":["Human1554"]}</text>
+    <text x="64" y="518">{"cmd":"gizmo","key":"verb:Gun_Revolver","target":"Raider42"}</text>
+    <text x="64" y="542">{"cmd":"tick","n":600}  →  {"ok":true,"ran":600}</text>
+  </g>
+
+  <!-- ===== constellation (right) ===== -->
+  <g transform="translate(905 330)">
+    <!-- orbits -->
+    <ellipse rx="300" ry="230" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="1.5" stroke-dasharray="2 7"/>
+    <ellipse rx="180" ry="140" fill="none" stroke="#ffb070" stroke-opacity="0.18" stroke-width="1.5"/>
+
+    <!-- links: outer agents -->
+    <g stroke="#9fb3c8" stroke-opacity="0.28" stroke-width="1.2">
+      <line x1="0" y1="0" x2="-250" y2="-150"/><line x1="0" y1="0" x2="-30" y2="-232"/><line x1="0" y1="0" x2="210" y2="-185"/>
+      <line x1="0" y1="0" x2="300" y2="-40"/><line x1="0" y1="0" x2="-300" y2="40"/><line x1="0" y1="0" x2="-215" y2="175"/>
+      <line x1="0" y1="0" x2="-95" y2="238"/>
+    </g>
+    <!-- links: local cluster (dashed) -->
+    <g stroke="#7fe0c2" stroke-opacity="0.35" stroke-width="1.3" stroke-dasharray="5 5">
+      <line x1="0" y1="0" x2="230" y2="160"/><line x1="0" y1="0" x2="280" y2="215"/>
+    </g>
+    <!-- links: three pillars -->
+    <line x1="-150" y1="-70" x2="0" y2="0" stroke="url(#beamC)" stroke-width="5" filter="url(#glow)"/>
+    <line x1="150" y1="-80" x2="0" y2="0" stroke="url(#beamX)" stroke-width="5" filter="url(#glow)"/>
+    <line x1="10" y1="140" x2="0" y2="0" stroke="url(#beamG)" stroke-width="5" filter="url(#glow)"/>
+
+    <!-- core: the colony -->
+    <circle r="110" fill="url(#halo)"/>
+    <circle r="56" fill="url(#core)" filter="url(#glow)"/>
+    <ellipse rx="88" ry="22" fill="none" stroke="#ffd9a8" stroke-opacity="0.8" stroke-width="3" transform="rotate(-18)"/>
+    <path d="M-9 -16 L9 -16 L9 -6 L19 -6 L19 12 L-19 12 L-19 -6 L-9 -6 Z" fill="#2a160a" opacity="0.85"/>
+    <text y="32" text-anchor="middle" font-family="'Fira Sans','DejaVu Sans',sans-serif" font-size="11" font-weight="700" fill="#2a160a" letter-spacing="2">RIM</text>
+
+    <!-- outer agents: small badges -->
+    <g font-family="'Fira Sans','DejaVu Sans',sans-serif" font-size="15" font-weight="600" text-anchor="middle">
+      <g transform="translate(-250 -150)"><circle r="27" fill="#141b26" stroke="#8fa6c0" stroke-opacity="0.6"/><path d="M-9 -2 a9 9 0 0 1 18 0 v6 h-18 z M-12 4 h24" fill="none" stroke="#c9d6e6" stroke-width="2.2"/><text y="47" fill="#c9d6e6">Copilot</text></g>
+      <g transform="translate(-30 -232)"><circle r="25" fill="#141b26" stroke="#8fa6c0" stroke-opacity="0.6"/><path d="M0 -12 L11 -5 V8 L0 14 L-11 8 V-5 Z M0 1 L11 -5 M0 1 L-11 -5 M0 1 V14" fill="none" stroke="#c9d6e6" stroke-width="2"/><text y="45" fill="#c9d6e6">Cursor</text></g>
+      <g transform="translate(210 -185)"><circle r="25" fill="#141b26" stroke="#ff8a3d" stroke-opacity="0.6"/><g fill="#ff8a3d"><rect x="-12" y="-11" width="6" height="6"/><rect x="6" y="-11" width="6" height="6"/><rect x="-12" y="-3" width="24" height="6"/><rect x="-12" y="5" width="6" height="6"/><rect x="6" y="5" width="6" height="6"/></g><text y="45" fill="#c9d6e6">Mistral</text></g>
+      <g transform="translate(300 -40)"><circle r="24" fill="#141b26" stroke="#8fa6c0" stroke-opacity="0.6"/><path d="M-10 -10 L10 10 M10 -10 L2 -2 M-10 10 L-3 3" stroke="#e6edf5" stroke-width="2.6" stroke-linecap="round"/><text y="44" fill="#c9d6e6">Grok</text></g>
+      <g transform="translate(-300 40)"><circle r="24" fill="#141b26" stroke="#5b8cff" stroke-opacity="0.7"/><path d="M-12 2 C-6 -12 8 -10 12 -2 C8 -4 4 -2 2 4 C0 10 -8 10 -12 2 Z" fill="#5b8cff"/><text y="44" fill="#c9d6e6">DeepSeek</text></g>
+      <g transform="translate(-215 175)"><circle r="24" fill="#141b26" stroke="#8f7cff" stroke-opacity="0.7"/><path d="M0 -12 L10 -6 V6 L0 12 L-10 6 V-6 Z" fill="none" stroke="#a99bff" stroke-width="2.4"/><circle r="3" fill="#a99bff"/><text y="44" fill="#c9d6e6">Qwen</text></g>
+      <g transform="translate(-95 238)"><circle r="24" fill="#141b26" stroke="#4f9dff" stroke-opacity="0.7"/><path d="M-12 4 C-8 -10 -2 -10 0 0 C2 10 8 10 12 -4" fill="none" stroke="#4f9dff" stroke-width="2.8" stroke-linecap="round"/><text y="44" fill="#c9d6e6">Llama</text></g>
+    </g>
+
+    <!-- local cluster -->
+    <g transform="translate(255 188)">
+      <rect x="-70" y="-62" width="160" height="128" rx="16" fill="#0d1a17" fill-opacity="0.75" stroke="#7fe0c2" stroke-opacity="0.55" stroke-dasharray="6 5"/>
+      <text x="10" y="-44" text-anchor="middle" font-family="'Fira Sans','DejaVu Sans',sans-serif" font-size="12" font-weight="700" fill="#7fe0c2" letter-spacing="3">LOCAL</text>
+      <g font-family="'Fira Sans','DejaVu Sans',sans-serif" font-size="13" font-weight="600" fill="#cfeee5" text-anchor="middle">
+        <circle cx="-25" cy="-12" r="15" fill="#13221e" stroke="#7fe0c2" stroke-opacity="0.6"/><path d="M-31 -8 v-7 a6 6 0 0 1 12 0 v7" fill="none" stroke="#cfeee5" stroke-width="2"/>
+        <text x="-25" y="18">Ollama</text>
+        <circle cx="45" cy="-12" r="15" fill="#13221e" stroke="#7fe0c2" stroke-opacity="0.6"/><path d="M38 -18 h14 M38 -12 h10 M38 -6 h14" stroke="#cfeee5" stroke-width="2"/>
+        <text x="45" y="18">LM Studio</text>
+        <text x="10" y="44" font-size="12" fill="#9fd9c7">llama.cpp · vLLM</text>
+      </g>
+    </g>
+
+    <!-- three pillars -->
+    <g font-family="'Fira Sans','DejaVu Sans',sans-serif" text-anchor="middle">
+      <g transform="translate(-150 -70)">
+        <circle r="50" fill="url(#claudeG)" filter="url(#glow)"/>
+        <g stroke="#fff4ec" stroke-width="4" stroke-linecap="round">
+          <line x1="0" y1="-24" x2="0" y2="24"/><line x1="-24" y1="0" x2="24" y2="0"/>
+          <line x1="-17" y1="-17" x2="17" y2="17"/><line x1="-17" y1="17" x2="17" y2="-17"/>
+        </g>
+        <text y="80" font-size="24" font-weight="700" fill="#ffd7c2">Claude</text>
+      </g>
+      <g transform="translate(150 -80)">
+        <circle r="50" fill="url(#codexG)" filter="url(#glow)"/>
+        <path d="M-14 -16 L-26 0 L-14 16 M14 -16 L26 0 L14 16 M5 -20 L-5 20" fill="none" stroke="#0e2b23" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text y="80" font-size="24" font-weight="700" fill="#c9f5e7">Codex</text>
+      </g>
+      <g transform="translate(10 140)">
+        <circle r="46" fill="url(#geminiG)" filter="url(#glow)"/>
+        <path d="M0 -28 C3 -8 8 -3 28 0 C8 3 3 8 0 28 C-3 8 -8 3 -28 0 C-8 -3 -3 -8 0 -28 Z" fill="#f2f5ff"/>
+        <text y="74" font-size="22" font-weight="700" fill="#d6defe">Gemini</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ===== title (left) ===== -->
+  <g font-family="'Fira Sans','DejaVu Sans',sans-serif">
+    <text x="64" y="128" font-size="20" font-weight="600" fill="#ffb070" letter-spacing="6">RIMWORLD MOD</text>
+    <text x="60" y="222" font-size="96" font-weight="800" fill="#f3f6fa" letter-spacing="1">AGENT</text>
+    <text x="60" y="318" font-size="96" font-weight="800" fill="#ffb070" letter-spacing="1" filter="url(#glow)">BRIDGE</text>
+    <text x="64" y="370" font-size="27" font-weight="500" fill="#c9d6e6">Play and test RimWorld with AI agents —</text>
+    <text x="64" y="404" font-size="27" font-weight="500" fill="#c9d6e6">commands, not screenshots.</text>
+    <g font-size="17" font-weight="600">
+      <rect x="64" y="590" width="92" height="36" rx="18" fill="#1a2230" stroke="#ffb070" stroke-opacity="0.7"/><text x="110" y="614" text-anchor="middle" fill="#ffd2a6">MCP</text>
+      <rect x="168" y="590" width="92" height="36" rx="18" fill="#1a2230" stroke="#ffb070" stroke-opacity="0.7"/><text x="214" y="614" text-anchor="middle" fill="#ffd2a6">HTTP</text>
+      <rect x="272" y="590" width="80" height="36" rx="18" fill="#1a2230" stroke="#ffb070" stroke-opacity="0.7"/><text x="312" y="614" text-anchor="middle" fill="#ffd2a6">CLI</text>
+      <rect x="364" y="590" width="150" height="36" rx="18" fill="#1a2230" stroke="#9fb3c8" stroke-opacity="0.5"/><text x="439" y="614" text-anchor="middle" fill="#c9d6e6">29 languages</text>
+    </g>
+  </g>
+</svg>

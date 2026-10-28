@@ -37,7 +37,17 @@
   4. **Permissions → Repository → Issues:** Read and write.
   5. **Generate token**, скопируйте его — он показывается один раз.
 
-**Развёртывание** (PowerShell на Windows или терминал на Linux):
+**Развёртывание через браузер (без Node.js):**
+1. Storage & databases → **Workers KV** → Create → имя `agent-bridge-stats`.
+2. Compute → **Workers & Pages** → Create → **Start with Hello World** → имя `agent-bridge-telemetry` → Deploy.
+3. **Edit code** → удалить всё → вставить https://raw.githubusercontent.com/Akseleron/rimworld-agent-bridge/main/telemetry/worker.js → Deploy.
+4. Воркер → Settings → **Bindings** → Add → KV namespace: Variable name `STATS`, namespace `agent-bridge-stats`.
+5. Settings → **Variables and Secrets** → Add:
+   - Type *Secret*, name `GITHUB_TOKEN`, value — GitHub-токен;
+   - Type *Text*, name `REPO`, value `Akseleron/rimworld-agent-bridge`.
+6. Адрес воркера — на его странице: `https://agent-bridge-telemetry.<имя>.workers.dev`.
+
+**Развёртывание из терминала** (если Node.js работает):
 
 ```
 npx wrangler login                                   # откроет браузер, войти в Cloudflare
