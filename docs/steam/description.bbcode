@@ -1,0 +1,65 @@
+[h1]Agent Bridge — let AI agents play and test RimWorld[/h1]
+
+Agent Bridge lets AI agents and scripts — [b]Claude Code, Codex, Cursor, any MCP client, Python or plain HTTP[/b] — control RimWorld with simple JSON commands instead of screenshots and mouse coordinates.
+
+Use it to let an agent play your colony, to automate tests of your own mods, to reproduce bugs, or just to see what an LLM does with a raid.
+
+[h2]What it can do[/h2]
+[list]
+[*][b]See the colony:[/b] one-call snapshot, pawns, health, needs, items, alerts, letters, and a compact text map of any area.
+[*][b]Give orders:[/b] draft, move, attack, equip, right-click menu options, gizmos with targeting (abilities, reload…), designations, construction, zones, bills, work priorities, schedules.
+[*][b]Control time precisely:[/b] run exactly N ticks, or wait until a raid letter, a death or a log line appears.
+[*][b]Handle the game:[/b] event dialogs, letters, message boxes, save (never overwrites) and load.
+[*][b]Developer tools:[/b] every Dev-mode debug action by name, spawning, incidents, damage/heal, live reflection on any object, Harmony patch lists, and C# code executed inside the game.
+[/list]
+About 90 commands. Each one takes a single frame (~17 ms).
+
+[h2]Made for AI agents[/h2]
+[list]
+[*]Compact JSON: empty fields omitted, optional field filtering, many commands per frame — fewer tokens.
+[*]Works in every game language: commands use defNames, IDs and stable keys, never translated labels.
+[*]MCP server included: one command adds RimWorld tools to Claude Code or Codex (copy it from the mod settings).
+[*]Other mods can add their own commands without depending on Agent Bridge.
+[/list]
+
+[h2]You stay in control[/h2]
+[list]
+[*]Only your own computer (127.0.0.1) can connect, and a random token is required.
+[*]Mod settings show connected agents and every command they sent.
+[*]Read-only mode and separate permissions for dev and code commands (they also need Dev mode by default).
+[*]An on-screen indicator shows when an agent is acting.
+[/list]
+
+[h2]Requirements[/h2]
+[list]
+[*]RimWorld 1.7. No other mods required. [b]Harmony[/b] is recommended (adds cell targeting, exact tick stops and event hooks).
+[*]For the bundled CLI/MCP tools: Python 3. Raw HTTP works without it.
+[*]Translated into all 29 languages that ship with RimWorld.
+[/list]
+
+[h2]Quick start[/h2]
+1. Subscribe and enable Agent Bridge (after Harmony).
+2. Start the game; Options → Mod settings → Agent Bridge → [i]Copy MCP setup command[/i].
+3. Paste it into a terminal, then ask your agent: "Take a snapshot of my RimWorld colony."
+
+Documentation, protocol and source code: [url=https://github.com/Akseleron/rimworld-agent-bridge]github.com/Akseleron/rimworld-agent-bridge[/url]
+
+[h2]Privacy[/h2]
+Anonymous usage statistics and error reports are on by default, asked about once on first launch, and can be turned off in the mod settings. They contain versions, OS family, language, command counts and sanitised error traces — no names, saves, file paths or mod lists. "Show what would be sent" displays the exact data. Details: [url=https://github.com/Akseleron/rimworld-agent-bridge/blob/main/PRIVACY.md]PRIVACY.md[/url]
+
+[h2]Bugs and ideas[/h2]
+Use [i]Report a bug on GitHub[/i] in the mod settings, or open an issue on GitHub. Windows and macOS reports are especially welcome.
+
+[hr][/hr]
+
+[h1]Agent Bridge — ИИ-агенты играют и тестируют RimWorld[/h1]
+Agent Bridge позволяет ИИ-агентам и скриптам (Claude Code, Codex, Cursor, любой MCP-клиент, Python или обычный HTTP) управлять RimWorld простыми JSON-командами вместо скриншотов и координат мыши: наблюдать за колонией, отдавать приказы, точно управлять временем, проходить диалоги, сохраняться и загружаться, запускать любые действия режима разработчика и выполнять C#-код в игре.
+
+[list]
+[*]Около 90 команд, каждая выполняется за один кадр (~17 мс); компактные ответы экономят токены.
+[*]Работает при любом языке игры; переведён на все 29 языков RimWorld.
+[*]Подключение только с вашего компьютера (127.0.0.1) и по токену; в настройках видны агенты и все их команды, есть режим «только чтение» и уровни доступа, на экране горит индикатор.
+[*]Обязательных зависимостей нет; Harmony рекомендуется. Для инструментов CLI/MCP нужен Python 3.
+[*]Анонимная статистика и отчёты об ошибках включены по умолчанию и отключаются в настройках мода.
+[/list]
+Документация на русском: [url=https://github.com/Akseleron/rimworld-agent-bridge/blob/main/README.ru.md]README.ru.md[/url]

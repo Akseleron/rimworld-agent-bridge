@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge pot enviar estadístiques d'ús i informes d'errors anònims perquè els errors es corregeixin ràpidament. No es recullen dades personals, noms de partides ni camins de fitxers. Ho pots canviar en qualsevol moment a Opcions → Configuració de mods → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Permet</AB_ConsentAccept>
   <AB_ConsentDecline>No enviïs</AB_ConsentDecline>
+  <AB_LastReport>Darrer informe: {0}</AB_LastReport>
 </LanguageData>

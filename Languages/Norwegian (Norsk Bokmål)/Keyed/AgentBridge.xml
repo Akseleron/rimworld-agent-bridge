@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge kan sende anonym bruksstatistikk og feilrapporter slik at feil rettes raskt. Ingen personopplysninger, lagringsnavn eller filstier samles inn. Du kan endre dette når som helst under Innstillinger → Modinnstillinger → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Tillat</AB_ConsentAccept>
   <AB_ConsentDecline>Ikke send</AB_ConsentDecline>
+  <AB_LastReport>Siste rapport: {0}</AB_LastReport>
 </LanguageData>

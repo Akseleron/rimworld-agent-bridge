@@ -37,4 +37,5 @@
   <AB_ConsentText>Az Agent Bridge névtelen használati statisztikát és hibajelentéseket küldhet, hogy a hibák gyorsan javuljanak. Személyes adatokat, mentésneveket vagy fájlútvonalakat nem gyűjt. Ezt bármikor megváltoztathatod: Beállítások → Mod beállítások → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Engedélyezés</AB_ConsentAccept>
   <AB_ConsentDecline>Ne küldjön</AB_ConsentDecline>
+  <AB_LastReport>Utolsó jelentés: {0}</AB_LastReport>
 </LanguageData>

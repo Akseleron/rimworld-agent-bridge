@@ -26,6 +26,8 @@ namespace AgentBridge
         private static readonly Dictionary<string, int[]> commands = new Dictionary<string, int[]>();
         private static readonly Dictionary<string, ErrorInfo> errors = new Dictionary<string, ErrorInfo>();
         private static DateTime sessionStart = DateTime.UtcNow, lastSent = DateTime.UtcNow;
+        /// <summary>Result of the last delivery attempt ("200 at 12:00:01", "error: …"); shown in settings.</summary>
+        public static volatile string? LastStatus;
 
         private sealed class ErrorInfo { public string signature = "", type = "", command = "", trace = ""; public int count; }
 
@@ -106,6 +108,9 @@ namespace AgentBridge
 
         public static string Preview() => (HasEndpoint ? "" : "AB_NoEndpoint".Translate() + "\n\n") + Json.Write(Payload());
 
+        /// <summary>Sends pending data now and waits for the result (used by the 'telemetry' command and tests).</summary>
+        internal static string SendNow() { Send(true); return LastStatus ?? "nothing sent"; }
+
         private static void Send(bool final)
         {
             var s = Bridge.Settings;
@@ -121,9 +126,11 @@ namespace AgentBridge
                     req.Method = "POST"; req.ContentType = "application/json"; req.Timeout = 5000;
                     var bytes = Encoding.UTF8.GetBytes(body);
                     using (var stream = req.GetRequestStream()) stream.Write(bytes, 0, bytes.Length);
-                    using (req.GetResponse()) { }
+                    using (req.GetResponse()) LastStatus = "delivered " + DateTime.Now.ToString("HH:mm");
                 }
-                catch { /* best effort: telemetry must never disturb the game */ }
+                // 429 = the receiver already has a recent report from this install; the data is merged next time.
+                catch (WebException e) when (e.Response is HttpWebResponse r) { LastStatus = ((int)r.StatusCode == 429 ? "postponed " : "rejected (" + (int)r.StatusCode + ") ") + DateTime.Now.ToString("HH:mm"); }
+                catch (Exception e) { LastStatus = "offline (" + e.GetType().Name + ")"; /* best effort: never disturb the game */ }
             }
             if (final) Post(); else new Thread(Post) { IsBackground = true }.Start();
         }

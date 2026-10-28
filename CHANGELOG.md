@@ -2,6 +2,13 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.0.0 — first Steam Workshop release
+- Workshop cover and screenshots; anonymous statistics go to the project's Cloudflare receiver
+  (status shown in settings: delivered / postponed / offline) and new error signatures become GitHub issues.
+- New `telemetry` command; settings window shows the version once (dialog already has the title).
+- Agent indicator moved below the top bar and enlarged; `attack`/`move` report downed or dead pawns.
+- `rwb eval` imports LudeonTK; clean release folder script (`Tools/make_release.py`).
+
 ## 0.4.0 — first public repository
 - Standalone mod (was an internal tool of the Zero Sun project); MIT license.
 - Own HTTP server on TcpListener (keep-alive, no URL ACL on Windows) and dependency-free JSON.

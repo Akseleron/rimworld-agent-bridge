@@ -59,7 +59,7 @@ for line in sys.stdin:
         info = (req.get('params') or {}).get('clientInfo') or {}
         CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
         reply(id_, {'protocolVersion': req.get('params', {}).get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}},
-                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '0.4.0'}})
+                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.0.0'}})
     elif method == 'tools/list': reply(id_, {'tools': TOOLS})
     elif method == 'tools/call':
         p = req['params']

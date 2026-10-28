@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge kan skicka anonym användningsstatistik och felrapporter så att buggar åtgärdas snabbt. Inga personuppgifter, namn på sparfiler eller filsökvägar samlas in. Du kan ändra detta när som helst under Inställningar → Modinställningar → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Tillåt</AB_ConsentAccept>
   <AB_ConsentDecline>Skicka inte</AB_ConsentDecline>
+  <AB_LastReport>Senaste rapport: {0}</AB_LastReport>
 </LanguageData>

@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge は、バグを素早く修正するために匿名の使用統計とエラー報告を送信できます。個人データ、セーブ名、ファイルパスは収集しません。オプション → Mod 設定 → Agent Bridge でいつでも変更できます。</AB_ConsentText>
   <AB_ConsentAccept>許可する</AB_ConsentAccept>
   <AB_ConsentDecline>送信しない</AB_ConsentDecline>
+  <AB_LastReport>最後の報告: {0}</AB_LastReport>
 </LanguageData>

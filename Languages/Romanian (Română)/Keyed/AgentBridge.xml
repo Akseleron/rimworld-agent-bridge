@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge poate trimite statistici de utilizare și rapoarte de erori anonime, ca problemele să fie reparate rapid. Nu se colectează date personale, nume de salvări sau căi de fișiere. Poți schimba asta oricând din Opțiuni → Setări moduri → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Permite</AB_ConsentAccept>
   <AB_ConsentDecline>Nu trimite</AB_ConsentDecline>
+  <AB_LastReport>Ultimul raport: {0}</AB_LastReport>
 </LanguageData>

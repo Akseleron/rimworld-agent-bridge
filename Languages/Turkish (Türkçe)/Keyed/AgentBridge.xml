@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge, hataların hızla düzeltilmesi için anonim kullanım istatistikleri ve hata raporları gönderebilir. Kişisel veri, kayıt adı veya dosya yolu toplanmaz. Bunu istediğin zaman Seçenekler → Mod ayarları → Agent Bridge bölümünden değiştirebilirsin.</AB_ConsentText>
   <AB_ConsentAccept>İzin ver</AB_ConsentAccept>
   <AB_ConsentDecline>Gönderme</AB_ConsentDecline>
+  <AB_LastReport>Son rapor: {0}</AB_LastReport>
 </LanguageData>

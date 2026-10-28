@@ -3,7 +3,7 @@
   <name>Agent Bridge</name>
   <author>Akseleron</author>
   <packageId>akseleron.agentbridge</packageId>
-  <modVersion>0.4.0</modVersion>
+  <modVersion>1.0.0</modVersion>
   <url>https://github.com/Akseleron/rimworld-agent-bridge</url>
   <supportedVersions>
     <li>1.7</li>

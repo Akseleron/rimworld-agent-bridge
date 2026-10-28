@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge can send anonymous usage statistics and error reports so bugs get fixed quickly. No personal data, save names or file paths are collected. You can change this at any time in Options → Mod settings → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Allow</AB_ConsentAccept>
   <AB_ConsentDecline>Don't send</AB_ConsentDecline>
+  <AB_LastReport>Last report: {0}</AB_LastReport>
 </LanguageData>

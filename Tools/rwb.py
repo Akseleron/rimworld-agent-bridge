@@ -87,7 +87,7 @@ def call(payload, timeout=None, agent=None):
 
 # ---------- eval: compile a C# snippet against the running game's assemblies, then exec it ----------
 USINGS = ['System', 'System.Linq', 'System.Collections.Generic', 'Verse', 'Verse.AI', 'RimWorld',
-          'RimWorld.Planet', 'UnityEngine', 'HarmonyLib', 'AgentBridge']
+          'RimWorld.Planet', 'UnityEngine', 'HarmonyLib', 'LudeonTK', 'AgentBridge']
 
 
 def compile_snippet(code):

@@ -37,4 +37,5 @@
   <AB_ConsentText>Το Agent Bridge μπορεί να στέλνει ανώνυμα στατιστικά χρήσης και αναφορές σφαλμάτων ώστε τα σφάλματα να διορθώνονται γρήγορα. Δεν συλλέγονται προσωπικά δεδομένα, ονόματα αποθηκεύσεων ή διαδρομές αρχείων. Μπορείς να το αλλάξεις οποιαδήποτε στιγμή από Επιλογές → Ρυθμίσεις mod → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Να επιτρέπεται</AB_ConsentAccept>
   <AB_ConsentDecline>Να μη στέλνεται</AB_ConsentDecline>
+  <AB_LastReport>Τελευταία αναφορά: {0}</AB_LastReport>
 </LanguageData>

@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge kann anonyme Nutzungsstatistiken und Fehlerberichte senden, damit Fehler schnell behoben werden. Es werden keine persönlichen Daten, Spielstandnamen oder Dateipfade erfasst. Du kannst das jederzeit unter Optionen → Mod-Einstellungen → Agent Bridge ändern.</AB_ConsentText>
   <AB_ConsentAccept>Erlauben</AB_ConsentAccept>
   <AB_ConsentDecline>Nicht senden</AB_ConsentDecline>
+  <AB_LastReport>Letzter Bericht: {0}</AB_LastReport>
 </LanguageData>

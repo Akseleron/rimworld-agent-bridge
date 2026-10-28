@@ -37,4 +37,5 @@
   <AB_ConsentText>O Agent Bridge pode enviar estatísticas de uso e relatórios de erros anônimos para que os bugs sejam corrigidos rapidamente. Nenhum dado pessoal, nome de save ou caminho de arquivo é coletado. Você pode mudar isso a qualquer momento em Opções → Configurações de mods → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Permitir</AB_ConsentAccept>
   <AB_ConsentDecline>Não enviar</AB_ConsentDecline>
+  <AB_LastReport>Último relatório: {0}</AB_LastReport>
 </LanguageData>

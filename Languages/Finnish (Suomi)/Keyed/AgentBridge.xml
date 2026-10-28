@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge voi lähettää nimettömiä käyttötilastoja ja virheraportteja, jotta viat korjataan nopeasti. Henkilötietoja, tallennusten nimiä tai tiedostopolkuja ei kerätä. Voit muuttaa tätä milloin tahansa: Asetukset → Modien asetukset → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Salli</AB_ConsentAccept>
   <AB_ConsentDecline>Älä lähetä</AB_ConsentDecline>
+  <AB_LastReport>Viimeisin raportti: {0}</AB_LastReport>
 </LanguageData>

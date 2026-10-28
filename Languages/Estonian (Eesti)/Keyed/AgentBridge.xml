@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge võib saata anonüümset kasutusstatistikat ja veateateid, et vead kiiresti parandataks. Isikuandmeid, salvestuste nimesid ega failiteid ei koguta. Seda saab igal ajal muuta: Valikud → Modide seaded → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Luba</AB_ConsentAccept>
   <AB_ConsentDecline>Ära saada</AB_ConsentDecline>
+  <AB_LastReport>Viimane aruanne: {0}</AB_LastReport>
 </LanguageData>

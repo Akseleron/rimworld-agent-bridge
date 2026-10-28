@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge kan anonieme gebruiksstatistieken en foutrapporten versturen zodat bugs snel worden opgelost. Er worden geen persoonsgegevens, savenamen of bestandspaden verzameld. Je kunt dit altijd wijzigen via Opties → Modinstellingen → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Toestaan</AB_ConsentAccept>
   <AB_ConsentDecline>Niet versturen</AB_ConsentDecline>
+  <AB_LastReport>Laatste rapport: {0}</AB_LastReport>
 </LanguageData>

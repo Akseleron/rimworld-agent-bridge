@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge může odesílat anonymní statistiky používání a hlášení chyb, aby se chyby rychle opravovaly. Nesbírají se žádné osobní údaje, názvy uložených her ani cesty k souborům. Kdykoli to můžete změnit v Možnosti → Nastavení modů → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Povolit</AB_ConsentAccept>
   <AB_ConsentDecline>Neodesílat</AB_ConsentDecline>
+  <AB_LastReport>Poslední hlášení: {0}</AB_LastReport>
 </LanguageData>

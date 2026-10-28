@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge có thể gửi thống kê sử dụng và báo cáo lỗi ẩn danh để sửa lỗi nhanh hơn. Không thu thập dữ liệu cá nhân, tên bản lưu hay đường dẫn tệp. Bạn có thể thay đổi bất cứ lúc nào trong Tùy chọn → Cài đặt mod → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Cho phép</AB_ConsentAccept>
   <AB_ConsentDecline>Không gửi</AB_ConsentDecline>
+  <AB_LastReport>Báo cáo gần nhất: {0}</AB_LastReport>
 </LanguageData>

@@ -301,6 +301,14 @@ namespace AgentBridge
             };
         }
 
+        [Command("telemetry", Access.Read, "statistics status {send=false, preview=false}; send=true delivers pending data now")]
+        private static object TelemetryCmd(Args a) => new
+        {
+            endpoint = Telemetry.HasEndpoint, statistics = Bridge.Settings.telemetry, errors = Bridge.Settings.crashReports,
+            sent = a.Bool("send", false) ? Telemetry.SendNow() : Telemetry.LastStatus,
+            preview = a.Bool("preview", false) ? Telemetry.Preview() : null,
+        };
+
         [Command("perf", Access.Read, "fps, tick rate multiplier, managed memory")]
         private static object Perf(Args a) => new { fps = 1f / Mathf.Max(Time.smoothDeltaTime, 1e-4f), tickMultiplier = Current.Game?.tickManager?.TickRateMultiplier, memoryMb = GC.GetTotalMemory(false) / 1048576, frame = Time.frameCount };
 

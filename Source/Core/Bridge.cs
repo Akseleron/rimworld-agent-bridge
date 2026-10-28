@@ -46,7 +46,7 @@ namespace AgentBridge
     [StaticConstructorOnStartup]
     public static class Bridge
     {
-        public const string Version = "0.4.0";
+        public const string Version = "1.0.0";
         public const string Protocol = "rwb-1";
         private static readonly Queue<Request> queue = new Queue<Request>();
         private static readonly List<Request> waiting = new List<Request>();

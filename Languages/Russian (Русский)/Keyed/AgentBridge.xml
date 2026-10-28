@@ -37,4 +37,5 @@
   <AB_ConsentText>Agent Bridge может отправлять анонимную статистику и отчёты об ошибках, чтобы баги исправлялись быстрее. Личные данные, названия сохранений и пути к файлам не собираются. Изменить выбор можно в любой момент: Настройки → Настройки модов → Agent Bridge.</AB_ConsentText>
   <AB_ConsentAccept>Разрешить</AB_ConsentAccept>
   <AB_ConsentDecline>Не отправлять</AB_ConsentDecline>
+  <AB_LastReport>Последний отчёт: {0}</AB_LastReport>
 </LanguageData>

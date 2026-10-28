@@ -60,6 +60,7 @@ namespace AgentBridge
             var c = G.Cell(a);
             return G.Pawns(a).Select(p =>
             {
+                if (p.Downed || p.Dead) return (object)new { id = p.ThingID, error = p.Dead ? "dead" : "downed" };
                 var dest = RCellFinder.BestOrderedGotoDestNear(c, p);
                 if (!dest.IsValid) return (object)new { id = p.ThingID, error = "unreachable" };
                 var job = JobMaker.MakeJob(JobDefOf.Goto, dest); job.playerForced = true;
@@ -73,6 +74,7 @@ namespace AgentBridge
             var target = G.Target(a); bool melee = a.Bool("melee", false);
             return G.Pawns(a).Select(p =>
             {
+                if (p.Downed || p.Dead) return (object)new { id = p.ThingID, error = p.Dead ? "dead" : "downed" };
                 bool ranged = !melee && p.equipment?.Primary?.def.IsRangedWeapon == true;
                 var job = JobMaker.MakeJob(ranged ? JobDefOf.AttackStatic : JobDefOf.AttackMelee, target); job.playerForced = true;
                 return (object)new { id = p.ThingID, ok = p.jobs.TryTakeOrderedJob(job, JobTag.DraftedOrder), job = job.def.defName };

@@ -80,7 +80,8 @@ namespace AgentBridge
 
             var l = new Listing_Standard();
             l.Begin(left);
-            Text.Font = GameFont.Medium; l.Label("AB_SettingsCategory".Translate() + " " + Bridge.Version); Text.Font = GameFont.Small;
+            // The dialog already shows the mod name as its title; only the version goes here.
+            GUI.color = Color.gray; l.Label("v" + Bridge.Version); GUI.color = Color.white;
             l.Label(Bridge.Running ? "AB_Status_Listening".Translate(Bridge.Port, Registry.Commands.Count) : "AB_Status_Off".Translate());
             l.Label("AB_Status_Harmony".Translate((Bridge.HarmonyActive ? "AB_On" : "AB_Off").Translate()));
             l.GapLine();
@@ -101,6 +102,7 @@ namespace AgentBridge
             l.CheckboxLabeled("AB_Telemetry".Translate(), ref s.telemetry, "AB_Telemetry_Tip".Translate());
             l.CheckboxLabeled("AB_CrashReports".Translate(), ref s.crashReports, "AB_CrashReports_Tip".Translate());
             if (!Telemetry.HasEndpoint) { GUI.color = Color.gray; l.Label("AB_NoEndpoint".Translate()); GUI.color = Color.white; }
+            else if (Telemetry.LastStatus != null) { GUI.color = Color.gray; l.Label("AB_LastReport".Translate(Telemetry.LastStatus)); GUI.color = Color.white; }
             if (ButtonPair(l, "AB_PreviewData", "AB_ReportBug", out second)) { if (second) BugReport.Open(); else Find.WindowStack.Add(new Dialog_MessageBox(Telemetry.Preview())); }
             l.End();
 
@@ -137,9 +139,10 @@ namespace AgentBridge
             var last = Bridge.RecentLog[Bridge.RecentLog.Count - 1];
             if ((DateTime.Now - last.Time).TotalSeconds > 6) return;
             var font = Text.Font; var anchor = Text.Anchor;
-            Text.Font = GameFont.Tiny; Text.Anchor = TextAnchor.MiddleCenter;
-            // Top-left corner: the top centre is often taken by other mods' toolbars.
-            var rect = new Rect(4f, 4f, 300f, 20f);
+            Text.Anchor = TextAnchor.MiddleCenter;
+            // Left edge below the top bar area that other mods often use; Small font stays readable on any UI scale.
+            Text.Font = GameFont.Small;
+            var rect = new Rect(8f, 48f, 360f, 26f);
             Widgets.DrawBoxSolid(rect, new Color(0f, 0f, 0f, 0.55f));
             GUI.color = last.Ok ? new Color(0.6f, 0.9f, 1f) : new Color(1f, 0.6f, 0.6f);
             Widgets.Label(rect, "AB_Overlay".Translate(last.Agent, last.Command));
