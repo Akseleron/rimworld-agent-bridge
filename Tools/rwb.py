@@ -96,7 +96,7 @@ def compile_snippet(code):
     if 'class Script' not in code:
         body = code if re.search(r'\breturn\b', code) else code.rstrip().rstrip(';') + ';\nreturn null;' if '\n' in code or ';' in code else 'return ' + code + ';'
         code = '\n'.join(f'using {u};' for u in USINGS) + '\npublic static class Script {\n public static object Run(Dictionary<string, object> args) {\n' + body + '\n }\n}\n'
-    refs = [managed/'Assembly-CSharp.dll'] + sorted(managed.glob('Unity*.dll')) + sorted(managed.glob('Waylith*.dll')) + [Path(p) for p in d.get('assemblies', [])]
+    refs = [managed/'Assembly-CSharp.dll'] + sorted(managed.glob('Unity*.dll')) + sorted(managed.glob('Waylith*.dll')) + sorted(managed.glob('com.rlabrecque*.dll')) + [Path(p) for p in d.get('assemblies', [])]
     refs = list(dict.fromkeys(str(p) for p in refs if Path(p).is_file()))
     digest = hashlib.sha256((code + '\n'.join(refs)).encode()).hexdigest()[:16]
     work = CACHE/'eval'/digest

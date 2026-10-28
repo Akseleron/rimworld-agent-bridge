@@ -35,7 +35,7 @@ $ python Tools/rwb.py tick n=600
 
 ## Install
 
-1. Subscribe on Steam Workshop (coming) or copy this folder into `RimWorld/Mods/AgentBridge`.
+1. Subscribe on [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3828798135) or copy this folder into `RimWorld/Mods/AgentBridge`.
 2. Enable **Agent Bridge** (anywhere after Harmony, if you use it).
 3. Start the game. The log shows `[AgentBridge] … listening on 127.0.0.1:8765`.
 
