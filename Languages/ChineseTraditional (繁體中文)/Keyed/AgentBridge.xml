@@ -40,6 +40,6 @@
   <AB_LastReport>上次回報：{0}</AB_LastReport>
   <AB_FairPlay>公平遊戲（僅限玩家能做的事）</AB_FairPlay>
   <AB_FairPlay_Tip>代理只擁有與玩家完全相同的能力：沒有開發者指令、程式碼或反射，不能透過戰爭迷霧或查看隱藏事件，速度最高 3。用於讓 AI 公平地玩遊戲。</AB_FairPlay_Tip>
-  <AB_FolderOpened>正在開啟資料夾。路徑已複製到剪貼簿：\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>正在瀏覽器中開啟新的 GitHub 問題。完整回報在剪貼簿中：請貼到問題裡。\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>正在開啟資料夾。路徑已複製到剪貼簿：</AB_FolderOpened>
+  <AB_ReportOpened>正在瀏覽器中開啟新的 GitHub 問題。完整回報在剪貼簿中：請貼到問題裡。</AB_ReportOpened>
 </LanguageData>

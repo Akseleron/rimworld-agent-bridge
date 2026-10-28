@@ -40,6 +40,6 @@
   <AB_LastReport>Son rapor: {0}</AB_LastReport>
   <AB_FairPlay>Adil oyun (yalnızca oyuncunun yapabildikleri)</AB_FairPlay>
   <AB_FairPlay_Tip>Ajanlar tam olarak oyuncunun yeteneklerine sahip olur: geliştirici komutu, kod ya da yansıma yok, savaş sisinin ardına veya gizli olaylara bakmak yok, hız en fazla 3. Bir yapay zekânın dürüstçe oynaması için.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Klasör açılıyor. Yol panoya kopyalandı:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Tarayıcıda yeni bir GitHub kaydı açılıyor. Tam rapor panoda: kayda yapıştır.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Klasör açılıyor. Yol panoya kopyalandı:</AB_FolderOpened>
+  <AB_ReportOpened>Tarayıcıda yeni bir GitHub kaydı açılıyor. Tam rapor panoda: kayda yapıştır.</AB_ReportOpened>
 </LanguageData>

@@ -40,6 +40,6 @@
   <AB_LastReport>Darrer informe: {0}</AB_LastReport>
   <AB_FairPlay>Joc net (només el que pot fer un jugador)</AB_FairPlay>
   <AB_FairPlay_Tip>Els agents tenen exactament les capacitats del jugador: sense ordres de desenvolupament, codi ni reflexió, sense mirar a través de la boira de guerra ni esdeveniments ocults, velocitat fins a 3. Perquè una IA jugui honestament.</AB_FairPlay_Tip>
-  <AB_FolderOpened>S'obre la carpeta. El camí és al porta-retalls:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>S'obre una nova incidència de GitHub al navegador. L'informe complet és al porta-retalls: enganxa'l a la incidència.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>S'obre la carpeta. El camí és al porta-retalls:</AB_FolderOpened>
+  <AB_ReportOpened>S'obre una nova incidència de GitHub al navegador. L'informe complet és al porta-retalls: enganxa'l a la incidència.</AB_ReportOpened>
 </LanguageData>

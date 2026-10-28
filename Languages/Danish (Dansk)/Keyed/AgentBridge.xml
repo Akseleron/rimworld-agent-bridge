@@ -40,6 +40,6 @@
   <AB_LastReport>Seneste rapport: {0}</AB_LastReport>
   <AB_FairPlay>Fair spil (kun det en spiller kan)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenter får præcis spillerens muligheder: ingen udviklerkommandoer, kode eller refleksion, intet kig gennem krigens tåge eller på skjulte hændelser, hastighed op til 3. Så en AI spiller ærligt.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Åbner mappen. Stien er i udklipsholderen:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Åbner et nyt GitHub-issue i browseren. Hele rapporten er i udklipsholderen: indsæt den i issuet.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Åbner mappen. Stien er i udklipsholderen:</AB_FolderOpened>
+  <AB_ReportOpened>Åbner et nyt GitHub-issue i browseren. Hele rapporten er i udklipsholderen: indsæt den i issuet.</AB_ReportOpened>
 </LanguageData>

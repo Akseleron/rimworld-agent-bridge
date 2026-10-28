@@ -40,6 +40,6 @@
   <AB_LastReport>上次报告：{0}</AB_LastReport>
   <AB_FairPlay>公平游戏（仅限玩家能做的事）</AB_FairPlay>
   <AB_FairPlay_Tip>智能体只拥有与玩家完全相同的能力：没有开发者命令、代码或反射，不能透过战争迷雾或查看隐藏事件，速度最高 3。用于让 AI 公平地玩游戏。</AB_FairPlay_Tip>
-  <AB_FolderOpened>正在打开文件夹。路径已复制到剪贴板：\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>正在浏览器中打开新的 GitHub 问题。完整报告在剪贴板中：请粘贴到问题里。\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>正在打开文件夹。路径已复制到剪贴板：</AB_FolderOpened>
+  <AB_ReportOpened>正在浏览器中打开新的 GitHub 问题。完整报告在剪贴板中：请粘贴到问题里。</AB_ReportOpened>
 </LanguageData>

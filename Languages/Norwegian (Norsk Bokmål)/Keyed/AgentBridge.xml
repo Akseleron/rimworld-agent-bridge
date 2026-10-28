@@ -40,6 +40,6 @@
   <AB_LastReport>Siste rapport: {0}</AB_LastReport>
   <AB_FairPlay>Rettferdig spill (bare det en spiller kan)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenter får nøyaktig spillerens muligheter: ingen utviklerkommandoer, kode eller refleksjon, ingen titting gjennom krigståken eller på skjulte hendelser, hastighet opptil 3. Slik at en KI spiller ærlig.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Åpner mappen. Stien er på utklippstavlen:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Åpner en ny GitHub-sak i nettleseren. Hele rapporten er på utklippstavlen: lim den inn i saken.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Åpner mappen. Stien er på utklippstavlen:</AB_FolderOpened>
+  <AB_ReportOpened>Åpner en ny GitHub-sak i nettleseren. Hele rapporten er på utklippstavlen: lim den inn i saken.</AB_ReportOpened>
 </LanguageData>

@@ -40,6 +40,6 @@
   <AB_LastReport>Utolsó jelentés: {0}</AB_LastReport>
   <AB_FairPlay>Tisztességes játék (csak amit a játékos is megtehet)</AB_FairPlay>
   <AB_FairPlay_Tip>Az ügynökök pontosan a játékos képességeit kapják: nincsenek fejlesztői parancsok, kód vagy reflexió, nincs bepillantás a háború ködén át vagy a rejtett eseményekbe, sebesség legfeljebb 3. Hogy az MI tisztességesen játsszon.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Mappa megnyitása. Az útvonal a vágólapon van:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Új GitHub-hibajegy nyílik a böngészőben. A teljes jelentés a vágólapon van: illeszd be a hibajegybe.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Mappa megnyitása. Az útvonal a vágólapon van:</AB_FolderOpened>
+  <AB_ReportOpened>Új GitHub-hibajegy nyílik a böngészőben. A teljes jelentés a vágólapon van: illeszd be a hibajegybe.</AB_ReportOpened>
 </LanguageData>

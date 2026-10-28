@@ -40,6 +40,6 @@
   <AB_LastReport>마지막 보고: {0}</AB_LastReport>
   <AB_FairPlay>공정한 플레이 (플레이어가 할 수 있는 것만)</AB_FairPlay>
   <AB_FairPlay_Tip>에이전트는 플레이어와 똑같은 능력만 가집니다: 개발자 명령, 코드, 리플렉션 없음, 전장의 안개 너머나 숨겨진 사건 엿보기 없음, 속도 최대 3. AI가 정직하게 플레이하도록 합니다.</AB_FairPlay_Tip>
-  <AB_FolderOpened>폴더를 여는 중입니다. 경로가 클립보드에 있습니다:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>브라우저에서 새 GitHub 이슈를 여는 중입니다. 전체 보고서는 클립보드에 있습니다. 이슈에 붙여 넣으세요.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>폴더를 여는 중입니다. 경로가 클립보드에 있습니다:</AB_FolderOpened>
+  <AB_ReportOpened>브라우저에서 새 GitHub 이슈를 여는 중입니다. 전체 보고서는 클립보드에 있습니다. 이슈에 붙여 넣으세요.</AB_ReportOpened>
 </LanguageData>

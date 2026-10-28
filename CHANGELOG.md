@@ -9,6 +9,7 @@
 - A mod whose assembly fails to scan no longer stops Agent Bridge's startup.
 - Invalid JSON returns 400; idle keep-alive connections close after 15 minutes; agent names are sanitised.
 - Fair play also hides "Dev:" options inside already open menus; quitting never waits more than 2 s for statistics.
+- The opened path/link is shown exactly (it was capitalised by the translation formatter).
 - Shorter "Dev mode needed…" label in all languages (it wrapped over the next checkbox).
 
 ## 1.1.0 — fair play: let an AI play the whole game

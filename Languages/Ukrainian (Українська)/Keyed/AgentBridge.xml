@@ -40,6 +40,6 @@
   <AB_LastReport>Останній звіт: {0}</AB_LastReport>
   <AB_FairPlay>Чесна гра (лише те, що може гравець)</AB_FairPlay>
   <AB_FairPlay_Tip>Агенту доступне рівно те саме, що гравцеві: без dev-команд, коду й рефлексії, без підглядання крізь туман війни та за прихованими подіями, швидкість до 3. Для чесного проходження гри ШІ.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Відкриваю теку. Шлях скопійовано в буфер обміну:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Відкриваю новий issue на GitHub у браузері. Повний звіт у буфері обміну — вставте його в issue.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Відкриваю теку. Шлях скопійовано в буфер обміну:</AB_FolderOpened>
+  <AB_ReportOpened>Відкриваю новий issue на GitHub у браузері. Повний звіт у буфері обміну — вставте його в issue.</AB_ReportOpened>
 </LanguageData>

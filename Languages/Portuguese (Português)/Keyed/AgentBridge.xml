@@ -40,6 +40,6 @@
   <AB_LastReport>Último relatório: {0}</AB_LastReport>
   <AB_FairPlay>Jogo limpo (só o que um jogador pode fazer)</AB_FairPlay>
   <AB_FairPlay_Tip>Os agentes têm exatamente as capacidades do jogador: sem comandos de programador, código ou reflexão, sem espreitar através do nevoeiro de guerra ou eventos ocultos, velocidade até 3. Para uma IA jogar honestamente.</AB_FairPlay_Tip>
-  <AB_FolderOpened>A abrir a pasta. O caminho está na área de transferência:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>A abrir uma nova issue do GitHub no navegador. O relatório completo está na área de transferência: cole-o na issue.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>A abrir a pasta. O caminho está na área de transferência:</AB_FolderOpened>
+  <AB_ReportOpened>A abrir uma nova issue do GitHub no navegador. O relatório completo está na área de transferência: cole-o na issue.</AB_ReportOpened>
 </LanguageData>

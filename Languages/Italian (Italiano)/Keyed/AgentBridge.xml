@@ -40,6 +40,6 @@
   <AB_LastReport>Ultimo rapporto: {0}</AB_LastReport>
   <AB_FairPlay>Gioco leale (solo ciò che può fare un giocatore)</AB_FairPlay>
   <AB_FairPlay_Tip>Gli agenti hanno esattamente le capacità del giocatore: niente comandi sviluppatore, codice o reflection, niente sbirciate oltre la nebbia di guerra o sugli eventi nascosti, velocità fino a 3. Per far giocare un'IA onestamente.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Apro la cartella. Il percorso è negli appunti:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Apro una nuova segnalazione GitHub nel browser. Il rapporto completo è negli appunti: incollalo nella segnalazione.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Apro la cartella. Il percorso è negli appunti:</AB_FolderOpened>
+  <AB_ReportOpened>Apro una nuova segnalazione GitHub nel browser. Il rapporto completo è negli appunti: incollalo nella segnalazione.</AB_ReportOpened>
 </LanguageData>

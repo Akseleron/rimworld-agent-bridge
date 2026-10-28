@@ -62,10 +62,11 @@ render('2-map', title('Agents read the map as text', 'One character per cell —
        + image(src/'area-crop.png', 760, 200, 1080, 820))
 
 # 3. player stays in control
-render('3-control', title('You stay in control', 'Read-only mode, permission levels, connected agents and every command they sent')
-       + image(src/'settings.png', 80, 200, 1080, 810) + term(1200, 200, 640, 540, [
+render('3-control', title('You stay in control', 'Fair play, read-only mode, permission levels, and every command agents send')
+       + image(src/'settings.png', 80, 200, 1080, 810) + term(1200, 200, 640, 700, [
            ('out', 'Works with'), ('ok', '  Claude Code, Codex, Cursor,'), ('ok', '  any MCP client, curl, Python'), ('gap', ''),
            ('out', 'Talks only to 127.0.0.1 + token'), ('gap', ''),
-           ('out', '~90 commands:'), ('ok', '  orders, gizmos, menus, dialogs'), ('ok', '  exact ticks, event waits'), ('ok', '  every Dev-mode debug action'), ('ok', '  save / load, C# eval'), ('gap', ''),
+           ('out', '~110 commands:'), ('ok', '  orders, gizmos, menus, dialogs'), ('ok', '  trade, caravans, world map'), ('ok', '  exact ticks, event waits'), ('ok', '  save / load, new colony'), ('gap', ''),
+           ('out', 'Fair play: an AI plays with'), ('ok', '  only a player\'s abilities'), ('gap', ''),
            ('out', 'Any language · no required mods'),
        ], size=22))

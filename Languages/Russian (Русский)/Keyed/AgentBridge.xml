@@ -40,6 +40,6 @@
   <AB_LastReport>Последний отчёт: {0}</AB_LastReport>
   <AB_FairPlay>Честная игра (только то, что может игрок)</AB_FairPlay>
   <AB_FairPlay_Tip>Агенту доступно ровно то же, что игроку: без dev-команд, кода и рефлексии, без подглядывания сквозь туман войны и за скрытыми событиями, скорость до 3. Для честного прохождения игры ИИ.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Открываю папку. Путь скопирован в буфер обмена:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Открываю новый issue на GitHub в браузере. Полный отчёт в буфере обмена — вставьте его в issue.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Открываю папку. Путь скопирован в буфер обмена:</AB_FolderOpened>
+  <AB_ReportOpened>Открываю новый issue на GitHub в браузере. Полный отчёт в буфере обмена — вставьте его в issue.</AB_ReportOpened>
 </LanguageData>

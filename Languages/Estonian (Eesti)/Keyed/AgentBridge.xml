@@ -40,6 +40,6 @@
   <AB_LastReport>Viimane aruanne: {0}</AB_LastReport>
   <AB_FairPlay>Aus mäng (ainult see, mida mängija saab)</AB_FairPlay>
   <AB_FairPlay_Tip>Agendid saavad täpselt mängija võimed: arendajakäsud, kood ja refleksioon on keelatud, sõjaudu ega varjatud sündmusi ei näe, kiirus kuni 3. Et tehisintellekt mängiks ausalt.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Avan kausta. Tee on lõikelaual:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Avan brauseris uue GitHubi teate. Täielik aruanne on lõikelaual: kleebi see teatesse.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Avan kausta. Tee on lõikelaual:</AB_FolderOpened>
+  <AB_ReportOpened>Avan brauseris uue GitHubi teate. Täielik aruanne on lõikelaual: kleebi see teatesse.</AB_ReportOpened>
 </LanguageData>

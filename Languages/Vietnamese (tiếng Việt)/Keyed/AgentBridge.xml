@@ -40,6 +40,6 @@
   <AB_LastReport>Báo cáo gần nhất: {0}</AB_LastReport>
   <AB_FairPlay>Chơi công bằng (chỉ những gì người chơi làm được)</AB_FairPlay>
   <AB_FairPlay_Tip>Tác tử có đúng khả năng của người chơi: không lệnh nhà phát triển, không mã hay phản chiếu, không nhìn xuyên sương mù chiến tranh hay sự kiện ẩn, tốc độ tối đa 3. Để AI chơi trung thực.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Đang mở thư mục. Đường dẫn đã ở trong bộ nhớ tạm:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Đang mở issue GitHub mới trong trình duyệt. Báo cáo đầy đủ ở trong bộ nhớ tạm: hãy dán vào issue.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Đang mở thư mục. Đường dẫn đã ở trong bộ nhớ tạm:</AB_FolderOpened>
+  <AB_ReportOpened>Đang mở issue GitHub mới trong trình duyệt. Báo cáo đầy đủ ở trong bộ nhớ tạm: hãy dán vào issue.</AB_ReportOpened>
 </LanguageData>

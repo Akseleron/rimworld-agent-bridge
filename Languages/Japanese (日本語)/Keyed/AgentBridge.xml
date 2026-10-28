@@ -40,6 +40,6 @@
   <AB_LastReport>最後の報告: {0}</AB_LastReport>
   <AB_FairPlay>フェアプレイ（プレイヤーにできることだけ）</AB_FairPlay>
   <AB_FairPlay_Tip>エージェントはプレイヤーとまったく同じ能力だけを持ちます：開発者コマンド・コード・リフレクションなし、戦場の霧や隠れたイベントの覗き見なし、速度は 3 まで。AI に正々堂々とプレイさせるためのものです。</AB_FairPlay_Tip>
-  <AB_FolderOpened>フォルダーを開いています。パスはクリップボードにあります：\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>ブラウザーで新しい GitHub Issue を開いています。完全なレポートはクリップボードにあります。Issue に貼り付けてください。\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>フォルダーを開いています。パスはクリップボードにあります：</AB_FolderOpened>
+  <AB_ReportOpened>ブラウザーで新しい GitHub Issue を開いています。完全なレポートはクリップボードにあります。Issue に貼り付けてください。</AB_ReportOpened>
 </LanguageData>

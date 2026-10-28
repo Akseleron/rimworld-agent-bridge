@@ -40,6 +40,6 @@
   <AB_LastReport>Senaste rapport: {0}</AB_LastReport>
   <AB_FairPlay>Rent spel (bara det en spelare kan)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenter får exakt spelarens förmågor: inga utvecklarkommandon, kod eller reflektion, ingen tjuvtitt genom krigsdimman eller på dolda händelser, hastighet upp till 3. Så att en AI spelar ärligt.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Öppnar mappen. Sökvägen finns i urklipp:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Öppnar ett nytt GitHub-ärende i webbläsaren. Hela rapporten finns i urklipp: klistra in den i ärendet.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Öppnar mappen. Sökvägen finns i urklipp:</AB_FolderOpened>
+  <AB_ReportOpened>Öppnar ett nytt GitHub-ärende i webbläsaren. Hela rapporten finns i urklipp: klistra in den i ärendet.</AB_ReportOpened>
 </LanguageData>

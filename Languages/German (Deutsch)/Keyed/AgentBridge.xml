@@ -40,6 +40,6 @@
   <AB_LastReport>Letzter Bericht: {0}</AB_LastReport>
   <AB_FairPlay>Faires Spiel (nur was ein Spieler kann)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenten erhalten genau die Fähigkeiten des Spielers: keine Entwicklerbefehle, kein Code und keine Reflection, kein Blick durch den Nebel des Krieges oder auf versteckte Ereignisse, Geschwindigkeit bis 3. Damit eine KI ehrlich spielt.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Ordner wird geöffnet. Der Pfad ist in der Zwischenablage:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Ein neues GitHub-Issue wird im Browser geöffnet. Der vollständige Bericht ist in der Zwischenablage – füge ihn ins Issue ein.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Ordner wird geöffnet. Der Pfad ist in der Zwischenablage:</AB_FolderOpened>
+  <AB_ReportOpened>Ein neues GitHub-Issue wird im Browser geöffnet. Der vollständige Bericht ist in der Zwischenablage – füge ihn ins Issue ein.</AB_ReportOpened>
 </LanguageData>

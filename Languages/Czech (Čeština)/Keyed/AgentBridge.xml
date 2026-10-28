@@ -40,6 +40,6 @@
   <AB_LastReport>Poslední hlášení: {0}</AB_LastReport>
   <AB_FairPlay>Férová hra (jen to, co může hráč)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenti mají přesně schopnosti hráče: žádné vývojářské příkazy, kód ani reflexe, žádné nahlížení skrz mlhu války nebo na skryté události, rychlost do 3. Aby AI hrála poctivě.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Otevírám složku. Cesta je ve schránce:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Otevírám nové hlášení na GitHubu v prohlížeči. Celé hlášení je ve schránce: vložte ho do hlášení.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Otevírám složku. Cesta je ve schránce:</AB_FolderOpened>
+  <AB_ReportOpened>Otevírám nové hlášení na GitHubu v prohlížeči. Celé hlášení je ve schránce: vložte ho do hlášení.</AB_ReportOpened>
 </LanguageData>

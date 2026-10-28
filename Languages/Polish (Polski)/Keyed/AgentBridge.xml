@@ -40,6 +40,6 @@
   <AB_LastReport>Ostatni raport: {0}</AB_LastReport>
   <AB_FairPlay>Uczciwa gra (tylko to, co może gracz)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenci mają dokładnie możliwości gracza: bez poleceń deweloperskich, kodu i refleksji, bez zaglądania przez mgłę wojny i w ukryte zdarzenia, prędkość do 3. Aby AI grało uczciwie.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Otwieram folder. Ścieżka jest w schowku:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Otwieram nowe zgłoszenie GitHub w przeglądarce. Pełny raport jest w schowku: wklej go do zgłoszenia.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Otwieram folder. Ścieżka jest w schowku:</AB_FolderOpened>
+  <AB_ReportOpened>Otwieram nowe zgłoszenie GitHub w przeglądarce. Pełny raport jest w schowku: wklej go do zgłoszenia.</AB_ReportOpened>
 </LanguageData>

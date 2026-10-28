@@ -40,6 +40,6 @@
   <AB_LastReport>Viimeisin raportti: {0}</AB_LastReport>
   <AB_FairPlay>Reilu peli (vain mitä pelaaja voi tehdä)</AB_FairPlay>
   <AB_FairPlay_Tip>Agentit saavat täsmälleen pelaajan kyvyt: ei kehittäjäkomentoja, koodia tai reflektiota, ei kurkistelua sodan sumun läpi tai piilotettuihin tapahtumiin, nopeus enintään 3. Jotta tekoäly pelaa rehellisesti.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Avataan kansio. Polku on leikepöydällä:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Avataan uusi GitHub-ilmoitus selaimessa. Koko raportti on leikepöydällä: liitä se ilmoitukseen.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Avataan kansio. Polku on leikepöydällä:</AB_FolderOpened>
+  <AB_ReportOpened>Avataan uusi GitHub-ilmoitus selaimessa. Koko raportti on leikepöydällä: liitä se ilmoitukseen.</AB_ReportOpened>
 </LanguageData>

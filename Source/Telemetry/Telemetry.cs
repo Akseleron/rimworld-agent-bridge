@@ -197,7 +197,8 @@ namespace AgentBridge
             try { Application.OpenURL(target); }
             catch (Exception e) { Log.Warning("[AgentBridge] could not open " + target + ": " + e.Message); }
             string shown = target.Length > 120 ? target.Substring(0, 120) + "…" : target;
-            Find.WindowStack.Add(new Dialog_MessageBox(messageKey.Translate(shown)));
+            // The path is appended raw: passing it as a Translate argument lets the game capitalise it ("File:///Home…").
+            Find.WindowStack.Add(new Dialog_MessageBox(messageKey.Translate().Resolve().TrimEnd() + "\n" + shown));
         }
 
         /// <summary>Proper file:// URI (spaces, Windows drive letters and backslashes are escaped correctly).</summary>

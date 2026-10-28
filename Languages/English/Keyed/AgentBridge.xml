@@ -40,6 +40,6 @@
   <AB_LastReport>Last report: {0}</AB_LastReport>
   <AB_FairPlay>Fair play (only what a player can do)</AB_FairPlay>
   <AB_FairPlay_Tip>Agents get exactly the player's abilities: no dev commands, no code or reflection, no peeking through fog of war or at hidden events, speed up to 3. Use it to let an AI play the game honestly.</AB_FairPlay_Tip>
-  <AB_FolderOpened>Opening the folder. The path is on your clipboard:\n{0}</AB_FolderOpened>
-  <AB_ReportOpened>Opening a new GitHub issue in your browser. The full report is on your clipboard: paste it into the issue.\n{0}</AB_ReportOpened>
+  <AB_FolderOpened>Opening the folder. The path is on your clipboard:</AB_FolderOpened>
+  <AB_ReportOpened>Opening a new GitHub issue in your browser. The full report is on your clipboard: paste it into the issue.</AB_ReportOpened>
 </LanguageData>
