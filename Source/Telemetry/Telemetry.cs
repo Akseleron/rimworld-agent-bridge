@@ -123,7 +123,7 @@ namespace AgentBridge
                 try
                 {
                     var req = (HttpWebRequest)WebRequest.Create(Endpoint);
-                    req.Method = "POST"; req.ContentType = "application/json"; req.Timeout = 5000;
+                    req.Method = "POST"; req.ContentType = "application/json"; req.Timeout = final ? 2000 : 5000;  // never hold up quitting the game
                     var bytes = Encoding.UTF8.GetBytes(body);
                     using (var stream = req.GetRequestStream()) stream.Write(bytes, 0, bytes.Length);
                     using (req.GetResponse()) LastStatus = "delivered " + DateTime.Now.ToString("HH:mm");
@@ -178,9 +178,29 @@ namespace AgentBridge
         public static void Open()
         {
             string body = Build();
-            GUIUtility.systemCopyBuffer = body;
-            string shortBody = body.Length > 5000 ? body.Substring(0, 5000) + "\n…(full report is on your clipboard)" : body;
-            Application.OpenURL(Repo + "/issues/new?labels=bug&title=" + Uri.EscapeDataString("[bug] ") + "&body=" + Uri.EscapeDataString(shortBody));
+            // Browsers and GitHub reject very long URLs, so the link carries a short version; the full report is on
+            // the clipboard (Ctrl+V into the issue).
+            string shortBody = body.Length > 1500 ? body.Substring(0, 1500) + "\n…(paste the full report from your clipboard)" : body;
+            string url = Repo + "/issues/new?labels=bug&title=" + Uri.EscapeDataString("[bug] ") + "&body=" + Uri.EscapeDataString(shortBody);
+            External.Open(url, body, "AB_ReportOpened");
         }
+    }
+
+    /// <summary>Opens a URL or folder in the user's desktop. Steam on Linux runs the game in a container where this
+    /// goes through the desktop portal and can fail silently, so the text is always copied to the clipboard and the
+    /// player sees where it points.</summary>
+    public static class External
+    {
+        public static void Open(string target, string clipboard, string messageKey)
+        {
+            GUIUtility.systemCopyBuffer = clipboard;
+            try { Application.OpenURL(target); }
+            catch (Exception e) { Log.Warning("[AgentBridge] could not open " + target + ": " + e.Message); }
+            string shown = target.Length > 120 ? target.Substring(0, 120) + "…" : target;
+            Find.WindowStack.Add(new Dialog_MessageBox(messageKey.Translate(shown)));
+        }
+
+        /// <summary>Proper file:// URI (spaces, Windows drive letters and backslashes are escaped correctly).</summary>
+        public static string FolderUri(string path) => new Uri(System.IO.Path.GetFullPath(path) + System.IO.Path.DirectorySeparatorChar).AbsoluteUri;
     }
 }

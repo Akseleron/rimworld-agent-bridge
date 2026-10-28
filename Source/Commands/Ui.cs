@@ -138,7 +138,7 @@ namespace AgentBridge
             {
                 if (w is Dialog_NodeTree) return Dialog(a);
                 if (!(w is FloatMenu fm)) throw new CommandError("window has no options");
-                var opts = FloatOptions(fm);
+                var opts = FloatOptions(fm).Where(o => !G.DevOnly(o.Label)).ToList();
                 var o = a.Has("label") ? opts.FirstOrDefault(x => x.Label.Has(a.Need("label"))) : opts.ElementAtOrDefault(a.Int("option", -1));
                 if (o == null) throw new CommandError("no option; have: " + string.Join(" | ", opts.Select(x => x.Label).ToArray()));
                 o.Chosen(false, fm); fm.Close(false);

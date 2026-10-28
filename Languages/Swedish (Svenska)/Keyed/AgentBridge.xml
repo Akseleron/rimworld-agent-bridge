@@ -13,7 +13,7 @@
   <AB_ReadOnly>Skrivskyddat läge (agenter kan bara observera)</AB_ReadOnly>
   <AB_AllowDev>Tillåt utvecklarkommandon (spawn, skada, händelser)</AB_AllowDev>
   <AB_AllowPower>Tillåt avancerade kommandon (C#-kod, reflektion)</AB_AllowPower>
-  <AB_RequireDevMode>Kräv utvecklarläge för utvecklar- och avancerade kommandon</AB_RequireDevMode>
+  <AB_RequireDevMode>Utvecklarläge för dev-/avancerade kommandon</AB_RequireDevMode>
   <AB_ShowOverlay>Visa en indikator på skärmen medan en agent agerar</AB_ShowOverlay>
   <AB_CopyMcp>Kopiera MCP-installationskommando</AB_CopyMcp>
   <AB_CopyConnection>Kopiera anslutningsuppgifter</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Senaste rapport: {0}</AB_LastReport>
   <AB_FairPlay>Rent spel (bara det en spelare kan)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenter får exakt spelarens förmågor: inga utvecklarkommandon, kod eller reflektion, ingen tjuvtitt genom krigsdimman eller på dolda händelser, hastighet upp till 3. Så att en AI spelar ärligt.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Öppnar mappen. Sökvägen finns i urklipp:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Öppnar ett nytt GitHub-ärende i webbläsaren. Hela rapporten finns i urklipp: klistra in den i ärendet.\n{0}</AB_ReportOpened>
 </LanguageData>

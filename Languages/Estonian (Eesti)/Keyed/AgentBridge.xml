@@ -13,7 +13,7 @@
   <AB_ReadOnly>Ainult lugemise režiim (agendid saavad ainult jälgida)</AB_ReadOnly>
   <AB_AllowDev>Luba arendajakäsud (tekitamine, kahju, sündmused)</AB_AllowDev>
   <AB_AllowPower>Luba võimsad käsud (C#-kood, refleksioon)</AB_AllowPower>
-  <AB_RequireDevMode>Nõua arendajarežiimi arendaja- ja võimsate käskude jaoks</AB_RequireDevMode>
+  <AB_RequireDevMode>Arendajarežiim dev-/võimsatele käskudele</AB_RequireDevMode>
   <AB_ShowOverlay>Näita ekraanil indikaatorit, kui agent tegutseb</AB_ShowOverlay>
   <AB_CopyMcp>Kopeeri MCP seadistuskäsk</AB_CopyMcp>
   <AB_CopyConnection>Kopeeri ühenduse andmed</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Viimane aruanne: {0}</AB_LastReport>
   <AB_FairPlay>Aus mäng (ainult see, mida mängija saab)</AB_FairPlay>
   <AB_FairPlay_Tip>Agendid saavad täpselt mängija võimed: arendajakäsud, kood ja refleksioon on keelatud, sõjaudu ega varjatud sündmusi ei näe, kiirus kuni 3. Et tehisintellekt mängiks ausalt.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Avan kausta. Tee on lõikelaual:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Avan brauseris uue GitHubi teate. Täielik aruanne on lõikelaual: kleebi see teatesse.\n{0}</AB_ReportOpened>
 </LanguageData>

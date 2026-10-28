@@ -13,7 +13,7 @@
   <AB_ReadOnly>Mode només lectura (els agents només poden observar)</AB_ReadOnly>
   <AB_AllowDev>Permet ordres de desenvolupament (generar, danys, incidents)</AB_AllowDev>
   <AB_AllowPower>Permet ordres avançades (codi C#, reflexió)</AB_AllowPower>
-  <AB_RequireDevMode>Exigeix el mode desenvolupador per a les ordres de desenvolupament i avançades</AB_RequireDevMode>
+  <AB_RequireDevMode>Mode desenvolupador per a ordres dev/avançades</AB_RequireDevMode>
   <AB_ShowOverlay>Mostra un indicador a la pantalla mentre actua un agent</AB_ShowOverlay>
   <AB_CopyMcp>Copia l'ordre de configuració MCP</AB_CopyMcp>
   <AB_CopyConnection>Copia les dades de connexió</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Darrer informe: {0}</AB_LastReport>
   <AB_FairPlay>Joc net (només el que pot fer un jugador)</AB_FairPlay>
   <AB_FairPlay_Tip>Els agents tenen exactament les capacitats del jugador: sense ordres de desenvolupament, codi ni reflexió, sense mirar a través de la boira de guerra ni esdeveniments ocults, velocitat fins a 3. Perquè una IA jugui honestament.</AB_FairPlay_Tip>
+  <AB_FolderOpened>S'obre la carpeta. El camí és al porta-retalls:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>S'obre una nova incidència de GitHub al navegador. L'informe complet és al porta-retalls: enganxa'l a la incidència.\n{0}</AB_ReportOpened>
 </LanguageData>

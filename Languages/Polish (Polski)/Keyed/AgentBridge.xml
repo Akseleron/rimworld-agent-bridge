@@ -13,7 +13,7 @@
   <AB_ReadOnly>Tryb tylko do odczytu (agenci mogą tylko obserwować)</AB_ReadOnly>
   <AB_AllowDev>Zezwalaj na polecenia deweloperskie (tworzenie, obrażenia, zdarzenia)</AB_AllowDev>
   <AB_AllowPower>Zezwalaj na zaawansowane polecenia (kod C#, refleksja)</AB_AllowPower>
-  <AB_RequireDevMode>Wymagaj trybu deweloperskiego dla poleceń deweloperskich i zaawansowanych</AB_RequireDevMode>
+  <AB_RequireDevMode>Tryb dewelopera dla poleceń dev/zaawans.</AB_RequireDevMode>
   <AB_ShowOverlay>Pokazuj wskaźnik na ekranie, gdy agent działa</AB_ShowOverlay>
   <AB_CopyMcp>Kopiuj polecenie konfiguracji MCP</AB_CopyMcp>
   <AB_CopyConnection>Kopiuj dane połączenia</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Ostatni raport: {0}</AB_LastReport>
   <AB_FairPlay>Uczciwa gra (tylko to, co może gracz)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenci mają dokładnie możliwości gracza: bez poleceń deweloperskich, kodu i refleksji, bez zaglądania przez mgłę wojny i w ukryte zdarzenia, prędkość do 3. Aby AI grało uczciwie.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Otwieram folder. Ścieżka jest w schowku:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Otwieram nowe zgłoszenie GitHub w przeglądarce. Pełny raport jest w schowku: wklej go do zgłoszenia.\n{0}</AB_ReportOpened>
 </LanguageData>

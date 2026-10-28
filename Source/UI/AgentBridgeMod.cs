@@ -98,7 +98,7 @@ namespace AgentBridge
             l.CheckboxLabeled("AB_RequireDevMode".Translate(), ref s.requireDevMode);
             l.CheckboxLabeled("AB_ShowOverlay".Translate(), ref s.showOverlay);
             if (ButtonPair(l, "AB_CopyMcp", "AB_CopyConnection", out bool second)) { if (second) Copy("descriptor: " + Bridge.DescriptorPath + "\nurl: http://127.0.0.1:" + Bridge.Port + "/\ntoken: " + Bridge.Token); else Copy(McpCommand); }
-            if (ButtonPair(l, "AB_NewToken", "AB_OpenTools", out second)) { if (second) Application.OpenURL("file://" + ToolsDir); else { Bridge.RegenerateToken(); Bridge.Clients.Clear(); } }
+            if (ButtonPair(l, "AB_NewToken", "AB_OpenTools", out second)) { if (second) External.Open(External.FolderUri(ToolsDir), ToolsDir, "AB_FolderOpened"); else { Bridge.RegenerateToken(); Bridge.Clients.Clear(); } }
             l.GapLine();
             l.Label("AB_Section_Privacy".Translate());
             l.CheckboxLabeled("AB_Telemetry".Translate(), ref s.telemetry, "AB_Telemetry_Tip".Translate());

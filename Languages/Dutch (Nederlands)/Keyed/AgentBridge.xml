@@ -13,7 +13,7 @@
   <AB_ReadOnly>Alleen-lezenmodus (agenten kunnen alleen observeren)</AB_ReadOnly>
   <AB_AllowDev>Ontwikkelaarsopdrachten toestaan (spawnen, schade, gebeurtenissen)</AB_AllowDev>
   <AB_AllowPower>Krachtige opdrachten toestaan (C#-code, reflectie)</AB_AllowPower>
-  <AB_RequireDevMode>Ontwikkelaarsmodus vereisen voor ontwikkelaars- en krachtige opdrachten</AB_RequireDevMode>
+  <AB_RequireDevMode>Ontwikkelaarsmodus voor dev-/krachtige opdr.</AB_RequireDevMode>
   <AB_ShowOverlay>Schermindicator tonen terwijl een agent handelt</AB_ShowOverlay>
   <AB_CopyMcp>MCP-installatieopdracht kopiëren</AB_CopyMcp>
   <AB_CopyConnection>Verbindingsgegevens kopiëren</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Laatste rapport: {0}</AB_LastReport>
   <AB_FairPlay>Eerlijk spel (alleen wat een speler kan)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenten krijgen precies de mogelijkheden van de speler: geen ontwikkelaarsopdrachten, geen code of reflectie, niet door de oorlogsmist of naar verborgen gebeurtenissen kijken, snelheid tot 3. Zodat een AI eerlijk speelt.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Map wordt geopend. Het pad staat op het klembord:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Er wordt een nieuwe GitHub-issue geopend in de browser. Het volledige rapport staat op het klembord: plak het in de issue.\n{0}</AB_ReportOpened>
 </LanguageData>

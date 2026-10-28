@@ -13,7 +13,7 @@
   <AB_ReadOnly>只读模式（智能体只能观察）</AB_ReadOnly>
   <AB_AllowDev>允许开发者命令（生成、伤害、事件）</AB_AllowDev>
   <AB_AllowPower>允许高级命令（C# 代码、反射）</AB_AllowPower>
-  <AB_RequireDevMode>开发者命令和高级命令需要开启开发者模式</AB_RequireDevMode>
+  <AB_RequireDevMode>开发者/高级命令需开发者模式</AB_RequireDevMode>
   <AB_ShowOverlay>智能体操作时在屏幕上显示提示</AB_ShowOverlay>
   <AB_CopyMcp>复制 MCP 设置命令</AB_CopyMcp>
   <AB_CopyConnection>复制连接信息</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>上次报告：{0}</AB_LastReport>
   <AB_FairPlay>公平游戏（仅限玩家能做的事）</AB_FairPlay>
   <AB_FairPlay_Tip>智能体只拥有与玩家完全相同的能力：没有开发者命令、代码或反射，不能透过战争迷雾或查看隐藏事件，速度最高 3。用于让 AI 公平地玩游戏。</AB_FairPlay_Tip>
+  <AB_FolderOpened>正在打开文件夹。路径已复制到剪贴板：\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>正在浏览器中打开新的 GitHub 问题。完整报告在剪贴板中：请粘贴到问题里。\n{0}</AB_ReportOpened>
 </LanguageData>

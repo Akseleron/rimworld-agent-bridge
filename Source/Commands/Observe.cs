@@ -208,7 +208,7 @@ namespace AgentBridge
             index = x.i, type = x.w.GetType().Name, title = x.w.optionalTitle, forcePause = x.w.forcePause ? true : (bool?)null,
             text = (x.w as Dialog_MessageBox)?.text.ToString() ?? (x.w is Dialog_NodeTree nt ? Ui.NodeOf(nt)?.text.ToString() : null),
             buttons = x.w is Dialog_MessageBox m ? new[] { m.buttonAText, m.buttonBText, m.buttonCText }.Where(b => b != null).ToList() : null,
-            options = x.w is FloatMenu fm ? Ui.FloatOptions(fm).Select(o => o.Label).ToList() : x.w is Dialog_NodeTree n2 ? Ui.NodeOptions(n2) : null,
+            options = x.w is FloatMenu fm ? Ui.FloatOptions(fm).Where(o => !G.DevOnly(o.Label)).Select(o => o.Label).ToList() : x.w is Dialog_NodeTree n2 ? Ui.NodeOptions(n2) : null,
         }).ToList();
 
         [Command("gizmos", Access.Read, "command buttons of a thing or caravan {id: ThingID | caravan:ID}; use 'key' (language-independent) with gizmo")]

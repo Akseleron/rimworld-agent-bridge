@@ -13,7 +13,7 @@
   <AB_ReadOnly>Modo solo lectura (los agentes solo pueden observar)</AB_ReadOnly>
   <AB_AllowDev>Permitir comandos de desarrollo (generar, dañar, incidentes)</AB_AllowDev>
   <AB_AllowPower>Permitir comandos avanzados (código C#, reflexión)</AB_AllowPower>
-  <AB_RequireDevMode>Exigir el modo desarrollador para comandos de desarrollo y avanzados</AB_RequireDevMode>
+  <AB_RequireDevMode>Modo desarrollador para comandos dev/avanzados</AB_RequireDevMode>
   <AB_ShowOverlay>Mostrar un indicador en pantalla mientras actúa un agente</AB_ShowOverlay>
   <AB_CopyMcp>Copiar el comando de configuración MCP</AB_CopyMcp>
   <AB_CopyConnection>Copiar datos de conexión</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Último informe: {0}</AB_LastReport>
   <AB_FairPlay>Juego limpio (solo lo que puede hacer un jugador)</AB_FairPlay>
   <AB_FairPlay_Tip>Los agentes tienen exactamente las capacidades del jugador: sin comandos de desarrollo, código ni reflexión, sin mirar a través de la niebla de guerra ni eventos ocultos, velocidad hasta 3. Para que una IA juegue honestamente.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Abriendo la carpeta. La ruta está en el portapapeles:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Abriendo una nueva incidencia de GitHub en el navegador. El informe completo está en el portapapeles: pégalo en la incidencia.\n{0}</AB_ReportOpened>
 </LanguageData>

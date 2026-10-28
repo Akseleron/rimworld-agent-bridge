@@ -13,7 +13,7 @@
   <AB_ReadOnly>Read-only mode (agents can only observe)</AB_ReadOnly>
   <AB_AllowDev>Allow dev commands (spawn, damage, incidents)</AB_AllowDev>
   <AB_AllowPower>Allow power commands (C# code, reflection)</AB_AllowPower>
-  <AB_RequireDevMode>Require game Dev mode for dev and power commands</AB_RequireDevMode>
+  <AB_RequireDevMode>Dev mode needed for dev and power commands</AB_RequireDevMode>
   <AB_ShowOverlay>Show an on-screen indicator while an agent acts</AB_ShowOverlay>
   <AB_CopyMcp>Copy MCP setup command</AB_CopyMcp>
   <AB_CopyConnection>Copy connection info</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Last report: {0}</AB_LastReport>
   <AB_FairPlay>Fair play (only what a player can do)</AB_FairPlay>
   <AB_FairPlay_Tip>Agents get exactly the player's abilities: no dev commands, no code or reflection, no peeking through fog of war or at hidden events, speed up to 3. Use it to let an AI play the game honestly.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Opening the folder. The path is on your clipboard:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Opening a new GitHub issue in your browser. The full report is on your clipboard: paste it into the issue.\n{0}</AB_ReportOpened>
 </LanguageData>

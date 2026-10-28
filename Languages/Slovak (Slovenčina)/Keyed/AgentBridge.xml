@@ -13,7 +13,7 @@
   <AB_ReadOnly>Režim len na čítanie (agenti môžu len sledovať)</AB_ReadOnly>
   <AB_AllowDev>Povoliť vývojárske príkazy (spawn, poškodenie, udalosti)</AB_AllowDev>
   <AB_AllowPower>Povoliť pokročilé príkazy (kód C#, reflexia)</AB_AllowPower>
-  <AB_RequireDevMode>Vyžadovať vývojársky režim pre vývojárske a pokročilé príkazy</AB_RequireDevMode>
+  <AB_RequireDevMode>Vývojársky režim pre dev/pokročilé príkazy</AB_RequireDevMode>
   <AB_ShowOverlay>Zobraziť indikátor na obrazovke, keď agent koná</AB_ShowOverlay>
   <AB_CopyMcp>Kopírovať príkaz na nastavenie MCP</AB_CopyMcp>
   <AB_CopyConnection>Kopírovať údaje o pripojení</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Posledné hlásenie: {0}</AB_LastReport>
   <AB_FairPlay>Férová hra (len to, čo môže hráč)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenti majú presne schopnosti hráča: žiadne vývojárske príkazy, kód ani reflexia, žiadne nazeranie cez hmlu vojny alebo na skryté udalosti, rýchlosť do 3. Aby AI hrala poctivo.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Otváram priečinok. Cesta je v schránke:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Otváram nové hlásenie na GitHube v prehliadači. Celé hlásenie je v schránke: vložte ho do hlásenia.\n{0}</AB_ReportOpened>
 </LanguageData>

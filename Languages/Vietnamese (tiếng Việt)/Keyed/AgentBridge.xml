@@ -13,7 +13,7 @@
   <AB_ReadOnly>Chế độ chỉ đọc (tác tử chỉ có thể quan sát)</AB_ReadOnly>
   <AB_AllowDev>Cho phép lệnh nhà phát triển (tạo, gây sát thương, sự kiện)</AB_AllowDev>
   <AB_AllowPower>Cho phép lệnh nâng cao (mã C#, phản chiếu)</AB_AllowPower>
-  <AB_RequireDevMode>Yêu cầu chế độ nhà phát triển cho lệnh nhà phát triển và lệnh nâng cao</AB_RequireDevMode>
+  <AB_RequireDevMode>Cần chế độ nhà phát triển cho lệnh dev/nâng cao</AB_RequireDevMode>
   <AB_ShowOverlay>Hiện chỉ báo trên màn hình khi tác tử hành động</AB_ShowOverlay>
   <AB_CopyMcp>Sao chép lệnh thiết lập MCP</AB_CopyMcp>
   <AB_CopyConnection>Sao chép thông tin kết nối</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Báo cáo gần nhất: {0}</AB_LastReport>
   <AB_FairPlay>Chơi công bằng (chỉ những gì người chơi làm được)</AB_FairPlay>
   <AB_FairPlay_Tip>Tác tử có đúng khả năng của người chơi: không lệnh nhà phát triển, không mã hay phản chiếu, không nhìn xuyên sương mù chiến tranh hay sự kiện ẩn, tốc độ tối đa 3. Để AI chơi trung thực.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Đang mở thư mục. Đường dẫn đã ở trong bộ nhớ tạm:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Đang mở issue GitHub mới trong trình duyệt. Báo cáo đầy đủ ở trong bộ nhớ tạm: hãy dán vào issue.\n{0}</AB_ReportOpened>
 </LanguageData>

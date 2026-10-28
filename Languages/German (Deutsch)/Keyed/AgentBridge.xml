@@ -13,7 +13,7 @@
   <AB_ReadOnly>Nur-Lese-Modus (Agenten können nur beobachten)</AB_ReadOnly>
   <AB_AllowDev>Entwicklerbefehle erlauben (Spawnen, Schaden, Ereignisse)</AB_AllowDev>
   <AB_AllowPower>Mächtige Befehle erlauben (C#-Code, Reflection)</AB_AllowPower>
-  <AB_RequireDevMode>Entwicklermodus für Entwickler- und mächtige Befehle verlangen</AB_RequireDevMode>
+  <AB_RequireDevMode>Entwicklermodus für Dev-/Power-Befehle</AB_RequireDevMode>
   <AB_ShowOverlay>Bildschirmanzeige zeigen, während ein Agent handelt</AB_ShowOverlay>
   <AB_CopyMcp>MCP-Einrichtungsbefehl kopieren</AB_CopyMcp>
   <AB_CopyConnection>Verbindungsdaten kopieren</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Letzter Bericht: {0}</AB_LastReport>
   <AB_FairPlay>Faires Spiel (nur was ein Spieler kann)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenten erhalten genau die Fähigkeiten des Spielers: keine Entwicklerbefehle, kein Code und keine Reflection, kein Blick durch den Nebel des Krieges oder auf versteckte Ereignisse, Geschwindigkeit bis 3. Damit eine KI ehrlich spielt.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Ordner wird geöffnet. Der Pfad ist in der Zwischenablage:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Ein neues GitHub-Issue wird im Browser geöffnet. Der vollständige Bericht ist in der Zwischenablage – füge ihn ins Issue ein.\n{0}</AB_ReportOpened>
 </LanguageData>

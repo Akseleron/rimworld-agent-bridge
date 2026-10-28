@@ -13,7 +13,7 @@
   <AB_ReadOnly>読み取り専用モード（エージェントは観察のみ）</AB_ReadOnly>
   <AB_AllowDev>開発者コマンドを許可（生成、ダメージ、イベント）</AB_AllowDev>
   <AB_AllowPower>高度なコマンドを許可（C# コード、リフレクション）</AB_AllowPower>
-  <AB_RequireDevMode>開発者コマンドと高度なコマンドに開発者モードを必須にする</AB_RequireDevMode>
+  <AB_RequireDevMode>開発者/高度なコマンドに開発者モード必須</AB_RequireDevMode>
   <AB_ShowOverlay>エージェントの操作中に画面上に表示する</AB_ShowOverlay>
   <AB_CopyMcp>MCP 設定コマンドをコピー</AB_CopyMcp>
   <AB_CopyConnection>接続情報をコピー</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>最後の報告: {0}</AB_LastReport>
   <AB_FairPlay>フェアプレイ（プレイヤーにできることだけ）</AB_FairPlay>
   <AB_FairPlay_Tip>エージェントはプレイヤーとまったく同じ能力だけを持ちます：開発者コマンド・コード・リフレクションなし、戦場の霧や隠れたイベントの覗き見なし、速度は 3 まで。AI に正々堂々とプレイさせるためのものです。</AB_FairPlay_Tip>
+  <AB_FolderOpened>フォルダーを開いています。パスはクリップボードにあります：\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>ブラウザーで新しい GitHub Issue を開いています。完全なレポートはクリップボードにあります。Issue に貼り付けてください。\n{0}</AB_ReportOpened>
 </LanguageData>

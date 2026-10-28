@@ -13,7 +13,7 @@
   <AB_ReadOnly>Режим только чтения (агенты могут лишь наблюдать)</AB_ReadOnly>
   <AB_AllowDev>Разрешить dev-команды (спавн, урон, события)</AB_AllowDev>
   <AB_AllowPower>Разрешить мощные команды (код C#, рефлексия)</AB_AllowPower>
-  <AB_RequireDevMode>Требовать режим разработчика для dev- и мощных команд</AB_RequireDevMode>
+  <AB_RequireDevMode>Нужен режим разработчика (dev и мощные)</AB_RequireDevMode>
   <AB_ShowOverlay>Показывать индикатор на экране, когда действует агент</AB_ShowOverlay>
   <AB_CopyMcp>Скопировать команду настройки MCP</AB_CopyMcp>
   <AB_CopyConnection>Скопировать данные подключения</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Последний отчёт: {0}</AB_LastReport>
   <AB_FairPlay>Честная игра (только то, что может игрок)</AB_FairPlay>
   <AB_FairPlay_Tip>Агенту доступно ровно то же, что игроку: без dev-команд, кода и рефлексии, без подглядывания сквозь туман войны и за скрытыми событиями, скорость до 3. Для честного прохождения игры ИИ.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Открываю папку. Путь скопирован в буфер обмена:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Открываю новый issue на GitHub в браузере. Полный отчёт в буфере обмена — вставьте его в issue.\n{0}</AB_ReportOpened>
 </LanguageData>

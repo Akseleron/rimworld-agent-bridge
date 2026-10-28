@@ -53,6 +53,7 @@ namespace AgentBridge
             using (client)
             {
                 client.NoDelay = true;
+                client.ReceiveTimeout = 15 * 60 * 1000;  // idle keep-alive connections are dropped after 15 minutes
                 var stream = client.GetStream();
                 try
                 {

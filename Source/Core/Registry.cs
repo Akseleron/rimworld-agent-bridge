@@ -68,6 +68,7 @@ namespace AgentBridge
             int found = 0;
             foreach (var mod in LoadedModManager.RunningModsListForReading)
                 foreach (var asm in mod.assemblies.loadedAssemblies)
+                try
                 {
                     if (asm == typeof(Registry).Assembly) continue;
                     Type[] types;
@@ -97,6 +98,7 @@ namespace AgentBridge
                             found++;
                         }
                 }
+                catch (Exception e) { Log.Warning("[AgentBridge] skipped commands of " + mod.PackageId + ": " + e.GetType().Name); }
             return found;
         }
     }

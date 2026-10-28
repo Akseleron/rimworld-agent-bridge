@@ -2,6 +2,15 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.1
+- "Open tools folder" and "Report a bug": proper file:// URI (Windows paths, spaces), short issue link (long URLs were
+  rejected), the path / full report always copied to the clipboard, and an on-screen message saying where it points.
+- A `tick` whose client timed out no longer leaves a stop target that pauses the game later.
+- A mod whose assembly fails to scan no longer stops Agent Bridge's startup.
+- Invalid JSON returns 400; idle keep-alive connections close after 15 minutes; agent names are sanitised.
+- Fair play also hides "Dev:" options inside already open menus; quitting never waits more than 2 s for statistics.
+- Shorter "Dev mode needed…" label in all languages (it wrapped over the next checkbox).
+
 ## 1.1.0 — fair play: let an AI play the whole game
 - **Fair-play mode** (setting / `fair-play` command, only the player can switch it off): no cheats, reflection or
   Dev-only options, nothing under fog of war, speed ≤ 3.

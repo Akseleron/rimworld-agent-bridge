@@ -13,7 +13,7 @@
   <AB_ReadOnly>Modo só de leitura (os agentes só podem observar)</AB_ReadOnly>
   <AB_AllowDev>Permitir comandos de programador (gerar, dano, incidentes)</AB_AllowDev>
   <AB_AllowPower>Permitir comandos avançados (código C#, reflexão)</AB_AllowPower>
-  <AB_RequireDevMode>Exigir o modo de programador para comandos de programador e avançados</AB_RequireDevMode>
+  <AB_RequireDevMode>Modo prog. exigido p/ comandos dev/avançados</AB_RequireDevMode>
   <AB_ShowOverlay>Mostrar um indicador no ecrã enquanto um agente age</AB_ShowOverlay>
   <AB_CopyMcp>Copiar comando de configuração MCP</AB_CopyMcp>
   <AB_CopyConnection>Copiar dados de ligação</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Último relatório: {0}</AB_LastReport>
   <AB_FairPlay>Jogo limpo (só o que um jogador pode fazer)</AB_FairPlay>
   <AB_FairPlay_Tip>Os agentes têm exatamente as capacidades do jogador: sem comandos de programador, código ou reflexão, sem espreitar através do nevoeiro de guerra ou eventos ocultos, velocidade até 3. Para uma IA jogar honestamente.</AB_FairPlay_Tip>
+  <AB_FolderOpened>A abrir a pasta. O caminho está na área de transferência:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>A abrir uma nova issue do GitHub no navegador. O relatório completo está na área de transferência: cole-o na issue.\n{0}</AB_ReportOpened>
 </LanguageData>

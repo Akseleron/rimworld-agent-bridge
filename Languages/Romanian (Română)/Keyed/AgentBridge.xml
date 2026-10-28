@@ -13,7 +13,7 @@
   <AB_ReadOnly>Mod doar citire (agenții pot doar observa)</AB_ReadOnly>
   <AB_AllowDev>Permite comenzi de dezvoltator (generare, daune, incidente)</AB_AllowDev>
   <AB_AllowPower>Permite comenzi avansate (cod C#, reflecție)</AB_AllowPower>
-  <AB_RequireDevMode>Cere modul dezvoltator pentru comenzile de dezvoltator și avansate</AB_RequireDevMode>
+  <AB_RequireDevMode>Mod dezvoltator pt. comenzi dev/avansate</AB_RequireDevMode>
   <AB_ShowOverlay>Arată un indicator pe ecran cât timp acționează un agent</AB_ShowOverlay>
   <AB_CopyMcp>Copiază comanda de configurare MCP</AB_CopyMcp>
   <AB_CopyConnection>Copiază datele de conectare</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Ultimul raport: {0}</AB_LastReport>
   <AB_FairPlay>Joc corect (doar ce poate face un jucător)</AB_FairPlay>
   <AB_FairPlay_Tip>Agenții au exact abilitățile jucătorului: fără comenzi de dezvoltator, cod sau reflecție, fără a privi prin ceața războiului sau evenimentele ascunse, viteză până la 3. Pentru ca un AI să joace cinstit.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Deschid dosarul. Calea este în clipboard:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Deschid un issue nou pe GitHub în browser. Raportul complet este în clipboard: lipește-l în issue.\n{0}</AB_ReportOpened>
 </LanguageData>

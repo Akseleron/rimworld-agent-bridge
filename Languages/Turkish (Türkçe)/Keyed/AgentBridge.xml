@@ -13,7 +13,7 @@
   <AB_ReadOnly>Salt okunur mod (ajanlar yalnızca gözlemleyebilir)</AB_ReadOnly>
   <AB_AllowDev>Geliştirici komutlarına izin ver (oluşturma, hasar, olaylar)</AB_AllowDev>
   <AB_AllowPower>Gelişmiş komutlara izin ver (C# kodu, yansıma)</AB_AllowPower>
-  <AB_RequireDevMode>Geliştirici ve gelişmiş komutlar için geliştirici modunu zorunlu kıl</AB_RequireDevMode>
+  <AB_RequireDevMode>Dev/gelişmiş komutlar için geliştirici modu</AB_RequireDevMode>
   <AB_ShowOverlay>Bir ajan işlem yaparken ekranda gösterge göster</AB_ShowOverlay>
   <AB_CopyMcp>MCP kurulum komutunu kopyala</AB_CopyMcp>
   <AB_CopyConnection>Bağlantı bilgilerini kopyala</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Son rapor: {0}</AB_LastReport>
   <AB_FairPlay>Adil oyun (yalnızca oyuncunun yapabildikleri)</AB_FairPlay>
   <AB_FairPlay_Tip>Ajanlar tam olarak oyuncunun yeteneklerine sahip olur: geliştirici komutu, kod ya da yansıma yok, savaş sisinin ardına veya gizli olaylara bakmak yok, hız en fazla 3. Bir yapay zekânın dürüstçe oynaması için.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Klasör açılıyor. Yol panoya kopyalandı:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Tarayıcıda yeni bir GitHub kaydı açılıyor. Tam rapor panoda: kayda yapıştır.\n{0}</AB_ReportOpened>
 </LanguageData>

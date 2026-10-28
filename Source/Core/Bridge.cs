@@ -46,7 +46,7 @@ namespace AgentBridge
     [StaticConstructorOnStartup]
     public static class Bridge
     {
-        public const string Version = "1.1.0";
+        public const string Version = "1.1.1";
         public const string Protocol = "rwb-1";
         private static readonly Queue<Request> queue = new Queue<Request>();
         private static readonly List<Request> waiting = new List<Request>();
@@ -160,15 +160,24 @@ namespace AgentBridge
             string presented = headers.TryGetValue("X-Token", out var t) ? t : headers.TryGetValue("Authorization", out var auth) && auth.StartsWith("Bearer ") ? auth.Substring(7) : "";
             if (!FixedTimeEquals(presented, token)) return (401, ErrorJson("bad token (read it from the descriptor: " + DescriptorPath + ")"));
             if (method != "POST") return (405, ErrorJson("POST a JSON object {\"cmd\":...}"));
-            if (!(Json.Parse(body.Length == 0 ? "{}" : body) is Dictionary<string, object?> raw)) return (400, ErrorJson("body must be a JSON object"));
+            object? parsed;
+            try { parsed = Json.Parse(body.Length == 0 ? "{}" : body); }
+            catch (Exception e) { return (400, ErrorJson("invalid JSON: " + e.Message)); }
+            if (!(parsed is Dictionary<string, object?> raw)) return (400, ErrorJson("body must be a JSON object"));
             string agent = headers.TryGetValue("X-Agent", out var xa) ? xa : headers.TryGetValue("User-Agent", out var ua) ? ua : "unknown";
-            var request = new Request(new Args(raw), agent.Length > 64 ? agent.Substring(0, 64) : agent);
+            // Shown in the settings window and the overlay: printable characters only, short.
+            agent = new string(agent.Where(ch => !char.IsControl(ch) && ch != '<' && ch != '>').Take(48).ToArray());
+            if (agent.Length == 0) agent = "unknown";
+            var request = new Request(new Args(raw), agent);
+            double timeout;
+            try { timeout = request.Args.Timeout; } catch (Exception e) { return (400, ErrorJson(e.Message)); }
             lock (queue) queue.Enqueue(request);
-            if (!request.Done.WaitOne(TimeSpan.FromSeconds(request.Args.Timeout + 15)))
+            if (!request.Done.WaitOne(TimeSpan.FromSeconds(timeout + 15)))
             {
-                request.Cancelled = true;
+                request.Cancelled = true;  // the event stays alive: the main thread may still finish it
                 return (504, ErrorJson("main thread did not answer (game loading, frozen or minimized?)"));
             }
+            request.Done.Close();
             return (200, request.Result!);
         }
 
@@ -192,7 +201,8 @@ namespace AgentBridge
             for (int i = waiting.Count - 1; i >= 0; i--)
             {
                 var w = waiting[i];
-                if (w.Cancelled) { waiting.RemoveAt(i); continue; }
+                // A client that gave up still gets the command's timeout cleanup (tick clears its stop target and pauses).
+                if (w.Cancelled) { waiting.RemoveAt(i); try { w.Pending!.OnTimeout(); } catch { } continue; }
                 object? result;
                 try { result = w.Pending!.Poll(); }
                 catch (Exception error) { result = new CommandError(error.Message); }

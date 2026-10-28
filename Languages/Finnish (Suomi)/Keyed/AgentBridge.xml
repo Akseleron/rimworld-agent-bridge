@@ -13,7 +13,7 @@
   <AB_ReadOnly>Vain luku -tila (agentit voivat vain tarkkailla)</AB_ReadOnly>
   <AB_AllowDev>Salli kehittäjäkomennot (luonti, vahinko, tapahtumat)</AB_AllowDev>
   <AB_AllowPower>Salli tehokomennot (C#-koodi, reflektio)</AB_AllowPower>
-  <AB_RequireDevMode>Vaadi kehittäjätila kehittäjä- ja tehokomennoille</AB_RequireDevMode>
+  <AB_RequireDevMode>Kehittäjätila dev-/tehokomennoille</AB_RequireDevMode>
   <AB_ShowOverlay>Näytä ilmaisin ruudulla, kun agentti toimii</AB_ShowOverlay>
   <AB_CopyMcp>Kopioi MCP-asetuskomento</AB_CopyMcp>
   <AB_CopyConnection>Kopioi yhteystiedot</AB_CopyConnection>
@@ -40,4 +40,6 @@
   <AB_LastReport>Viimeisin raportti: {0}</AB_LastReport>
   <AB_FairPlay>Reilu peli (vain mitä pelaaja voi tehdä)</AB_FairPlay>
   <AB_FairPlay_Tip>Agentit saavat täsmälleen pelaajan kyvyt: ei kehittäjäkomentoja, koodia tai reflektiota, ei kurkistelua sodan sumun läpi tai piilotettuihin tapahtumiin, nopeus enintään 3. Jotta tekoäly pelaa rehellisesti.</AB_FairPlay_Tip>
+  <AB_FolderOpened>Avataan kansio. Polku on leikepöydällä:\n{0}</AB_FolderOpened>
+  <AB_ReportOpened>Avataan uusi GitHub-ilmoitus selaimessa. Koko raportti on leikepöydällä: liitä se ilmoitukseen.\n{0}</AB_ReportOpened>
 </LanguageData>
