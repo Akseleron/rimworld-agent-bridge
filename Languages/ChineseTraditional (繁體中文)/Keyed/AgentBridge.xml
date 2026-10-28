@@ -38,4 +38,6 @@
   <AB_ConsentAccept>允許</AB_ConsentAccept>
   <AB_ConsentDecline>不傳送</AB_ConsentDecline>
   <AB_LastReport>上次回報：{0}</AB_LastReport>
+  <AB_FairPlay>公平遊戲（僅限玩家能做的事）</AB_FairPlay>
+  <AB_FairPlay_Tip>代理只擁有與玩家完全相同的能力：沒有開發者指令、程式碼或反射，不能透過戰爭迷霧或查看隱藏事件，速度最高 3。用於讓 AI 公平地玩遊戲。</AB_FairPlay_Tip>
 </LanguageData>

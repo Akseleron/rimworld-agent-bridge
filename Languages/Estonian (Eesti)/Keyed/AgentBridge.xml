@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Luba</AB_ConsentAccept>
   <AB_ConsentDecline>Ära saada</AB_ConsentDecline>
   <AB_LastReport>Viimane aruanne: {0}</AB_LastReport>
+  <AB_FairPlay>Aus mäng (ainult see, mida mängija saab)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agendid saavad täpselt mängija võimed: arendajakäsud, kood ja refleksioon on keelatud, sõjaudu ega varjatud sündmusi ei näe, kiirus kuni 3. Et tehisintellekt mängiks ausalt.</AB_FairPlay_Tip>
 </LanguageData>

@@ -11,7 +11,7 @@ namespace AgentBridge
     public sealed class Settings : ModSettings
     {
         public bool enabled = true, readOnly, allowDev = true, allowPower = true, requireDevMode = true, showOverlay = true;
-        public bool telemetry = true, crashReports = true, consentAsked;
+        public bool telemetry = true, crashReports = true, consentAsked, fairPlay;
         public int port = 8765;
         public string installId = "";
 
@@ -24,6 +24,7 @@ namespace AgentBridge
             Scribe_Values.Look(ref allowPower, "allowPower", true);
             Scribe_Values.Look(ref requireDevMode, "requireDevMode", true);
             Scribe_Values.Look(ref showOverlay, "showOverlay", true);
+            Scribe_Values.Look(ref fairPlay, "fairPlay", false);
             Scribe_Values.Look(ref telemetry, "telemetry", true);
             Scribe_Values.Look(ref crashReports, "crashReports", true);
             Scribe_Values.Look(ref consentAsked, "consentAsked", false);
@@ -90,6 +91,7 @@ namespace AgentBridge
             var portRow = l.GetRect(Text.LineHeight);
             Widgets.Label(portRow.LeftPart(0.7f), "AB_Port".Translate());
             Widgets.TextFieldNumeric(portRow.RightPart(0.28f), ref s.port, ref portBuffer, 1024, 65000);
+            l.CheckboxLabeled("AB_FairPlay".Translate(), ref s.fairPlay, "AB_FairPlay_Tip".Translate());
             l.CheckboxLabeled("AB_ReadOnly".Translate(), ref s.readOnly);
             l.CheckboxLabeled("AB_AllowDev".Translate(), ref s.allowDev);
             l.CheckboxLabeled("AB_AllowPower".Translate(), ref s.allowPower);

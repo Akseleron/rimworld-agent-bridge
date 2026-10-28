@@ -46,7 +46,7 @@ namespace AgentBridge
     [StaticConstructorOnStartup]
     public static class Bridge
     {
-        public const string Version = "1.0.0";
+        public const string Version = "1.1.0";
         public const string Protocol = "rwb-1";
         private static readonly Queue<Request> queue = new Queue<Request>();
         private static readonly List<Request> waiting = new List<Request>();
@@ -237,6 +237,8 @@ namespace AgentBridge
         {
             var s = Settings;
             if (access == Access.Read) return null;
+            if (access == Access.Inspect) return s.fairPlay ? "fair-play mode: internal state is hidden (Agent Bridge settings)" : null;
+            if (s.fairPlay && access >= Access.Dev) return "fair-play mode: only what a player can do (Agent Bridge settings)";
             if (s.readOnly) return "read-only mode is on (Agent Bridge mod settings)";
             if (access == Access.Dev && !s.allowDev) return "dev commands are disabled in Agent Bridge settings";
             if (access == Access.Power && !s.allowPower) return "power commands (eval/reflection) are disabled in Agent Bridge settings";

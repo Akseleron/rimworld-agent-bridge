@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Toestaan</AB_ConsentAccept>
   <AB_ConsentDecline>Niet versturen</AB_ConsentDecline>
   <AB_LastReport>Laatste rapport: {0}</AB_LastReport>
+  <AB_FairPlay>Eerlijk spel (alleen wat een speler kan)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agenten krijgen precies de mogelijkheden van de speler: geen ontwikkelaarsopdrachten, geen code of reflectie, niet door de oorlogsmist of naar verborgen gebeurtenissen kijken, snelheid tot 3. Zodat een AI eerlijk speelt.</AB_FairPlay_Tip>
 </LanguageData>

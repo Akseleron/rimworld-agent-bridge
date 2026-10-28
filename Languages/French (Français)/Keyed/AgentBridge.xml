@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Autoriser</AB_ConsentAccept>
   <AB_ConsentDecline>Ne pas envoyer</AB_ConsentDecline>
   <AB_LastReport>Dernier rapport : {0}</AB_LastReport>
+  <AB_FairPlay>Jeu loyal (seulement ce qu'un joueur peut faire)</AB_FairPlay>
+  <AB_FairPlay_Tip>Les agents ont exactement les capacités du joueur : pas de commandes de développement, ni code ni réflexion, aucun regard à travers le brouillard de guerre ou sur les événements cachés, vitesse jusqu'à 3. Pour qu'une IA joue honnêtement.</AB_FairPlay_Tip>
 </LanguageData>

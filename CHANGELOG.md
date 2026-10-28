@@ -2,6 +2,20 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.0 — fair play: let an AI play the whole game
+- **Fair-play mode** (setting / `fair-play` command, only the player can switch it off): no cheats, reflection or
+  Dev-only options, nothing under fog of war, speed ≤ 3.
+- **New colony through the real setup pages**: `newgame`, or step by step `newgame-open`, `page`, `page-set`,
+  `page-next` (scenario, storyteller, world, ideoligion, landing site, colonists).
+- **Trading** through the game's trade window: `trade`, `trade-set`, `trade-accept`, `trade-cancel`.
+- **Caravans and the world map**: `caravan-form`, `caravans`, `caravan-move`, `world-objects`, `world-tile`,
+  `world-menu`, `world-menu-choose`, `world-target`, caravan gizmos (`id=caravan:<ID>`).
+- **Colony management**: `policies`, `assign` (apparel/food/drug policy, medical care, allowed area), `area-edit`,
+  `storage`, `prisoner`, `colony`, `research-set`.
+- `menu`/`menu-choose` accept `target=<id>` (moving traders and animals); `tick` reports `blocked-by-window` right away.
+- **Agent player** `Tools/rwb_agent.py`: Claude (official SDK) or any OpenAI-compatible/local model plays fairly;
+  MCP prompt `play_rimworld`. Tests: `rwb_playtest.py` (24 checks), `tests/test_agent_loop.py`.
+
 ## 1.0.0 — first Steam Workshop release
 - Workshop cover and screenshots; anonymous statistics go to the project's Cloudflare receiver
   (status shown in settings: delivered / postponed / offline) and new error signatures become GitHub issues.

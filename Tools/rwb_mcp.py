@@ -12,7 +12,7 @@ LIVE_HELP = ("Live control of the running RimWorld (Agent Bridge mod). Pass cmd 
              "debug-list saves defs def mods perf patches research. Act: pause speed tick select camera draft move attack job-end gizmo target "
              "menu-choose dialog window letter designate build zone bills work schedule research-set spawn destroy teleport kill damage heal hediff "
              "need skill forbid equip drop quit incident weather condition godmode goodwill research-finish build-instant quest-accept debug save load quicktest main-menu screenshot. "
-             "Flow: wait (ticks|loaded|log|message|letter|incident|death|paused|no-hostiles) batch. Power: obj (reflect live objects), exec. Other mods may add commands (see capabilities.extensions). "
+             "Play (fair, like a human): trade trade-set trade-accept caravans caravan-form caravan-move world-objects world-tile world-menu world-menu-choose world-target policies assign area-edit storage prisoner colony newgame newgame-open page page-set page-next fair-play. Flow: wait batch. Power: obj (reflect live objects), exec. Other mods may add commands (see capabilities.extensions). "
              "Things are addressed by ThingID (e.g. Human123), cells by x,z. Start with cmd='snapshot'. Any command accepts "
              "fields:[...] to shrink output and timeout (seconds) for waiting commands. Gizmos: prefer the language-independent 'key'.")
 TOOLS = [
@@ -58,9 +58,16 @@ for line in sys.stdin:
     if method == 'initialize':
         info = (req.get('params') or {}).get('clientInfo') or {}
         CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
-        reply(id_, {'protocolVersion': req.get('params', {}).get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}},
-                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.0.0'}})
+        reply(id_, {'protocolVersion': req.get('params', {}).get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}, 'prompts': {}},
+                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.0'}})
     elif method == 'tools/list': reply(id_, {'tools': TOOLS})
+    elif method == 'prompts/list':
+        reply(id_, {'prompts': [{'name': 'play_rimworld', 'description': 'Play the running colony fairly (no cheats) as the player',
+                                 'arguments': [{'name': 'goal', 'description': 'what to aim for', 'required': False}]}]})
+    elif method == 'prompts/get':
+        goal = ((req.get('params') or {}).get('arguments') or {}).get('goal') or 'Survive, grow, and work towards escaping the planet.'
+        text = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rwb_play_prompt.md'), encoding='utf-8').read()
+        reply(id_, {'messages': [{'role': 'user', 'content': {'type': 'text', 'text': text + '\n\nFirst call the rimworld tool with cmd=fair-play. Goal: ' + goal}}]})
     elif method == 'tools/call':
         p = req['params']
         try:

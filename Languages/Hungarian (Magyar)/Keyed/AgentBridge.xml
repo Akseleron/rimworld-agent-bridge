@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Engedélyezés</AB_ConsentAccept>
   <AB_ConsentDecline>Ne küldjön</AB_ConsentDecline>
   <AB_LastReport>Utolsó jelentés: {0}</AB_LastReport>
+  <AB_FairPlay>Tisztességes játék (csak amit a játékos is megtehet)</AB_FairPlay>
+  <AB_FairPlay_Tip>Az ügynökök pontosan a játékos képességeit kapják: nincsenek fejlesztői parancsok, kód vagy reflexió, nincs bepillantás a háború ködén át vagy a rejtett eseményekbe, sebesség legfeljebb 3. Hogy az MI tisztességesen játsszon.</AB_FairPlay_Tip>
 </LanguageData>

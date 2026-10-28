@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Consenti</AB_ConsentAccept>
   <AB_ConsentDecline>Non inviare</AB_ConsentDecline>
   <AB_LastReport>Ultimo rapporto: {0}</AB_LastReport>
+  <AB_FairPlay>Gioco leale (solo ciò che può fare un giocatore)</AB_FairPlay>
+  <AB_FairPlay_Tip>Gli agenti hanno esattamente le capacità del giocatore: niente comandi sviluppatore, codice o reflection, niente sbirciate oltre la nebbia di guerra o sugli eventi nascosti, velocità fino a 3. Per far giocare un'IA onestamente.</AB_FairPlay_Tip>
 </LanguageData>

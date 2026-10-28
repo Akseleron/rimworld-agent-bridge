@@ -12,7 +12,10 @@ Use it to let an agent play your colony, to automate tests of your own mods, to 
 [*][b]Handle the game:[/b] event dialogs, letters, message boxes, save (never overwrites) and load.
 [*][b]Developer tools:[/b] every Dev-mode debug action by name, spawning, incidents, damage/heal, live reflection on any object, Harmony patch lists, and C# code executed inside the game.
 [/list]
-About 90 commands. Each one takes a single frame (~17 ms).
+About 110 commands. Each one takes a single frame (~17 ms).
+
+[h2]Let an AI play — fairly[/h2]
+Switch on [b]fair play[/b] and Claude, Codex or a local model (Ollama, LM Studio) plays your colony with exactly a human player's abilities: new colony through the normal setup pages, building, research, trading, caravans and the world map — no cheats, no peeking through fog of war. Time only moves when the agent says so; watch it and take over at any moment. A ready-made agent script and an MCP prompt are included.
 
 [h2]Made for AI agents[/h2]
 [list]
@@ -56,7 +59,8 @@ Use [i]Report a bug on GitHub[/i] in the mod settings, or open an issue on GitHu
 Agent Bridge позволяет ИИ-агентам и скриптам (Claude Code, Codex, Cursor, любой MCP-клиент, Python или обычный HTTP) управлять RimWorld простыми JSON-командами вместо скриншотов и координат мыши: наблюдать за колонией, отдавать приказы, точно управлять временем, проходить диалоги, сохраняться и загружаться, запускать любые действия режима разработчика и выполнять C#-код в игре.
 
 [list]
-[*]Около 90 команд, каждая выполняется за один кадр (~17 мс); компактные ответы экономят токены.
+[*][b]Честная игра:[/b] Claude, Codex или локальная модель ведёт колонию ровно с возможностями игрока — новая колония через обычные страницы меню, строительство, исследования, торговля, караваны и карта мира, без читов и подглядывания сквозь туман войны. Готовый скрипт агента и MCP-промпт в комплекте.
+[*]Около 110 команд, каждая выполняется за один кадр (~17 мс); компактные ответы экономят токены.
 [*]Работает при любом языке игры; переведён на все 29 языков RimWorld.
 [*]Подключение только с вашего компьютера (127.0.0.1) и по токену; в настройках видны агенты и все их команды, есть режим «только чтение» и уровни доступа, на экране горит индикатор.
 [*]Обязательных зависимостей нет; Harmony рекомендуется. Для инструментов CLI/MCP нужен Python 3.

@@ -38,4 +38,6 @@
   <AB_ConsentAccept>許可する</AB_ConsentAccept>
   <AB_ConsentDecline>送信しない</AB_ConsentDecline>
   <AB_LastReport>最後の報告: {0}</AB_LastReport>
+  <AB_FairPlay>フェアプレイ（プレイヤーにできることだけ）</AB_FairPlay>
+  <AB_FairPlay_Tip>エージェントはプレイヤーとまったく同じ能力だけを持ちます：開発者コマンド・コード・リフレクションなし、戦場の霧や隠れたイベントの覗き見なし、速度は 3 まで。AI に正々堂々とプレイさせるためのものです。</AB_FairPlay_Tip>
 </LanguageData>

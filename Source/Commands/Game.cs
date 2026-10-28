@@ -21,6 +21,24 @@ namespace AgentBridge
             return c;
         }
 
+        /// <summary>Options and gizmos that the game adds only in Dev mode are labelled "Dev:"/"DEV:" in every language.
+        /// Fair play hides them, so an agent cannot use them even when the player has Dev mode on.</summary>
+        public static bool DevOnly(string? label) => Bridge.Settings.fairPlay && label != null && label.IndexOf("dev:", StringComparison.OrdinalIgnoreCase) >= 0;
+
+        /// <summary>Fair play: things under fog of war are invisible to the agent, as to the player.</summary>
+        public static bool Seen(Thing t) => !Bridge.Settings.fairPlay || !t.Spawned || !t.Position.Fogged(t.Map);
+
+        /// <summary>Gizmo owners: things by ThingID, or world objects as caravan:ID / wo:ID.</summary>
+        public static ISelectable Selectable(string id)
+        {
+            if (id.StartsWith("caravan:") || id.StartsWith("wo:"))
+            {
+                string n = id.Substring(id.IndexOf(':') + 1);
+                return Find.WorldObjects.AllWorldObjects.FirstOrDefault(o => o.ID.ToString() == n) ?? throw new CommandError("no world object " + id);
+            }
+            return Thing(id);
+        }
+
         public static Thing Thing(string id)
         {
             if (Current.Game == null) throw new CommandError("no game loaded");
@@ -28,7 +46,7 @@ namespace AgentBridge
             {
                 // Pawns first: the usual target and a much shorter list than AllThings.
                 var t = (Thing?)map.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == id) ?? map.listerThings.AllThings.FirstOrDefault(x => x.ThingID == id);
-                if (t != null) return t;
+                if (t != null) return Seen(t) ? t : throw new CommandError("no visible thing '" + id + "' (fog of war)");
             }
             throw new CommandError("no thing '" + id + "' (ids look like Human123; see pawns/things)");
         }

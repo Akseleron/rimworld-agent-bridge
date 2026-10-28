@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Tillad</AB_ConsentAccept>
   <AB_ConsentDecline>Send ikke</AB_ConsentDecline>
   <AB_LastReport>Seneste rapport: {0}</AB_LastReport>
+  <AB_FairPlay>Fair spil (kun det en spiller kan)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agenter får præcis spillerens muligheder: ingen udviklerkommandoer, kode eller refleksion, intet kig gennem krigens tåge eller på skjulte hændelser, hastighed op til 3. Så en AI spiller ærligt.</AB_FairPlay_Tip>
 </LanguageData>

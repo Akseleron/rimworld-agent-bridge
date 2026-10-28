@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Дозволити</AB_ConsentAccept>
   <AB_ConsentDecline>Не надсилати</AB_ConsentDecline>
   <AB_LastReport>Останній звіт: {0}</AB_LastReport>
+  <AB_FairPlay>Чесна гра (лише те, що може гравець)</AB_FairPlay>
+  <AB_FairPlay_Tip>Агенту доступне рівно те саме, що гравцеві: без dev-команд, коду й рефлексії, без підглядання крізь туман війни та за прихованими подіями, швидкість до 3. Для чесного проходження гри ШІ.</AB_FairPlay_Tip>
 </LanguageData>

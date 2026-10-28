@@ -21,7 +21,7 @@ namespace AgentBridge
         internal static DiaNode? NodeOf(Dialog_NodeTree d) => (DiaNode?)NodeField.GetValue(d);
         internal static List<string> NodeOptions(Dialog_NodeTree d) => NodeOf(d)?.options.Select(o => (string)DiaText.GetValue(o)).ToList() ?? new List<string>();
 
-        internal static List<Gizmo> GizmosOf(Thing t) => (t is ISelectable s ? s.GetGizmos() : Enumerable.Empty<Gizmo>()).Where(g => g.Visible).ToList();
+        internal static List<Gizmo> GizmosOf(ISelectable s) => s.GetGizmos().Where(g => g.Visible && !G.DevOnly(GizmoLabel(g))).ToList();
 
         internal static string GizmoLabel(Gizmo g)
         {
@@ -43,10 +43,13 @@ namespace AgentBridge
             }
         }
 
+        /// <summary>x,z or target=<ThingID> (the target's current cell — traders and animals keep moving).</summary>
+        internal static IntVec3 MenuCell(Args a) => a.Has("target") ? G.Thing(a.Need("target")).Position : G.Cell(a);
+
         internal static List<FloatMenuOption> MenuOptions(Args a)
         {
-            var pawns = G.Pawns(a, "pawns"); var c = G.Cell(a);
-            return G.AtCell(c, () => FloatMenuMakerMap.GetOptions(pawns, c.ToVector3Shifted(), out _));
+            var pawns = G.Pawns(a, "pawns"); var c = MenuCell(a);
+            return G.AtCell(c, () => FloatMenuMakerMap.GetOptions(pawns, c.ToVector3Shifted(), out _)).Where(o => !G.DevOnly(o.Label)).ToList();
         }
 
         [Command("select", Access.Act, "select things {ids:[...]} (empty clears)")]
@@ -68,7 +71,7 @@ namespace AgentBridge
         [Command("gizmo", Access.Act, "press a gizmo {id, key|label|index, target?|x,z?}; if it starts targeting, pass the target or call 'target'")]
         private static object Gizmo(Args a)
         {
-            var t = G.Thing(a.Need("id"));
+            var t = G.Selectable(a.Need("id"));
             var list = GizmosOf(t);
             Gizmo? g;
             if (a.Has("index")) g = list.ElementAtOrDefault(a.Int("index", -1));
@@ -80,10 +83,11 @@ namespace AgentBridge
             }
             if (g == null) throw new CommandError("no such gizmo; have: " + string.Join(" | ", list.Select(GizmoKey).ToArray()));
             if (g.Disabled) throw new CommandError("gizmo disabled: " + g.disabledReason);
-            if (!Find.Selector.IsSelected(t)) { Find.Selector.ClearSelection(); Find.Selector.Select(t, false, false); }
+            if (t is Thing th && !Find.Selector.IsSelected(th)) { Find.Selector.ClearSelection(); Find.Selector.Select(th, false, false); }
+            if (t is RimWorld.Planet.WorldObject wo) { Find.WorldSelector.ClearSelection(); Find.WorldSelector.Select(wo, false); }
             g.ProcessInput(new Event());
             if (Find.Targeter.IsTargeting && (a.Has("target") || a.Has("x"))) return new { gizmo = GizmoKey(g), target = Target(a) };
-            return new { gizmo = GizmoKey(g), targeting = Find.Targeter.IsTargeting ? true : (bool?)null, windows = Find.WindowStack.Windows.Where(w => !(w is ImmediateWindow)).Select(w => w.GetType().Name).ToList() };
+            return new { gizmo = GizmoKey(g), targeting = Find.Targeter.IsTargeting ? true : (bool?)null, worldTargeting = Find.WorldTargeter.IsTargeting ? true : (bool?)null, windows = Find.WindowStack.Windows.Where(w => !(w is ImmediateWindow)).Select(w => w.GetType().Name).ToList() };
         }
 
         [Command("target", Access.Act, "complete active targeting {target:id | x,z}")]
@@ -111,14 +115,14 @@ namespace AgentBridge
             return new { target = Plain.Of(target) };
         }
 
-        [Command("menu-choose", Access.Act, "choose a right-click option {pawns, x,z, label|index}")]
+        [Command("menu-choose", Access.Act, "choose a right-click option {pawns, x,z | target:id, label|index}")]
         private static object MenuChoose(Args a)
         {
             var options = MenuOptions(a);
             FloatMenuOption? option = a.Has("index") ? options.ElementAtOrDefault(a.Int("index", -1)) : options.FirstOrDefault(o => o.Label.Has(a.Need("label")));
             if (option == null) throw new CommandError("no option; have: " + string.Join(" | ", options.Select(o => o.Label).ToArray()));
             if (option.Disabled) throw new CommandError("option disabled: " + option.Label);
-            G.AtCell(G.Cell(a), () => { option.Chosen(true, null); return 0; });
+            G.AtCell(MenuCell(a), () => { option.Chosen(true, null); return 0; });
             return new { chosen = option.Label };
         }
 

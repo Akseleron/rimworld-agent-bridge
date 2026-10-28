@@ -38,4 +38,6 @@
   <AB_ConsentAccept>İzin ver</AB_ConsentAccept>
   <AB_ConsentDecline>Gönderme</AB_ConsentDecline>
   <AB_LastReport>Son rapor: {0}</AB_LastReport>
+  <AB_FairPlay>Adil oyun (yalnızca oyuncunun yapabildikleri)</AB_FairPlay>
+  <AB_FairPlay_Tip>Ajanlar tam olarak oyuncunun yeteneklerine sahip olur: geliştirici komutu, kod ya da yansıma yok, savaş sisinin ardına veya gizli olaylara bakmak yok, hız en fazla 3. Bir yapay zekânın dürüstçe oynaması için.</AB_FairPlay_Tip>
 </LanguageData>

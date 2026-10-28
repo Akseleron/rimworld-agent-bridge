@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Salli</AB_ConsentAccept>
   <AB_ConsentDecline>Älä lähetä</AB_ConsentDecline>
   <AB_LastReport>Viimeisin raportti: {0}</AB_LastReport>
+  <AB_FairPlay>Reilu peli (vain mitä pelaaja voi tehdä)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agentit saavat täsmälleen pelaajan kyvyt: ei kehittäjäkomentoja, koodia tai reflektiota, ei kurkistelua sodan sumun läpi tai piilotettuihin tapahtumiin, nopeus enintään 3. Jotta tekoäly pelaa rehellisesti.</AB_FairPlay_Tip>
 </LanguageData>

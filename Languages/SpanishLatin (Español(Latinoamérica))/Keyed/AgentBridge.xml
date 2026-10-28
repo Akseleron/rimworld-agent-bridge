@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Permitir</AB_ConsentAccept>
   <AB_ConsentDecline>No enviar</AB_ConsentDecline>
   <AB_LastReport>Último informe: {0}</AB_LastReport>
+  <AB_FairPlay>Juego limpio (solo lo que puede hacer un jugador)</AB_FairPlay>
+  <AB_FairPlay_Tip>Los agentes tienen exactamente las capacidades del jugador: sin comandos de desarrollo, código ni reflexión, sin mirar a través de la niebla de guerra ni eventos ocultos, velocidad hasta 3. Para que una IA juegue honestamente.</AB_FairPlay_Tip>
 </LanguageData>

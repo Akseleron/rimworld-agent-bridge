@@ -29,6 +29,10 @@
 | Act | draft, move, gizmo, designate, save, load | off in read-only mode |
 | Dev | spawn, incident, damage, debug, quicktest | "allow dev" + game Dev mode (if required) |
 | Power | exec/eval, obj set/call | "allow power" + game Dev mode (if required) |
+| Inspect | obj get, patches, debug-list | always, except in fair play |
+
+**Fair play** (setting, or `fair-play` command — clients can only switch it on) refuses Dev, Power and Inspect,
+hides fog-of-war things and incident events, hides Dev-only menu options and gizmos, and caps speed at 3.
 
 ## Events
 

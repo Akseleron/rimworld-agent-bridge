@@ -38,4 +38,6 @@
   <AB_ConsentAccept>允许</AB_ConsentAccept>
   <AB_ConsentDecline>不发送</AB_ConsentDecline>
   <AB_LastReport>上次报告：{0}</AB_LastReport>
+  <AB_FairPlay>公平游戏（仅限玩家能做的事）</AB_FairPlay>
+  <AB_FairPlay_Tip>智能体只拥有与玩家完全相同的能力：没有开发者命令、代码或反射，不能透过战争迷雾或查看隐藏事件，速度最高 3。用于让 AI 公平地玩游戏。</AB_FairPlay_Tip>
 </LanguageData>

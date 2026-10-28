@@ -59,7 +59,7 @@ namespace AgentBridge
             return System.Convert.ChangeType(v, Nullable.GetUnderlyingType(t) ?? t, System.Globalization.CultureInfo.InvariantCulture);
         }
 
-        [Command("obj", Access.Read, "reflect live objects {target, path='a.b[2].c', op: get|members (Read) | set|call (Power), value?, args?, depth=1}")]
+        [Command("obj", Access.Inspect, "reflect live objects {target, path='a.b[2].c', op: get|members (Read) | set|call (Power), value?, args?, depth=1}")]
         private static object? Obj(Args a)
         {
             string op = a.Str("op") ?? "get";
@@ -97,7 +97,7 @@ namespace AgentBridge
             }
         }
 
-        [Command("patches", Access.Read, "Harmony patches {method?: 'Ns.Type:Method', owner?}")]
+        [Command("patches", Access.Inspect, "Harmony patches {method?: 'Ns.Type:Method', owner?}")]
         private static object Patches(Args a)
         {
             if (!Bridge.HarmonyActive) throw new CommandError("Harmony not loaded");
@@ -136,6 +136,7 @@ namespace AgentBridge
                 case "ticks": poll = () => G.Ticks.TicksGame >= start + n ? new { tick = G.Ticks.TicksGame } : null; break;
                 case "paused": poll = () => G.Ticks.Paused ? new { tick = G.Ticks.TicksGame } : null; break;
                 case "no-hostiles": poll = () => !G.Map.mapPawns.AllPawnsSpawned.Any(p => p.HostileTo(Faction.OfPlayer) && !p.Downed && !p.Dead) ? new { tick = G.Ticks.TicksGame } : null; break;
+                case "incident" when Bridge.Settings.fairPlay: throw new CommandError("fair-play mode: incidents are only visible as letters");
                 case "log": case "message": case "letter": case "incident": case "death": poll = () => Feed.Find(from, until, rx); break;
                 default: throw new CommandError("until: ticks|loaded|paused|no-hostiles|log|message|letter|incident|death");
             }

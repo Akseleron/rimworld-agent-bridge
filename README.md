@@ -14,9 +14,16 @@ $ python Tools/rwb.py tick n=600
 {"ok":true,"result":{"tick":2655,"ran":600}}
 ```
 
+## Two ways to use it
+
+- **A tool** for agents, testers and modders: full control including Dev-mode actions, live reflection and C#.
+- **A game mode**: switch on **fair play** and let Claude, Codex or a local model play your colony with exactly a
+  human player's abilities — new colony through the normal setup pages, building, research, trading, caravans and
+  the world map, no cheats, no fog-of-war peeking. See [docs/PLAYING.md](docs/PLAYING.md).
+
 ## Features
 
-- **~90 commands**: observation (`snapshot`, `pawns`, `pawn`, `things`, `cell`, text map `area`, `alerts`, `letters`,
+- **~110 commands**: observation (`snapshot`, `pawns`, `pawn`, `things`, `cell`, text map `area`, `alerts`, `letters`,
   `windows`), orders (`draft`, `move`, `attack`, `gizmo`+`target`, right-click `menu`/`menu-choose`, `designate`,
   `build`, `zone`, `bills`, `work`, `schedule`, `equip`), dialogs and letters, `save`/`load`, precise time control
   (`tick n=…` stops on the exact tick, `wait until=death|letter|log…`), every Dev-mode debug action (`debug path=…`),

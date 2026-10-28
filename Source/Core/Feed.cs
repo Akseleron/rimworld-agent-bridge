@@ -40,11 +40,12 @@ namespace AgentBridge
             lock (gate) return items.FirstOrDefault(i => i.seq > after && i.kind == kind && (rx == null || rx.IsMatch(i.level + " " + i.text)));
         }
 
-        public static object Since(long after, string? kind, int limit)
+        public static object Since(long after, string? kind, int limit, bool fair = false)
         {
             lock (gate)
             {
-                var list = items.Where(i => i.seq > after && (kind == null || i.kind == kind)).ToList();
+                // Fair play hides incident internals (a player only sees letters and messages).
+                var list = items.Where(i => i.seq > after && (kind == null || i.kind == kind) && !(fair && i.kind == "incident")).ToList();
                 return new { last = seq, items = list.Skip(System.Math.Max(0, list.Count - limit)).ToList() };
             }
         }

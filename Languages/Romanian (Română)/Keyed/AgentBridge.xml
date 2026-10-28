@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Permite</AB_ConsentAccept>
   <AB_ConsentDecline>Nu trimite</AB_ConsentDecline>
   <AB_LastReport>Ultimul raport: {0}</AB_LastReport>
+  <AB_FairPlay>Joc corect (doar ce poate face un jucător)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agenții au exact abilitățile jucătorului: fără comenzi de dezvoltator, cod sau reflecție, fără a privi prin ceața războiului sau evenimentele ascunse, viteză până la 3. Pentru ca un AI să joace cinstit.</AB_FairPlay_Tip>
 </LanguageData>

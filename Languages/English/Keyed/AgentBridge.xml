@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Allow</AB_ConsentAccept>
   <AB_ConsentDecline>Don't send</AB_ConsentDecline>
   <AB_LastReport>Last report: {0}</AB_LastReport>
+  <AB_FairPlay>Fair play (only what a player can do)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agents get exactly the player's abilities: no dev commands, no code or reflection, no peeking through fog of war or at hidden events, speed up to 3. Use it to let an AI play the game honestly.</AB_FairPlay_Tip>
 </LanguageData>

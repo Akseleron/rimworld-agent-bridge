@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Zezwól</AB_ConsentAccept>
   <AB_ConsentDecline>Nie wysyłaj</AB_ConsentDecline>
   <AB_LastReport>Ostatni raport: {0}</AB_LastReport>
+  <AB_FairPlay>Uczciwa gra (tylko to, co może gracz)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agenci mają dokładnie możliwości gracza: bez poleceń deweloperskich, kodu i refleksji, bez zaglądania przez mgłę wojny i w ukryte zdarzenia, prędkość do 3. Aby AI grało uczciwie.</AB_FairPlay_Tip>
 </LanguageData>

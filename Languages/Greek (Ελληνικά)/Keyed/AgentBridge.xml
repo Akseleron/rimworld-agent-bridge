@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Να επιτρέπεται</AB_ConsentAccept>
   <AB_ConsentDecline>Να μη στέλνεται</AB_ConsentDecline>
   <AB_LastReport>Τελευταία αναφορά: {0}</AB_LastReport>
+  <AB_FairPlay>Τίμιο παιχνίδι (μόνο ό,τι μπορεί ο παίκτης)</AB_FairPlay>
+  <AB_FairPlay_Tip>Οι πράκτορες έχουν ακριβώς τις δυνατότητες του παίκτη: χωρίς εντολές προγραμματιστή, κώδικα ή αντανάκλαση, χωρίς ματιές μέσα από την ομίχλη του πολέμου ή σε κρυφά συμβάντα, ταχύτητα έως 3. Για να παίζει μια ΤΝ τίμια.</AB_FairPlay_Tip>
 </LanguageData>

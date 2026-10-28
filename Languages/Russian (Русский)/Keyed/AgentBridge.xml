@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Разрешить</AB_ConsentAccept>
   <AB_ConsentDecline>Не отправлять</AB_ConsentDecline>
   <AB_LastReport>Последний отчёт: {0}</AB_LastReport>
+  <AB_FairPlay>Честная игра (только то, что может игрок)</AB_FairPlay>
+  <AB_FairPlay_Tip>Агенту доступно ровно то же, что игроку: без dev-команд, кода и рефлексии, без подглядывания сквозь туман войны и за скрытыми событиями, скорость до 3. Для честного прохождения игры ИИ.</AB_FairPlay_Tip>
 </LanguageData>

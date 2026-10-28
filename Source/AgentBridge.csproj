@@ -12,8 +12,8 @@
     <DebugType>none</DebugType>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <Deterministic>true</Deterministic>
-    <Version>1.0.0</Version>
-    <NoWarn>CS8619;CS8601;SYSLIB0014;CS8600;CS8602;CS8603;CS8604;CS8618;CS8625;CS0649</NoWarn>
+    <Version>1.1.0</Version>
+    <NoWarn>CS8605;CS8619;CS8601;SYSLIB0014;CS8600;CS8602;CS8603;CS8604;CS8618;CS8625;CS0649</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Krafs.Rimworld.Ref" Version="1.7.4985-unstable" />

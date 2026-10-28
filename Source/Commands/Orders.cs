@@ -16,8 +16,11 @@ namespace AgentBridge
         [Command("pause", Access.Act, "pause the game")]
         private static object Pause(Args a) => Speed(TimeSpeed.Paused);
 
-        [Command("speed", Access.Act, "set speed {speed 0..4} (4 = ultrafast, needs Dev mode in vanilla)")]
-        private static object SetSpeed(Args a) => Speed((TimeSpeed)Args.Clamp(a.Int("speed", 1), 0, 4));
+        // Ultrafast (4) is a Dev-mode speed in vanilla, so fair play caps at 3.
+        private static int MaxSpeed => Bridge.Settings.fairPlay ? 3 : 4;
+
+        [Command("speed", Access.Act, "set speed {speed 0..4} (4 = ultrafast; capped at 3 in fair play)")]
+        private static object SetSpeed(Args a) => Speed((TimeSpeed)Args.Clamp(a.Int("speed", 1), 0, MaxSpeed));
 
         [Command("tick", Access.Act, "run n ticks then pause {n, speed=3, timeout=60}; stops early with stop=blocked-by-window or paused-externally")]
         private static object Tick(Args a)
@@ -25,7 +28,7 @@ namespace AgentBridge
             var tm = G.Ticks;
             int n = Args.Clamp(a.Int("n", 60), 1, 60000 * 15), start = tm.TicksGame, target = start + n;
             Hooks.TickTarget = target;
-            tm.CurTimeSpeed = (TimeSpeed)Args.Clamp(a.Int("speed", 3), 1, 4);
+            tm.CurTimeSpeed = (TimeSpeed)Args.Clamp(a.Int("speed", 3), 1, MaxSpeed);
             int last = start; float stalledSince = Time.realtimeSinceStartup;
             object Done(string? stop)
             {
@@ -37,6 +40,7 @@ namespace AgentBridge
             {
                 if (tm.TicksGame >= target) return Done(null);
                 if (tm.TicksGame != last) { last = tm.TicksGame; stalledSince = Time.realtimeSinceStartup; return null; }
+                if (Find.WindowStack.WindowsForcePause) return Done("blocked-by-window");
                 if (tm.Paused && Hooks.TickTarget >= 0) return Done("paused-externally");
                 return Time.realtimeSinceStartup - stalledSince > 1.5f && Find.WindowStack.WindowsForcePause ? Done("blocked-by-window") : null;
             }, a.Timeout, () => Done("timeout"));

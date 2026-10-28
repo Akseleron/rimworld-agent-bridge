@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Cho phép</AB_ConsentAccept>
   <AB_ConsentDecline>Không gửi</AB_ConsentDecline>
   <AB_LastReport>Báo cáo gần nhất: {0}</AB_LastReport>
+  <AB_FairPlay>Chơi công bằng (chỉ những gì người chơi làm được)</AB_FairPlay>
+  <AB_FairPlay_Tip>Tác tử có đúng khả năng của người chơi: không lệnh nhà phát triển, không mã hay phản chiếu, không nhìn xuyên sương mù chiến tranh hay sự kiện ẩn, tốc độ tối đa 3. Để AI chơi trung thực.</AB_FairPlay_Tip>
 </LanguageData>

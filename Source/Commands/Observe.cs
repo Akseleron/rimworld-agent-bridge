@@ -29,7 +29,7 @@ namespace AgentBridge
             version = Bridge.Version, protocol = Bridge.Protocol, runtime = Bridge.RuntimeName, os = Environment.OSVersion.Platform.ToString(),
             game = VersionControl.CurrentVersionStringWithRev, language = LanguageDatabase.activeLanguage?.folderName,
             harmony = Bridge.HarmonyActive, behaviourPump = PumpBehaviour.Frames > 0, cellTargeting = Bridge.HarmonyActive, exactTicks = Bridge.HarmonyActive, eventHooks = Bridge.HarmonyActive,
-            settings = new { Bridge.Settings.readOnly, Bridge.Settings.allowDev, Bridge.Settings.allowPower, Bridge.Settings.requireDevMode, devMode = Prefs.DevMode },
+            settings = new { Bridge.Settings.fairPlay, Bridge.Settings.readOnly, Bridge.Settings.allowDev, Bridge.Settings.allowPower, Bridge.Settings.requireDevMode, devMode = Prefs.DevMode },
             extensions = Registry.Commands.Values.Where(c => c.Source != "core").Select(c => c.Source + ":" + c.Name).ToList(),
             integrations = Integrations.Detected(),
         };
@@ -67,9 +67,9 @@ namespace AgentBridge
                 state = State(a),
                 map = playing ? MapInfo(a) : null,
                 colonists = playing ? Find.CurrentMap.mapPawns.FreeColonistsSpawned.Select(G.PawnBrief).ToList() : null,
-                hostiles = playing ? Find.CurrentMap.mapPawns.AllPawnsSpawned.Where(p => p.HostileTo(Faction.OfPlayer) && !p.Dead).Take(50).Select(G.PawnBrief).ToList() : null,
+                hostiles = playing ? Find.CurrentMap.mapPawns.AllPawnsSpawned.Where(p => p.HostileTo(Faction.OfPlayer) && !p.Dead && G.Seen(p)).Take(50).Select(G.PawnBrief).ToList() : null,
                 alerts = playing ? Alerts(a) : null,
-                feed = Feed.Since(a.Long("after", Feed.Last), null, a.Int("limit", 50)),
+                feed = Feed.Since(a.Long("after", Feed.Last), null, a.Int("limit", 50), Bridge.Settings.fairPlay),
                 windows = Windows(a),
             };
         }
@@ -103,7 +103,7 @@ namespace AgentBridge
                 _ => map.mapPawns.AllPawnsSpawned,
             };
             if (a.Pair("near") is IntVec3 c) { float r = a.Float("radius", 10); list = list.Where(p => p.Position.InHorDistOf(c, r)); }
-            return list.Take(a.Int("limit", 300)).Select(G.PawnBrief).ToList();
+            return list.Where(G.Seen).Take(a.Int("limit", 300)).Select(G.PawnBrief).ToList();
         }
 
         [Command("pawn", Access.Read, "pawn detail {id}: health, capacities, needs, skills, gear, queue, mental state")]
@@ -135,13 +135,14 @@ namespace AgentBridge
             if (def != null) list = list.Where(t => t.def.defName.Equals(def, StringComparison.OrdinalIgnoreCase));
             if (cat != null) list = list.Where(t => t.def.category.ToString().Equals(cat, StringComparison.OrdinalIgnoreCase));
             if (a.Pair("near") is IntVec3 c) { float r = a.Float("radius", 8); list = list.Where(t => t.Spawned && t.Position.InHorDistOf(c, r)); }
-            return list.Take(a.Int("limit", 200)).Select(G.ThingBrief).ToList();
+            return list.Where(G.Seen).Take(a.Int("limit", 200)).Select(G.ThingBrief).ToList();
         }
 
         [Command("cell", Access.Read, "cell detail {x,z}: terrain, roof, snow, temperature, zone, room, things")]
         private static object Cell(Args a)
         {
             var map = G.Map; var c = G.Cell(a);
+            if (Bridge.Settings.fairPlay && c.Fogged(map)) return new { pos = c, fogged = true };
             return new
             {
                 pos = c, terrain = c.GetTerrain(map)?.defName, roof = c.GetRoof(map)?.defName, fogged = c.Fogged(map) ? true : (bool?)null,
@@ -199,7 +200,7 @@ namespace AgentBridge
             .Select((l, i) => new { index = i, label = l.Label.ToString(), def = l.def.defName, text = a.Bool("text", false) ? (l as ChoiceLetter)?.Text.ToString() : null }).ToList();
 
         [Command("feed", Access.Read, "events after seq {after=0, kind?: log|message|letter|incident|death, limit=200}")]
-        private static object FeedCmd(Args a) => Feed.Since(a.Long("after", 0), a.Str("kind"), a.Int("limit", 200));
+        private static object FeedCmd(Args a) => Feed.Since(a.Long("after", 0), a.Str("kind"), a.Int("limit", 200), Bridge.Settings.fairPlay);
 
         [Command("windows", Access.Read, "open windows with dialog text, buttons and options")]
         internal static object Windows(Args a) => (Find.WindowStack?.Windows ?? new List<Window>()).Select((w, i) => new { w, i }).Where(x => !(x.w is ImmediateWindow)).Select(x => new
@@ -210,14 +211,14 @@ namespace AgentBridge
             options = x.w is FloatMenu fm ? Ui.FloatOptions(fm).Select(o => o.Label).ToList() : x.w is Dialog_NodeTree n2 ? Ui.NodeOptions(n2) : null,
         }).ToList();
 
-        [Command("gizmos", Access.Read, "command buttons of a thing {id}; use 'key' (language-independent) with gizmo")]
+        [Command("gizmos", Access.Read, "command buttons of a thing or caravan {id: ThingID | caravan:ID}; use 'key' (language-independent) with gizmo")]
         private static object Gizmos(Args a)
-            => Ui.GizmosOf(G.Thing(a.Need("id"))).Select((g, i) => new { index = i, key = Ui.GizmoKey(g), label = Ui.GizmoLabel(g), disabled = g.Disabled ? g.disabledReason ?? "disabled" : null }).ToList();
+            => Ui.GizmosOf(G.Selectable(a.Need("id"))).Select((g, i) => new { index = i, key = Ui.GizmoKey(g), label = Ui.GizmoLabel(g), disabled = g.Disabled ? g.disabledReason ?? "disabled" : null }).ToList();
 
-        [Command("menu", Access.Read, "right-click options for pawns at a cell {pawns:[ids], x,z}")]
+        [Command("menu", Access.Read, "right-click options for pawns at a cell or thing {pawns:[ids], x,z | target:id}")]
         private static object Menu(Args a) => Ui.MenuOptions(a).Select((o, i) => new { index = i, label = o.Label, disabled = o.Disabled ? true : (bool?)null }).ToList();
 
-        [Command("debug-list", Access.Read, "debug actions {filter?, path?, limit=300}: children of path or search all")]
+        [Command("debug-list", Access.Inspect, "debug actions {filter?, path?, limit=300}: children of path or search all")]
         private static object DebugList(Args a)
         {
             Dialog_Debug.TrySetupNodeGraph();

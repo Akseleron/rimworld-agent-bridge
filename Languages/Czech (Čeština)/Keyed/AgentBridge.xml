@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Povolit</AB_ConsentAccept>
   <AB_ConsentDecline>Neodesílat</AB_ConsentDecline>
   <AB_LastReport>Poslední hlášení: {0}</AB_LastReport>
+  <AB_FairPlay>Férová hra (jen to, co může hráč)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agenti mají přesně schopnosti hráče: žádné vývojářské příkazy, kód ani reflexe, žádné nahlížení skrz mlhu války nebo na skryté události, rychlost do 3. Aby AI hrála poctivě.</AB_FairPlay_Tip>
 </LanguageData>

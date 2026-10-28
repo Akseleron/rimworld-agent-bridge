@@ -38,4 +38,6 @@
   <AB_ConsentAccept>Erlauben</AB_ConsentAccept>
   <AB_ConsentDecline>Nicht senden</AB_ConsentDecline>
   <AB_LastReport>Letzter Bericht: {0}</AB_LastReport>
+  <AB_FairPlay>Faires Spiel (nur was ein Spieler kann)</AB_FairPlay>
+  <AB_FairPlay_Tip>Agenten erhalten genau die Fähigkeiten des Spielers: keine Entwicklerbefehle, kein Code und keine Reflection, kein Blick durch den Nebel des Krieges oder auf versteckte Ereignisse, Geschwindigkeit bis 3. Damit eine KI ehrlich spielt.</AB_FairPlay_Tip>
 </LanguageData>

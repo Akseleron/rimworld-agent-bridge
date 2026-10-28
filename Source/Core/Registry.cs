@@ -13,6 +13,7 @@ namespace AgentBridge
         Act,    // ordinary player actions (orders, designations, save/load)
         Dev,    // world editing the player could only do with Dev mode
         Power,  // arbitrary code/reflection (eval, exec, obj set/call, reflect)
+        Inspect, // reads hidden internal state (obj get, patches): harmless for tools, but not fair play
     }
 
     [AttributeUsage(AttributeTargets.Method)]
