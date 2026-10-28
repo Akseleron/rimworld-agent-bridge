@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Escutando em 127.0.0.1:{0} ({1} comandos)</AB_Status_Listening>
+  <AB_Status_Off>O servidor está desligado</AB_Status_Off>
+  <AB_Status_Harmony>Recursos do Harmony: {0}</AB_Status_Harmony>
+  <AB_On>ligados</AB_On>
+  <AB_Off>desligados</AB_Off>
+  <AB_Section_Server>Servidor</AB_Section_Server>
+  <AB_Enable>Ativar servidor de agentes</AB_Enable>
+  <AB_Enable_Tip>Permite que agentes de IA locais (Claude Code, Codex, scripts) controlem o jogo por 127.0.0.1. Nada fica acessível pela rede.</AB_Enable_Tip>
+  <AB_Port>Porta (aplicada após reiniciar)</AB_Port>
+  <AB_ReadOnly>Modo somente leitura (agentes só podem observar)</AB_ReadOnly>
+  <AB_AllowDev>Permitir comandos de desenvolvedor (gerar, dano, incidentes)</AB_AllowDev>
+  <AB_AllowPower>Permitir comandos avançados (código C#, reflexão)</AB_AllowPower>
+  <AB_RequireDevMode>Exigir modo desenvolvedor para comandos de desenvolvedor e avançados</AB_RequireDevMode>
+  <AB_ShowOverlay>Mostrar um indicador na tela enquanto um agente age</AB_ShowOverlay>
+  <AB_CopyMcp>Copiar comando de configuração MCP</AB_CopyMcp>
+  <AB_CopyConnection>Copiar dados de conexão</AB_CopyConnection>
+  <AB_NewToken>Desconectar todos os agentes (novo token)</AB_NewToken>
+  <AB_OpenTools>Abrir pasta de ferramentas</AB_OpenTools>
+  <AB_Copied>Copiado para a área de transferência</AB_Copied>
+  <AB_Section_Privacy>Estatísticas e relatórios de erros</AB_Section_Privacy>
+  <AB_Telemetry>Enviar estatísticas de uso anônimas</AB_Telemetry>
+  <AB_Telemetry_Tip>Versão do mod e do jogo, sistema, idioma, contagem de comandos. Sem nomes, saves, caminhos de arquivos ou listas de mods.</AB_Telemetry_Tip>
+  <AB_CrashReports>Enviar relatórios de erros anônimos</AB_CrashReports>
+  <AB_CrashReports_Tip>Tipo de erro e pilha de chamadas das falhas do Agent Bridge, sem caminhos do usuário.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Nenhum servidor de coleta está configurado nesta versão, então nada é enviado ainda.</AB_NoEndpoint>
+  <AB_PreviewData>Mostrar o que seria enviado</AB_PreviewData>
+  <AB_ReportBug>Relatar um bug no GitHub</AB_ReportBug>
+  <AB_Section_Agents>Agentes conectados</AB_Section_Agents>
+  <AB_NoAgents>Nenhum agente se conectou nesta sessão.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} solicitações, {2} erros, último {3} (há {4} s)</AB_AgentLine>
+  <AB_Section_Recent>Comandos recentes</AB_Section_Recent>
+  <AB_Overlay>Agente {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>O Agent Bridge pode enviar estatísticas de uso e relatórios de erros anônimos para que os bugs sejam corrigidos rapidamente. Nenhum dado pessoal, nome de save ou caminho de arquivo é coletado. Você pode mudar isso a qualquer momento em Opções → Configurações de mods → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Permitir</AB_ConsentAccept>
+  <AB_ConsentDecline>Não enviar</AB_ConsentDecline>
+</LanguageData>

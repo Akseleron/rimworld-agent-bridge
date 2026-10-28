@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>127.0.0.1:{0} dinleniyor ({1} komut)</AB_Status_Listening>
+  <AB_Status_Off>Sunucu kapalı</AB_Status_Off>
+  <AB_Status_Harmony>Harmony özellikleri: {0}</AB_Status_Harmony>
+  <AB_On>açık</AB_On>
+  <AB_Off>kapalı</AB_Off>
+  <AB_Section_Server>Sunucu</AB_Section_Server>
+  <AB_Enable>Ajan sunucusunu etkinleştir</AB_Enable>
+  <AB_Enable_Tip>Yerel yapay zekâ ajanlarının (Claude Code, Codex, betikler) oyunu 127.0.0.1 üzerinden kontrol etmesini sağlar. Ağdan hiçbir şeye erişilemez.</AB_Enable_Tip>
+  <AB_Port>Port (yeniden başlatınca geçerli)</AB_Port>
+  <AB_ReadOnly>Salt okunur mod (ajanlar yalnızca gözlemleyebilir)</AB_ReadOnly>
+  <AB_AllowDev>Geliştirici komutlarına izin ver (oluşturma, hasar, olaylar)</AB_AllowDev>
+  <AB_AllowPower>Gelişmiş komutlara izin ver (C# kodu, yansıma)</AB_AllowPower>
+  <AB_RequireDevMode>Geliştirici ve gelişmiş komutlar için geliştirici modunu zorunlu kıl</AB_RequireDevMode>
+  <AB_ShowOverlay>Bir ajan işlem yaparken ekranda gösterge göster</AB_ShowOverlay>
+  <AB_CopyMcp>MCP kurulum komutunu kopyala</AB_CopyMcp>
+  <AB_CopyConnection>Bağlantı bilgilerini kopyala</AB_CopyConnection>
+  <AB_NewToken>Tüm ajanların bağlantısını kes (yeni token)</AB_NewToken>
+  <AB_OpenTools>Araçlar klasörünü aç</AB_OpenTools>
+  <AB_Copied>Panoya kopyalandı</AB_Copied>
+  <AB_Section_Privacy>İstatistikler ve hata raporları</AB_Section_Privacy>
+  <AB_Telemetry>Anonim kullanım istatistikleri gönder</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod ve oyun sürümü, işletim sistemi, dil, komut sayıları. İsim, kayıt, dosya yolu veya mod listesi yok.</AB_Telemetry_Tip>
+  <AB_CrashReports>Anonim hata raporları gönder</AB_CrashReports>
+  <AB_CrashReports_Tip>Agent Bridge hatalarının türü ve çağrı yığını, kullanıcı yolları çıkarılmış olarak.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Bu sürümde bir toplama sunucusu yapılandırılmamış, bu yüzden henüz hiçbir şey gönderilmiyor.</AB_NoEndpoint>
+  <AB_PreviewData>Neyin gönderileceğini göster</AB_PreviewData>
+  <AB_ReportBug>GitHub'da hata bildir</AB_ReportBug>
+  <AB_Section_Agents>Bağlı ajanlar</AB_Section_Agents>
+  <AB_NoAgents>Bu oturumda henüz hiçbir ajan bağlanmadı.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} istek, {2} hata, son {3} ({4} sn önce)</AB_AgentLine>
+  <AB_Section_Recent>Son komutlar</AB_Section_Recent>
+  <AB_Overlay>Ajan {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge, hataların hızla düzeltilmesi için anonim kullanım istatistikleri ve hata raporları gönderebilir. Kişisel veri, kayıt adı veya dosya yolu toplanmaz. Bunu istediğin zaman Seçenekler → Mod ayarları → Agent Bridge bölümünden değiştirebilirsin.</AB_ConsentText>
+  <AB_ConsentAccept>İzin ver</AB_ConsentAccept>
+  <AB_ConsentDecline>Gönderme</AB_ConsentDecline>
+</LanguageData>

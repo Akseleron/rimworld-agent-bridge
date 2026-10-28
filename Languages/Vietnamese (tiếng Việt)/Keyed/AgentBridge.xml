@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Đang lắng nghe tại 127.0.0.1:{0} ({1} lệnh)</AB_Status_Listening>
+  <AB_Status_Off>Máy chủ đang tắt</AB_Status_Off>
+  <AB_Status_Harmony>Tính năng Harmony: {0}</AB_Status_Harmony>
+  <AB_On>bật</AB_On>
+  <AB_Off>tắt</AB_Off>
+  <AB_Section_Server>Máy chủ</AB_Section_Server>
+  <AB_Enable>Bật máy chủ cho tác tử</AB_Enable>
+  <AB_Enable_Tip>Cho phép các tác tử AI cục bộ (Claude Code, Codex, script) điều khiển trò chơi qua 127.0.0.1. Không thể truy cập từ mạng.</AB_Enable_Tip>
+  <AB_Port>Cổng (áp dụng sau khi khởi động lại)</AB_Port>
+  <AB_ReadOnly>Chế độ chỉ đọc (tác tử chỉ có thể quan sát)</AB_ReadOnly>
+  <AB_AllowDev>Cho phép lệnh nhà phát triển (tạo, gây sát thương, sự kiện)</AB_AllowDev>
+  <AB_AllowPower>Cho phép lệnh nâng cao (mã C#, phản chiếu)</AB_AllowPower>
+  <AB_RequireDevMode>Yêu cầu chế độ nhà phát triển cho lệnh nhà phát triển và lệnh nâng cao</AB_RequireDevMode>
+  <AB_ShowOverlay>Hiện chỉ báo trên màn hình khi tác tử hành động</AB_ShowOverlay>
+  <AB_CopyMcp>Sao chép lệnh thiết lập MCP</AB_CopyMcp>
+  <AB_CopyConnection>Sao chép thông tin kết nối</AB_CopyConnection>
+  <AB_NewToken>Ngắt tất cả tác tử (token mới)</AB_NewToken>
+  <AB_OpenTools>Mở thư mục công cụ</AB_OpenTools>
+  <AB_Copied>Đã sao chép vào bộ nhớ tạm</AB_Copied>
+  <AB_Section_Privacy>Thống kê và báo cáo lỗi</AB_Section_Privacy>
+  <AB_Telemetry>Gửi thống kê sử dụng ẩn danh</AB_Telemetry>
+  <AB_Telemetry_Tip>Phiên bản mod và trò chơi, hệ điều hành, ngôn ngữ, số lần dùng lệnh. Không có tên, bản lưu, đường dẫn tệp hay danh sách mod.</AB_Telemetry_Tip>
+  <AB_CrashReports>Gửi báo cáo lỗi ẩn danh</AB_CrashReports>
+  <AB_CrashReports_Tip>Loại lỗi và ngăn xếp lời gọi của các sự cố Agent Bridge, đã bỏ đường dẫn người dùng.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Bản dựng này chưa cấu hình máy chủ thu thập nên hiện chưa gửi gì.</AB_NoEndpoint>
+  <AB_PreviewData>Xem nội dung sẽ được gửi</AB_PreviewData>
+  <AB_ReportBug>Báo lỗi trên GitHub</AB_ReportBug>
+  <AB_Section_Agents>Tác tử đã kết nối</AB_Section_Agents>
+  <AB_NoAgents>Chưa có tác tử nào kết nối trong phiên này.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} yêu cầu, {2} lỗi, gần nhất {3} ({4} giây trước)</AB_AgentLine>
+  <AB_Section_Recent>Lệnh gần đây</AB_Section_Recent>
+  <AB_Overlay>Tác tử {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge có thể gửi thống kê sử dụng và báo cáo lỗi ẩn danh để sửa lỗi nhanh hơn. Không thu thập dữ liệu cá nhân, tên bản lưu hay đường dẫn tệp. Bạn có thể thay đổi bất cứ lúc nào trong Tùy chọn → Cài đặt mod → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Cho phép</AB_ConsentAccept>
+  <AB_ConsentDecline>Không gửi</AB_ConsentDecline>
+</LanguageData>

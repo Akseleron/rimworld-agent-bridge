@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Listening on 127.0.0.1:{0} ({1} commands)</AB_Status_Listening>
+  <AB_Status_Off>Server is turned off</AB_Status_Off>
+  <AB_Status_Harmony>Harmony features: {0}</AB_Status_Harmony>
+  <AB_On>on</AB_On>
+  <AB_Off>off</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Enable agent server</AB_Enable>
+  <AB_Enable_Tip>Lets local AI agents (Claude Code, Codex, scripts) control the game through 127.0.0.1. Nothing is reachable from the network.</AB_Enable_Tip>
+  <AB_Port>Port (applies after restart)</AB_Port>
+  <AB_ReadOnly>Read-only mode (agents can only observe)</AB_ReadOnly>
+  <AB_AllowDev>Allow dev commands (spawn, damage, incidents)</AB_AllowDev>
+  <AB_AllowPower>Allow power commands (C# code, reflection)</AB_AllowPower>
+  <AB_RequireDevMode>Require game Dev mode for dev and power commands</AB_RequireDevMode>
+  <AB_ShowOverlay>Show an on-screen indicator while an agent acts</AB_ShowOverlay>
+  <AB_CopyMcp>Copy MCP setup command</AB_CopyMcp>
+  <AB_CopyConnection>Copy connection info</AB_CopyConnection>
+  <AB_NewToken>Disconnect all agents (new token)</AB_NewToken>
+  <AB_OpenTools>Open tools folder</AB_OpenTools>
+  <AB_Copied>Copied to clipboard</AB_Copied>
+  <AB_Section_Privacy>Statistics and error reports</AB_Section_Privacy>
+  <AB_Telemetry>Send anonymous usage statistics</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod and game version, OS, language, command counts. No names, saves, file paths or mod lists.</AB_Telemetry_Tip>
+  <AB_CrashReports>Send anonymous error reports</AB_CrashReports>
+  <AB_CrashReports_Tip>Error type and stack trace of Agent Bridge failures, with user paths removed.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>No collection server is configured in this build, so nothing is sent yet.</AB_NoEndpoint>
+  <AB_PreviewData>Show what would be sent</AB_PreviewData>
+  <AB_ReportBug>Report a bug on GitHub</AB_ReportBug>
+  <AB_Section_Agents>Connected agents</AB_Section_Agents>
+  <AB_NoAgents>No agent has connected in this session.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} requests, {2} errors, last {3} ({4} s ago)</AB_AgentLine>
+  <AB_Section_Recent>Recent commands</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge can send anonymous usage statistics and error reports so bugs get fixed quickly. No personal data, save names or file paths are collected. You can change this at any time in Options → Mod settings → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Allow</AB_ConsentAccept>
+  <AB_ConsentDecline>Don't send</AB_ConsentDecline>
+</LanguageData>

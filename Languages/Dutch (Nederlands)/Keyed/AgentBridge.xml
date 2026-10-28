@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Luistert op 127.0.0.1:{0} ({1} opdrachten)</AB_Status_Listening>
+  <AB_Status_Off>Server staat uit</AB_Status_Off>
+  <AB_Status_Harmony>Harmony-functies: {0}</AB_Status_Harmony>
+  <AB_On>aan</AB_On>
+  <AB_Off>uit</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Agentserver inschakelen</AB_Enable>
+  <AB_Enable_Tip>Laat lokale AI-agenten (Claude Code, Codex, scripts) het spel besturen via 127.0.0.1. Niets is bereikbaar vanaf het netwerk.</AB_Enable_Tip>
+  <AB_Port>Poort (geldt na herstart)</AB_Port>
+  <AB_ReadOnly>Alleen-lezenmodus (agenten kunnen alleen observeren)</AB_ReadOnly>
+  <AB_AllowDev>Ontwikkelaarsopdrachten toestaan (spawnen, schade, gebeurtenissen)</AB_AllowDev>
+  <AB_AllowPower>Krachtige opdrachten toestaan (C#-code, reflectie)</AB_AllowPower>
+  <AB_RequireDevMode>Ontwikkelaarsmodus vereisen voor ontwikkelaars- en krachtige opdrachten</AB_RequireDevMode>
+  <AB_ShowOverlay>Schermindicator tonen terwijl een agent handelt</AB_ShowOverlay>
+  <AB_CopyMcp>MCP-installatieopdracht kopiëren</AB_CopyMcp>
+  <AB_CopyConnection>Verbindingsgegevens kopiëren</AB_CopyConnection>
+  <AB_NewToken>Alle agenten ontkoppelen (nieuw token)</AB_NewToken>
+  <AB_OpenTools>Map met hulpmiddelen openen</AB_OpenTools>
+  <AB_Copied>Gekopieerd naar klembord</AB_Copied>
+  <AB_Section_Privacy>Statistieken en foutrapporten</AB_Section_Privacy>
+  <AB_Telemetry>Anonieme gebruiksstatistieken versturen</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod- en spelversie, besturingssysteem, taal, aantallen opdrachten. Geen namen, saves, bestandspaden of modlijsten.</AB_Telemetry_Tip>
+  <AB_CrashReports>Anonieme foutrapporten versturen</AB_CrashReports>
+  <AB_CrashReports_Tip>Fouttype en stacktrace van Agent Bridge-fouten, zonder gebruikerspaden.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>In deze build is geen verzamelserver ingesteld, dus er wordt nog niets verstuurd.</AB_NoEndpoint>
+  <AB_PreviewData>Tonen wat verstuurd zou worden</AB_PreviewData>
+  <AB_ReportBug>Een bug melden op GitHub</AB_ReportBug>
+  <AB_Section_Agents>Verbonden agenten</AB_Section_Agents>
+  <AB_NoAgents>Er heeft in deze sessie nog geen agent verbinding gemaakt.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} verzoeken, {2} fouten, laatste {3} ({4} s geleden)</AB_AgentLine>
+  <AB_Section_Recent>Recente opdrachten</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge kan anonieme gebruiksstatistieken en foutrapporten versturen zodat bugs snel worden opgelost. Er worden geen persoonsgegevens, savenamen of bestandspaden verzameld. Je kunt dit altijd wijzigen via Opties → Modinstellingen → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Toestaan</AB_ConsentAccept>
+  <AB_ConsentDecline>Niet versturen</AB_ConsentDecline>
+</LanguageData>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>127.0.0.1:{0} で待機中（コマンド {1} 個）</AB_Status_Listening>
+  <AB_Status_Off>サーバーは停止しています</AB_Status_Off>
+  <AB_Status_Harmony>Harmony 機能: {0}</AB_Status_Harmony>
+  <AB_On>オン</AB_On>
+  <AB_Off>オフ</AB_Off>
+  <AB_Section_Server>サーバー</AB_Section_Server>
+  <AB_Enable>エージェントサーバーを有効にする</AB_Enable>
+  <AB_Enable_Tip>ローカルの AI エージェント（Claude Code、Codex、スクリプト）が 127.0.0.1 経由でゲームを操作できるようにします。ネットワークからはアクセスできません。</AB_Enable_Tip>
+  <AB_Port>ポート（再起動後に適用）</AB_Port>
+  <AB_ReadOnly>読み取り専用モード（エージェントは観察のみ）</AB_ReadOnly>
+  <AB_AllowDev>開発者コマンドを許可（生成、ダメージ、イベント）</AB_AllowDev>
+  <AB_AllowPower>高度なコマンドを許可（C# コード、リフレクション）</AB_AllowPower>
+  <AB_RequireDevMode>開発者コマンドと高度なコマンドに開発者モードを必須にする</AB_RequireDevMode>
+  <AB_ShowOverlay>エージェントの操作中に画面上に表示する</AB_ShowOverlay>
+  <AB_CopyMcp>MCP 設定コマンドをコピー</AB_CopyMcp>
+  <AB_CopyConnection>接続情報をコピー</AB_CopyConnection>
+  <AB_NewToken>すべてのエージェントを切断（新しいトークン）</AB_NewToken>
+  <AB_OpenTools>ツールフォルダーを開く</AB_OpenTools>
+  <AB_Copied>クリップボードにコピーしました</AB_Copied>
+  <AB_Section_Privacy>統計とエラー報告</AB_Section_Privacy>
+  <AB_Telemetry>匿名の使用統計を送信する</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod とゲームのバージョン、OS、言語、コマンド回数。名前、セーブ、ファイルパス、Mod リストは含みません。</AB_Telemetry_Tip>
+  <AB_CrashReports>匿名のエラー報告を送信する</AB_CrashReports>
+  <AB_CrashReports_Tip>Agent Bridge の障害のエラー種別とスタックトレース（ユーザーパスは除去）。</AB_CrashReports_Tip>
+  <AB_NoEndpoint>このビルドには収集サーバーが設定されていないため、まだ何も送信されません。</AB_NoEndpoint>
+  <AB_PreviewData>送信される内容を表示</AB_PreviewData>
+  <AB_ReportBug>GitHub でバグを報告</AB_ReportBug>
+  <AB_Section_Agents>接続中のエージェント</AB_Section_Agents>
+  <AB_NoAgents>このセッションではまだエージェントが接続していません。</AB_NoAgents>
+  <AB_AgentLine>{0}: リクエスト {1}、エラー {2}、最後 {3}（{4} 秒前）</AB_AgentLine>
+  <AB_Section_Recent>最近のコマンド</AB_Section_Recent>
+  <AB_Overlay>エージェント {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge は、バグを素早く修正するために匿名の使用統計とエラー報告を送信できます。個人データ、セーブ名、ファイルパスは収集しません。オプション → Mod 設定 → Agent Bridge でいつでも変更できます。</AB_ConsentText>
+  <AB_ConsentAccept>許可する</AB_ConsentAccept>
+  <AB_ConsentDecline>送信しない</AB_ConsentDecline>
+</LanguageData>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Figyel: 127.0.0.1:{0} ({1} parancs)</AB_Status_Listening>
+  <AB_Status_Off>A szerver ki van kapcsolva</AB_Status_Off>
+  <AB_Status_Harmony>Harmony funkciók: {0}</AB_Status_Harmony>
+  <AB_On>be</AB_On>
+  <AB_Off>ki</AB_Off>
+  <AB_Section_Server>Szerver</AB_Section_Server>
+  <AB_Enable>Ügynökszerver bekapcsolása</AB_Enable>
+  <AB_Enable_Tip>Lehetővé teszi, hogy helyi MI-ügynökök (Claude Code, Codex, szkriptek) a 127.0.0.1 címen át irányítsák a játékot. Hálózatról semmi sem érhető el.</AB_Enable_Tip>
+  <AB_Port>Port (újraindítás után érvényes)</AB_Port>
+  <AB_ReadOnly>Csak olvasható mód (az ügynökök csak megfigyelhetnek)</AB_ReadOnly>
+  <AB_AllowDev>Fejlesztői parancsok engedélyezése (létrehozás, sebzés, események)</AB_AllowDev>
+  <AB_AllowPower>Haladó parancsok engedélyezése (C#-kód, reflexió)</AB_AllowPower>
+  <AB_RequireDevMode>Fejlesztői mód megkövetelése a fejlesztői és haladó parancsokhoz</AB_RequireDevMode>
+  <AB_ShowOverlay>Képernyőjelző mutatása, amíg egy ügynök cselekszik</AB_ShowOverlay>
+  <AB_CopyMcp>MCP beállító parancs másolása</AB_CopyMcp>
+  <AB_CopyConnection>Kapcsolati adatok másolása</AB_CopyConnection>
+  <AB_NewToken>Minden ügynök leválasztása (új token)</AB_NewToken>
+  <AB_OpenTools>Eszközök mappa megnyitása</AB_OpenTools>
+  <AB_Copied>Vágólapra másolva</AB_Copied>
+  <AB_Section_Privacy>Statisztika és hibajelentések</AB_Section_Privacy>
+  <AB_Telemetry>Névtelen használati statisztika küldése</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod- és játékverzió, rendszer, nyelv, parancsszámlálók. Nevek, mentések, fájlútvonalak és modlisták nélkül.</AB_Telemetry_Tip>
+  <AB_CrashReports>Névtelen hibajelentések küldése</AB_CrashReports>
+  <AB_CrashReports_Tip>Az Agent Bridge hibáinak típusa és hívási verme, felhasználói útvonalak nélkül.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Ebben a buildben nincs gyűjtőszerver beállítva, így egyelőre semmi sem kerül elküldésre.</AB_NoEndpoint>
+  <AB_PreviewData>Mutasd, mi kerülne elküldésre</AB_PreviewData>
+  <AB_ReportBug>Hiba jelentése a GitHubon</AB_ReportBug>
+  <AB_Section_Agents>Csatlakozott ügynökök</AB_Section_Agents>
+  <AB_NoAgents>Ebben a munkamenetben még nem csatlakozott ügynök.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} kérés, {2} hiba, utolsó {3} ({4} mp-e)</AB_AgentLine>
+  <AB_Section_Recent>Legutóbbi parancsok</AB_Section_Recent>
+  <AB_Overlay>Ügynök {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Az Agent Bridge névtelen használati statisztikát és hibajelentéseket küldhet, hogy a hibák gyorsan javuljanak. Személyes adatokat, mentésneveket vagy fájlútvonalakat nem gyűjt. Ezt bármikor megváltoztathatod: Beállítások → Mod beállítások → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Engedélyezés</AB_ConsentAccept>
+  <AB_ConsentDecline>Ne küldjön</AB_ConsentDecline>
+</LanguageData>

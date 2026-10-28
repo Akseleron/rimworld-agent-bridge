@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Kuulab aadressil 127.0.0.1:{0} ({1} käsku)</AB_Status_Listening>
+  <AB_Status_Off>Server on välja lülitatud</AB_Status_Off>
+  <AB_Status_Harmony>Harmony funktsioonid: {0}</AB_Status_Harmony>
+  <AB_On>sees</AB_On>
+  <AB_Off>väljas</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Lülita agendiserver sisse</AB_Enable>
+  <AB_Enable_Tip>Lubab kohalikel tehisintellekti agentidel (Claude Code, Codex, skriptid) mängu juhtida aadressi 127.0.0.1 kaudu. Võrgust pole midagi kättesaadav.</AB_Enable_Tip>
+  <AB_Port>Port (kehtib pärast taaskäivitust)</AB_Port>
+  <AB_ReadOnly>Ainult lugemise režiim (agendid saavad ainult jälgida)</AB_ReadOnly>
+  <AB_AllowDev>Luba arendajakäsud (tekitamine, kahju, sündmused)</AB_AllowDev>
+  <AB_AllowPower>Luba võimsad käsud (C#-kood, refleksioon)</AB_AllowPower>
+  <AB_RequireDevMode>Nõua arendajarežiimi arendaja- ja võimsate käskude jaoks</AB_RequireDevMode>
+  <AB_ShowOverlay>Näita ekraanil indikaatorit, kui agent tegutseb</AB_ShowOverlay>
+  <AB_CopyMcp>Kopeeri MCP seadistuskäsk</AB_CopyMcp>
+  <AB_CopyConnection>Kopeeri ühenduse andmed</AB_CopyConnection>
+  <AB_NewToken>Ühenda kõik agendid lahti (uus tõend)</AB_NewToken>
+  <AB_OpenTools>Ava tööriistade kaust</AB_OpenTools>
+  <AB_Copied>Kopeeritud lõikelauale</AB_Copied>
+  <AB_Section_Privacy>Statistika ja veateated</AB_Section_Privacy>
+  <AB_Telemetry>Saada anonüümset kasutusstatistikat</AB_Telemetry>
+  <AB_Telemetry_Tip>Modi ja mängu versioon, operatsioonisüsteem, keel, käskude arv. Ilma nimede, salvestuste, failiteede ja modide loenditeta.</AB_Telemetry_Tip>
+  <AB_CrashReports>Saada anonüümseid veateateid</AB_CrashReports>
+  <AB_CrashReports_Tip>Agent Bridge'i tõrgete veatüüp ja kutsepinu ilma kasutaja teedeta.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Selles versioonis pole kogumisserverit seadistatud, seega praegu midagi ei saadeta.</AB_NoEndpoint>
+  <AB_PreviewData>Näita, mida saadetaks</AB_PreviewData>
+  <AB_ReportBug>Teata veast GitHubis</AB_ReportBug>
+  <AB_Section_Agents>Ühendatud agendid</AB_Section_Agents>
+  <AB_NoAgents>Selles seansis pole ükski agent veel ühendanud.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} päringut, {2} viga, viimane {3} ({4} s tagasi)</AB_AgentLine>
+  <AB_Section_Recent>Viimased käsud</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge võib saata anonüümset kasutusstatistikat ja veateateid, et vead kiiresti parandataks. Isikuandmeid, salvestuste nimesid ega failiteid ei koguta. Seda saab igal ajal muuta: Valikud → Modide seaded → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Luba</AB_ConsentAccept>
+  <AB_ConsentDecline>Ära saada</AB_ConsentDecline>
+</LanguageData>

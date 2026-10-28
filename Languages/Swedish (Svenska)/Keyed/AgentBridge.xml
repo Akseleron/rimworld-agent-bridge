@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Lyssnar på 127.0.0.1:{0} ({1} kommandon)</AB_Status_Listening>
+  <AB_Status_Off>Servern är avstängd</AB_Status_Off>
+  <AB_Status_Harmony>Harmony-funktioner: {0}</AB_Status_Harmony>
+  <AB_On>på</AB_On>
+  <AB_Off>av</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Aktivera agentserver</AB_Enable>
+  <AB_Enable_Tip>Låter lokala AI-agenter (Claude Code, Codex, skript) styra spelet via 127.0.0.1. Inget går att nå från nätverket.</AB_Enable_Tip>
+  <AB_Port>Port (gäller efter omstart)</AB_Port>
+  <AB_ReadOnly>Skrivskyddat läge (agenter kan bara observera)</AB_ReadOnly>
+  <AB_AllowDev>Tillåt utvecklarkommandon (spawn, skada, händelser)</AB_AllowDev>
+  <AB_AllowPower>Tillåt avancerade kommandon (C#-kod, reflektion)</AB_AllowPower>
+  <AB_RequireDevMode>Kräv utvecklarläge för utvecklar- och avancerade kommandon</AB_RequireDevMode>
+  <AB_ShowOverlay>Visa en indikator på skärmen medan en agent agerar</AB_ShowOverlay>
+  <AB_CopyMcp>Kopiera MCP-installationskommando</AB_CopyMcp>
+  <AB_CopyConnection>Kopiera anslutningsuppgifter</AB_CopyConnection>
+  <AB_NewToken>Koppla från alla agenter (ny token)</AB_NewToken>
+  <AB_OpenTools>Öppna verktygsmappen</AB_OpenTools>
+  <AB_Copied>Kopierat till urklipp</AB_Copied>
+  <AB_Section_Privacy>Statistik och felrapporter</AB_Section_Privacy>
+  <AB_Telemetry>Skicka anonym användningsstatistik</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod- och spelversion, operativsystem, språk, antal kommandon. Inga namn, sparfiler, filsökvägar eller modlistor.</AB_Telemetry_Tip>
+  <AB_CrashReports>Skicka anonyma felrapporter</AB_CrashReports>
+  <AB_CrashReports_Tip>Feltyp och stackspårning för Agent Bridge-fel, utan användarsökvägar.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Ingen insamlingsserver är konfigurerad i den här versionen, så inget skickas ännu.</AB_NoEndpoint>
+  <AB_PreviewData>Visa vad som skulle skickas</AB_PreviewData>
+  <AB_ReportBug>Rapportera en bugg på GitHub</AB_ReportBug>
+  <AB_Section_Agents>Anslutna agenter</AB_Section_Agents>
+  <AB_NoAgents>Ingen agent har anslutit under den här sessionen.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} förfrågningar, {2} fel, senast {3} (för {4} s sedan)</AB_AgentLine>
+  <AB_Section_Recent>Senaste kommandon</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge kan skicka anonym användningsstatistik och felrapporter så att buggar åtgärdas snabbt. Inga personuppgifter, namn på sparfiler eller filsökvägar samlas in. Du kan ändra detta när som helst under Inställningar → Modinställningar → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Tillåt</AB_ConsentAccept>
+  <AB_ConsentDecline>Skicka inte</AB_ConsentDecline>
+</LanguageData>

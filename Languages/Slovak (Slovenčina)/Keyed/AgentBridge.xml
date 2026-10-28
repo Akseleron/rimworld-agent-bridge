@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Načúva na 127.0.0.1:{0} (príkazov: {1})</AB_Status_Listening>
+  <AB_Status_Off>Server je vypnutý</AB_Status_Off>
+  <AB_Status_Harmony>Funkcie Harmony: {0}</AB_Status_Harmony>
+  <AB_On>zapnuté</AB_On>
+  <AB_Off>vypnuté</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Zapnúť server pre agentov</AB_Enable>
+  <AB_Enable_Tip>Umožní miestnym AI agentom (Claude Code, Codex, skripty) ovládať hru cez 127.0.0.1. Zo siete nie je nič dostupné.</AB_Enable_Tip>
+  <AB_Port>Port (prejaví sa po reštarte)</AB_Port>
+  <AB_ReadOnly>Režim len na čítanie (agenti môžu len sledovať)</AB_ReadOnly>
+  <AB_AllowDev>Povoliť vývojárske príkazy (spawn, poškodenie, udalosti)</AB_AllowDev>
+  <AB_AllowPower>Povoliť pokročilé príkazy (kód C#, reflexia)</AB_AllowPower>
+  <AB_RequireDevMode>Vyžadovať vývojársky režim pre vývojárske a pokročilé príkazy</AB_RequireDevMode>
+  <AB_ShowOverlay>Zobraziť indikátor na obrazovke, keď agent koná</AB_ShowOverlay>
+  <AB_CopyMcp>Kopírovať príkaz na nastavenie MCP</AB_CopyMcp>
+  <AB_CopyConnection>Kopírovať údaje o pripojení</AB_CopyConnection>
+  <AB_NewToken>Odpojiť všetkých agentov (nový token)</AB_NewToken>
+  <AB_OpenTools>Otvoriť priečinok nástrojov</AB_OpenTools>
+  <AB_Copied>Skopírované do schránky</AB_Copied>
+  <AB_Section_Privacy>Štatistiky a hlásenia chýb</AB_Section_Privacy>
+  <AB_Telemetry>Odosielať anonymné štatistiky používania</AB_Telemetry>
+  <AB_Telemetry_Tip>Verzia modu a hry, systém, jazyk, počty príkazov. Žiadne mená, uložené hry, cesty k súborom ani zoznamy modov.</AB_Telemetry_Tip>
+  <AB_CrashReports>Odosielať anonymné hlásenia chýb</AB_CrashReports>
+  <AB_CrashReports_Tip>Typ chyby a zásobník volaní zlyhaní Agent Bridge bez používateľských ciest.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>V tejto zostave nie je nastavený zberný server, preto sa zatiaľ nič neodosiela.</AB_NoEndpoint>
+  <AB_PreviewData>Ukázať, čo by sa odoslalo</AB_PreviewData>
+  <AB_ReportBug>Nahlásiť chybu na GitHube</AB_ReportBug>
+  <AB_Section_Agents>Pripojení agenti</AB_Section_Agents>
+  <AB_NoAgents>V tejto relácii sa zatiaľ nepripojil žiadny agent.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} požiadaviek, {2} chýb, posledný {3} (pred {4} s)</AB_AgentLine>
+  <AB_Section_Recent>Posledné príkazy</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge môže odosielať anonymné štatistiky používania a hlásenia chýb, aby sa chyby rýchlo opravovali. Nezbierajú sa žiadne osobné údaje, názvy uložených hier ani cesty k súborom. Kedykoľvek to môžete zmeniť v Možnosti → Nastavenia modov → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Povoliť</AB_ConsentAccept>
+  <AB_ConsentDecline>Neodosielať</AB_ConsentDecline>
+</LanguageData>

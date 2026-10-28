@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Lauscht auf 127.0.0.1:{0} ({1} Befehle)</AB_Status_Listening>
+  <AB_Status_Off>Server ist ausgeschaltet</AB_Status_Off>
+  <AB_Status_Harmony>Harmony-Funktionen: {0}</AB_Status_Harmony>
+  <AB_On>an</AB_On>
+  <AB_Off>aus</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Agenten-Server aktivieren</AB_Enable>
+  <AB_Enable_Tip>Erlaubt lokalen KI-Agenten (Claude Code, Codex, Skripte), das Spiel über 127.0.0.1 zu steuern. Aus dem Netzwerk ist nichts erreichbar.</AB_Enable_Tip>
+  <AB_Port>Port (gilt nach Neustart)</AB_Port>
+  <AB_ReadOnly>Nur-Lese-Modus (Agenten können nur beobachten)</AB_ReadOnly>
+  <AB_AllowDev>Entwicklerbefehle erlauben (Spawnen, Schaden, Ereignisse)</AB_AllowDev>
+  <AB_AllowPower>Mächtige Befehle erlauben (C#-Code, Reflection)</AB_AllowPower>
+  <AB_RequireDevMode>Entwicklermodus für Entwickler- und mächtige Befehle verlangen</AB_RequireDevMode>
+  <AB_ShowOverlay>Bildschirmanzeige zeigen, während ein Agent handelt</AB_ShowOverlay>
+  <AB_CopyMcp>MCP-Einrichtungsbefehl kopieren</AB_CopyMcp>
+  <AB_CopyConnection>Verbindungsdaten kopieren</AB_CopyConnection>
+  <AB_NewToken>Alle Agenten trennen (neues Token)</AB_NewToken>
+  <AB_OpenTools>Werkzeugordner öffnen</AB_OpenTools>
+  <AB_Copied>In die Zwischenablage kopiert</AB_Copied>
+  <AB_Section_Privacy>Statistik und Fehlerberichte</AB_Section_Privacy>
+  <AB_Telemetry>Anonyme Nutzungsstatistik senden</AB_Telemetry>
+  <AB_Telemetry_Tip>Mod- und Spielversion, Betriebssystem, Sprache, Befehlszähler. Keine Namen, Spielstände, Dateipfade oder Modlisten.</AB_Telemetry_Tip>
+  <AB_CrashReports>Anonyme Fehlerberichte senden</AB_CrashReports>
+  <AB_CrashReports_Tip>Fehlertyp und Stacktrace von Agent-Bridge-Fehlern, Benutzerpfade werden entfernt.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>In diesem Build ist kein Sammelserver eingerichtet, daher wird noch nichts gesendet.</AB_NoEndpoint>
+  <AB_PreviewData>Zeigen, was gesendet würde</AB_PreviewData>
+  <AB_ReportBug>Fehler auf GitHub melden</AB_ReportBug>
+  <AB_Section_Agents>Verbundene Agenten</AB_Section_Agents>
+  <AB_NoAgents>In dieser Sitzung hat sich noch kein Agent verbunden.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} Anfragen, {2} Fehler, zuletzt {3} (vor {4} s)</AB_AgentLine>
+  <AB_Section_Recent>Letzte Befehle</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge kann anonyme Nutzungsstatistiken und Fehlerberichte senden, damit Fehler schnell behoben werden. Es werden keine persönlichen Daten, Spielstandnamen oder Dateipfade erfasst. Du kannst das jederzeit unter Optionen → Mod-Einstellungen → Agent Bridge ändern.</AB_ConsentText>
+  <AB_ConsentAccept>Erlauben</AB_ConsentAccept>
+  <AB_ConsentDecline>Nicht senden</AB_ConsentDecline>
+</LanguageData>

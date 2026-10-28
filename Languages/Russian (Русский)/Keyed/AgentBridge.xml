@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Сервер слушает 127.0.0.1:{0} (команд: {1})</AB_Status_Listening>
+  <AB_Status_Off>Сервер выключен</AB_Status_Off>
+  <AB_Status_Harmony>Функции Harmony: {0}</AB_Status_Harmony>
+  <AB_On>вкл.</AB_On>
+  <AB_Off>выкл.</AB_Off>
+  <AB_Section_Server>Сервер</AB_Section_Server>
+  <AB_Enable>Включить сервер для агентов</AB_Enable>
+  <AB_Enable_Tip>Позволяет локальным ИИ-агентам (Claude Code, Codex, скрипты) управлять игрой через 127.0.0.1. Из сети сервер недоступен.</AB_Enable_Tip>
+  <AB_Port>Порт (применяется после перезапуска)</AB_Port>
+  <AB_ReadOnly>Режим только чтения (агенты могут лишь наблюдать)</AB_ReadOnly>
+  <AB_AllowDev>Разрешить dev-команды (спавн, урон, события)</AB_AllowDev>
+  <AB_AllowPower>Разрешить мощные команды (код C#, рефлексия)</AB_AllowPower>
+  <AB_RequireDevMode>Требовать режим разработчика для dev- и мощных команд</AB_RequireDevMode>
+  <AB_ShowOverlay>Показывать индикатор на экране, когда действует агент</AB_ShowOverlay>
+  <AB_CopyMcp>Скопировать команду настройки MCP</AB_CopyMcp>
+  <AB_CopyConnection>Скопировать данные подключения</AB_CopyConnection>
+  <AB_NewToken>Отключить всех агентов (новый токен)</AB_NewToken>
+  <AB_OpenTools>Открыть папку инструментов</AB_OpenTools>
+  <AB_Copied>Скопировано в буфер обмена</AB_Copied>
+  <AB_Section_Privacy>Статистика и отчёты об ошибках</AB_Section_Privacy>
+  <AB_Telemetry>Отправлять анонимную статистику использования</AB_Telemetry>
+  <AB_Telemetry_Tip>Версии мода и игры, ОС, язык, счётчики команд. Без имён, сохранений, путей к файлам и списков модов.</AB_Telemetry_Tip>
+  <AB_CrashReports>Отправлять анонимные отчёты об ошибках</AB_CrashReports>
+  <AB_CrashReports_Tip>Тип ошибки и стек вызовов сбоев Agent Bridge, пути пользователя удаляются.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>В этой сборке сервер сбора не настроен, поэтому пока ничего не отправляется.</AB_NoEndpoint>
+  <AB_PreviewData>Показать, что будет отправлено</AB_PreviewData>
+  <AB_ReportBug>Сообщить об ошибке на GitHub</AB_ReportBug>
+  <AB_Section_Agents>Подключённые агенты</AB_Section_Agents>
+  <AB_NoAgents>В этой сессии агенты ещё не подключались.</AB_NoAgents>
+  <AB_AgentLine>{0}: запросов {1}, ошибок {2}, последняя {3} ({4} с назад)</AB_AgentLine>
+  <AB_Section_Recent>Последние команды</AB_Section_Recent>
+  <AB_Overlay>Агент {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge может отправлять анонимную статистику и отчёты об ошибках, чтобы баги исправлялись быстрее. Личные данные, названия сохранений и пути к файлам не собираются. Изменить выбор можно в любой момент: Настройки → Настройки модов → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Разрешить</AB_ConsentAccept>
+  <AB_ConsentDecline>Не отправлять</AB_ConsentDecline>
+</LanguageData>

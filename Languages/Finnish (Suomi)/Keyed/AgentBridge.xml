@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Kuuntelee osoitteessa 127.0.0.1:{0} ({1} komentoa)</AB_Status_Listening>
+  <AB_Status_Off>Palvelin on pois päältä</AB_Status_Off>
+  <AB_Status_Harmony>Harmony-ominaisuudet: {0}</AB_Status_Harmony>
+  <AB_On>päällä</AB_On>
+  <AB_Off>pois</AB_Off>
+  <AB_Section_Server>Palvelin</AB_Section_Server>
+  <AB_Enable>Ota agenttipalvelin käyttöön</AB_Enable>
+  <AB_Enable_Tip>Antaa paikallisten tekoälyagenttien (Claude Code, Codex, skriptit) ohjata peliä osoitteen 127.0.0.1 kautta. Verkosta ei pääse mihinkään.</AB_Enable_Tip>
+  <AB_Port>Portti (käytössä uudelleenkäynnistyksen jälkeen)</AB_Port>
+  <AB_ReadOnly>Vain luku -tila (agentit voivat vain tarkkailla)</AB_ReadOnly>
+  <AB_AllowDev>Salli kehittäjäkomennot (luonti, vahinko, tapahtumat)</AB_AllowDev>
+  <AB_AllowPower>Salli tehokomennot (C#-koodi, reflektio)</AB_AllowPower>
+  <AB_RequireDevMode>Vaadi kehittäjätila kehittäjä- ja tehokomennoille</AB_RequireDevMode>
+  <AB_ShowOverlay>Näytä ilmaisin ruudulla, kun agentti toimii</AB_ShowOverlay>
+  <AB_CopyMcp>Kopioi MCP-asetuskomento</AB_CopyMcp>
+  <AB_CopyConnection>Kopioi yhteystiedot</AB_CopyConnection>
+  <AB_NewToken>Katkaise kaikki agentit (uusi tunniste)</AB_NewToken>
+  <AB_OpenTools>Avaa työkalukansio</AB_OpenTools>
+  <AB_Copied>Kopioitu leikepöydälle</AB_Copied>
+  <AB_Section_Privacy>Tilastot ja virheraportit</AB_Section_Privacy>
+  <AB_Telemetry>Lähetä nimettömiä käyttötilastoja</AB_Telemetry>
+  <AB_Telemetry_Tip>Modin ja pelin versio, käyttöjärjestelmä, kieli, komentojen määrät. Ei nimiä, tallennuksia, tiedostopolkuja tai modilistoja.</AB_Telemetry_Tip>
+  <AB_CrashReports>Lähetä nimettömiä virheraportteja</AB_CrashReports>
+  <AB_CrashReports_Tip>Agent Bridgen vikojen virhetyyppi ja kutsupino ilman käyttäjän polkuja.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Tässä versiossa ei ole määritetty keruupalvelinta, joten mitään ei vielä lähetetä.</AB_NoEndpoint>
+  <AB_PreviewData>Näytä, mitä lähetettäisiin</AB_PreviewData>
+  <AB_ReportBug>Ilmoita viasta GitHubissa</AB_ReportBug>
+  <AB_Section_Agents>Yhdistetyt agentit</AB_Section_Agents>
+  <AB_NoAgents>Yksikään agentti ei ole yhdistänyt tässä istunnossa.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} pyyntöä, {2} virhettä, viimeisin {3} ({4} s sitten)</AB_AgentLine>
+  <AB_Section_Recent>Viimeisimmät komennot</AB_Section_Recent>
+  <AB_Overlay>Agentti {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge voi lähettää nimettömiä käyttötilastoja ja virheraportteja, jotta viat korjataan nopeasti. Henkilötietoja, tallennusten nimiä tai tiedostopolkuja ei kerätä. Voit muuttaa tätä milloin tahansa: Asetukset → Modien asetukset → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Salli</AB_ConsentAccept>
+  <AB_ConsentDecline>Älä lähetä</AB_ConsentDecline>
+</LanguageData>

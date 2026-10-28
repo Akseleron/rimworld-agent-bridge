@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Escoltant a 127.0.0.1:{0} ({1} ordres)</AB_Status_Listening>
+  <AB_Status_Off>El servidor està apagat</AB_Status_Off>
+  <AB_Status_Harmony>Funcions de Harmony: {0}</AB_Status_Harmony>
+  <AB_On>activades</AB_On>
+  <AB_Off>desactivades</AB_Off>
+  <AB_Section_Server>Servidor</AB_Section_Server>
+  <AB_Enable>Activa el servidor d'agents</AB_Enable>
+  <AB_Enable_Tip>Permet que agents d'IA locals (Claude Code, Codex, scripts) controlin el joc a través de 127.0.0.1. Res no és accessible des de la xarxa.</AB_Enable_Tip>
+  <AB_Port>Port (s'aplica després de reiniciar)</AB_Port>
+  <AB_ReadOnly>Mode només lectura (els agents només poden observar)</AB_ReadOnly>
+  <AB_AllowDev>Permet ordres de desenvolupament (generar, danys, incidents)</AB_AllowDev>
+  <AB_AllowPower>Permet ordres avançades (codi C#, reflexió)</AB_AllowPower>
+  <AB_RequireDevMode>Exigeix el mode desenvolupador per a les ordres de desenvolupament i avançades</AB_RequireDevMode>
+  <AB_ShowOverlay>Mostra un indicador a la pantalla mentre actua un agent</AB_ShowOverlay>
+  <AB_CopyMcp>Copia l'ordre de configuració MCP</AB_CopyMcp>
+  <AB_CopyConnection>Copia les dades de connexió</AB_CopyConnection>
+  <AB_NewToken>Desconnecta tots els agents (nou testimoni)</AB_NewToken>
+  <AB_OpenTools>Obre la carpeta d'eines</AB_OpenTools>
+  <AB_Copied>Copiat al porta-retalls</AB_Copied>
+  <AB_Section_Privacy>Estadístiques i informes d'errors</AB_Section_Privacy>
+  <AB_Telemetry>Envia estadístiques d'ús anònimes</AB_Telemetry>
+  <AB_Telemetry_Tip>Versió del mod i del joc, sistema, idioma, recompte d'ordres. Sense noms, partides, camins de fitxers ni llistes de mods.</AB_Telemetry_Tip>
+  <AB_CrashReports>Envia informes d'errors anònims</AB_CrashReports>
+  <AB_CrashReports_Tip>Tipus d'error i traça de les fallades d'Agent Bridge, sense camins de l'usuari.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Aquesta versió no té configurat cap servidor de recollida, així que encara no s'envia res.</AB_NoEndpoint>
+  <AB_PreviewData>Mostra què s'enviaria</AB_PreviewData>
+  <AB_ReportBug>Informa d'un error a GitHub</AB_ReportBug>
+  <AB_Section_Agents>Agents connectats</AB_Section_Agents>
+  <AB_NoAgents>Cap agent s'ha connectat en aquesta sessió.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} peticions, {2} errors, darrera {3} (fa {4} s)</AB_AgentLine>
+  <AB_Section_Recent>Ordres recents</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge pot enviar estadístiques d'ús i informes d'errors anònims perquè els errors es corregeixin ràpidament. No es recullen dades personals, noms de partides ni camins de fitxers. Ho pots canviar en qualsevol moment a Opcions → Configuració de mods → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Permet</AB_ConsentAccept>
+  <AB_ConsentDecline>No enviïs</AB_ConsentDecline>
+</LanguageData>

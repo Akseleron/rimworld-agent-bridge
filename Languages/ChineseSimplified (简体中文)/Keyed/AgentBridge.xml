@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>正在监听 127.0.0.1:{0}（{1} 条命令）</AB_Status_Listening>
+  <AB_Status_Off>服务器已关闭</AB_Status_Off>
+  <AB_Status_Harmony>Harmony 功能：{0}</AB_Status_Harmony>
+  <AB_On>开</AB_On>
+  <AB_Off>关</AB_Off>
+  <AB_Section_Server>服务器</AB_Section_Server>
+  <AB_Enable>启用智能体服务器</AB_Enable>
+  <AB_Enable_Tip>允许本地 AI 智能体（Claude Code、Codex、脚本）通过 127.0.0.1 控制游戏。网络上无法访问。</AB_Enable_Tip>
+  <AB_Port>端口（重启后生效）</AB_Port>
+  <AB_ReadOnly>只读模式（智能体只能观察）</AB_ReadOnly>
+  <AB_AllowDev>允许开发者命令（生成、伤害、事件）</AB_AllowDev>
+  <AB_AllowPower>允许高级命令（C# 代码、反射）</AB_AllowPower>
+  <AB_RequireDevMode>开发者命令和高级命令需要开启开发者模式</AB_RequireDevMode>
+  <AB_ShowOverlay>智能体操作时在屏幕上显示提示</AB_ShowOverlay>
+  <AB_CopyMcp>复制 MCP 设置命令</AB_CopyMcp>
+  <AB_CopyConnection>复制连接信息</AB_CopyConnection>
+  <AB_NewToken>断开所有智能体（新令牌）</AB_NewToken>
+  <AB_OpenTools>打开工具文件夹</AB_OpenTools>
+  <AB_Copied>已复制到剪贴板</AB_Copied>
+  <AB_Section_Privacy>统计与错误报告</AB_Section_Privacy>
+  <AB_Telemetry>发送匿名使用统计</AB_Telemetry>
+  <AB_Telemetry_Tip>模组和游戏版本、系统、语言、命令次数。不含名字、存档、文件路径或模组列表。</AB_Telemetry_Tip>
+  <AB_CrashReports>发送匿名错误报告</AB_CrashReports>
+  <AB_CrashReports_Tip>Agent Bridge 故障的错误类型和调用栈，已移除用户路径。</AB_CrashReports_Tip>
+  <AB_NoEndpoint>此版本未配置收集服务器，因此目前不会发送任何内容。</AB_NoEndpoint>
+  <AB_PreviewData>显示将要发送的内容</AB_PreviewData>
+  <AB_ReportBug>在 GitHub 上报告错误</AB_ReportBug>
+  <AB_Section_Agents>已连接的智能体</AB_Section_Agents>
+  <AB_NoAgents>本次会话中还没有智能体连接。</AB_NoAgents>
+  <AB_AgentLine>{0}：{1} 次请求，{2} 个错误，最近 {3}（{4} 秒前）</AB_AgentLine>
+  <AB_Section_Recent>最近的命令</AB_Section_Recent>
+  <AB_Overlay>智能体 {0}：{1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge 可以发送匿名使用统计和错误报告，以便尽快修复错误。不会收集个人数据、存档名称或文件路径。你可以随时在 选项 → 模组设置 → Agent Bridge 中更改。</AB_ConsentText>
+  <AB_ConsentAccept>允许</AB_ConsentAccept>
+  <AB_ConsentDecline>不发送</AB_ConsentDecline>
+</LanguageData>

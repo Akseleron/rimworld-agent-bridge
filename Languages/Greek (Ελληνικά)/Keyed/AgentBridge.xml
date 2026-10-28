@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Ακρόαση στο 127.0.0.1:{0} ({1} εντολές)</AB_Status_Listening>
+  <AB_Status_Off>Ο διακομιστής είναι κλειστός</AB_Status_Off>
+  <AB_Status_Harmony>Λειτουργίες Harmony: {0}</AB_Status_Harmony>
+  <AB_On>ενεργές</AB_On>
+  <AB_Off>ανενεργές</AB_Off>
+  <AB_Section_Server>Διακομιστής</AB_Section_Server>
+  <AB_Enable>Ενεργοποίηση διακομιστή πρακτόρων</AB_Enable>
+  <AB_Enable_Tip>Επιτρέπει σε τοπικούς πράκτορες ΤΝ (Claude Code, Codex, σενάρια) να ελέγχουν το παιχνίδι μέσω 127.0.0.1. Τίποτα δεν είναι προσβάσιμο από το δίκτυο.</AB_Enable_Tip>
+  <AB_Port>Θύρα (ισχύει μετά από επανεκκίνηση)</AB_Port>
+  <AB_ReadOnly>Λειτουργία μόνο ανάγνωσης (οι πράκτορες μόνο παρατηρούν)</AB_ReadOnly>
+  <AB_AllowDev>Να επιτρέπονται εντολές προγραμματιστή (δημιουργία, ζημιά, συμβάντα)</AB_AllowDev>
+  <AB_AllowPower>Να επιτρέπονται ισχυρές εντολές (κώδικας C#, αντανάκλαση)</AB_AllowPower>
+  <AB_RequireDevMode>Απαίτηση λειτουργίας προγραμματιστή για εντολές προγραμματιστή και ισχυρές εντολές</AB_RequireDevMode>
+  <AB_ShowOverlay>Εμφάνιση ένδειξης στην οθόνη όταν ενεργεί πράκτορας</AB_ShowOverlay>
+  <AB_CopyMcp>Αντιγραφή εντολής ρύθμισης MCP</AB_CopyMcp>
+  <AB_CopyConnection>Αντιγραφή στοιχείων σύνδεσης</AB_CopyConnection>
+  <AB_NewToken>Αποσύνδεση όλων των πρακτόρων (νέο διακριτικό)</AB_NewToken>
+  <AB_OpenTools>Άνοιγμα φακέλου εργαλείων</AB_OpenTools>
+  <AB_Copied>Αντιγράφηκε στο πρόχειρο</AB_Copied>
+  <AB_Section_Privacy>Στατιστικά και αναφορές σφαλμάτων</AB_Section_Privacy>
+  <AB_Telemetry>Αποστολή ανώνυμων στατιστικών χρήσης</AB_Telemetry>
+  <AB_Telemetry_Tip>Έκδοση mod και παιχνιδιού, λειτουργικό, γλώσσα, πλήθος εντολών. Χωρίς ονόματα, αποθηκεύσεις, διαδρομές αρχείων ή λίστες mod.</AB_Telemetry_Tip>
+  <AB_CrashReports>Αποστολή ανώνυμων αναφορών σφαλμάτων</AB_CrashReports>
+  <AB_CrashReports_Tip>Τύπος σφάλματος και στοίβα κλήσεων αποτυχιών του Agent Bridge, χωρίς διαδρομές χρήστη.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>Σε αυτή την έκδοση δεν έχει ρυθμιστεί διακομιστής συλλογής, οπότε δεν αποστέλλεται τίποτα ακόμη.</AB_NoEndpoint>
+  <AB_PreviewData>Εμφάνιση του τι θα αποσταλεί</AB_PreviewData>
+  <AB_ReportBug>Αναφορά σφάλματος στο GitHub</AB_ReportBug>
+  <AB_Section_Agents>Συνδεδεμένοι πράκτορες</AB_Section_Agents>
+  <AB_NoAgents>Κανένας πράκτορας δεν έχει συνδεθεί σε αυτή τη συνεδρία.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} αιτήματα, {2} σφάλματα, τελευταία {3} (πριν {4} δ)</AB_AgentLine>
+  <AB_Section_Recent>Πρόσφατες εντολές</AB_Section_Recent>
+  <AB_Overlay>Πράκτορας {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Το Agent Bridge μπορεί να στέλνει ανώνυμα στατιστικά χρήσης και αναφορές σφαλμάτων ώστε τα σφάλματα να διορθώνονται γρήγορα. Δεν συλλέγονται προσωπικά δεδομένα, ονόματα αποθηκεύσεων ή διαδρομές αρχείων. Μπορείς να το αλλάξεις οποιαδήποτε στιγμή από Επιλογές → Ρυθμίσεις mod → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Να επιτρέπεται</AB_ConsentAccept>
+  <AB_ConsentDecline>Να μη στέλνεται</AB_ConsentDecline>
+</LanguageData>

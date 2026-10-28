@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>正在監聽 127.0.0.1:{0}（{1} 個指令）</AB_Status_Listening>
+  <AB_Status_Off>伺服器已關閉</AB_Status_Off>
+  <AB_Status_Harmony>Harmony 功能：{0}</AB_Status_Harmony>
+  <AB_On>開</AB_On>
+  <AB_Off>關</AB_Off>
+  <AB_Section_Server>伺服器</AB_Section_Server>
+  <AB_Enable>啟用代理伺服器</AB_Enable>
+  <AB_Enable_Tip>允許本機 AI 代理（Claude Code、Codex、腳本）透過 127.0.0.1 控制遊戲。網路上無法存取。</AB_Enable_Tip>
+  <AB_Port>連接埠（重新啟動後生效）</AB_Port>
+  <AB_ReadOnly>唯讀模式（代理只能觀察）</AB_ReadOnly>
+  <AB_AllowDev>允許開發者指令（生成、傷害、事件）</AB_AllowDev>
+  <AB_AllowPower>允許進階指令（C# 程式碼、反射）</AB_AllowPower>
+  <AB_RequireDevMode>開發者指令與進階指令需要開啟開發者模式</AB_RequireDevMode>
+  <AB_ShowOverlay>代理操作時在畫面上顯示提示</AB_ShowOverlay>
+  <AB_CopyMcp>複製 MCP 設定指令</AB_CopyMcp>
+  <AB_CopyConnection>複製連線資訊</AB_CopyConnection>
+  <AB_NewToken>中斷所有代理（新權杖）</AB_NewToken>
+  <AB_OpenTools>開啟工具資料夾</AB_OpenTools>
+  <AB_Copied>已複製到剪貼簿</AB_Copied>
+  <AB_Section_Privacy>統計與錯誤回報</AB_Section_Privacy>
+  <AB_Telemetry>傳送匿名使用統計</AB_Telemetry>
+  <AB_Telemetry_Tip>模組與遊戲版本、系統、語言、指令次數。不含名字、存檔、檔案路徑或模組清單。</AB_Telemetry_Tip>
+  <AB_CrashReports>傳送匿名錯誤回報</AB_CrashReports>
+  <AB_CrashReports_Tip>Agent Bridge 故障的錯誤類型與呼叫堆疊，已移除使用者路徑。</AB_CrashReports_Tip>
+  <AB_NoEndpoint>此版本未設定收集伺服器，因此目前不會傳送任何內容。</AB_NoEndpoint>
+  <AB_PreviewData>顯示將傳送的內容</AB_PreviewData>
+  <AB_ReportBug>在 GitHub 回報錯誤</AB_ReportBug>
+  <AB_Section_Agents>已連線的代理</AB_Section_Agents>
+  <AB_NoAgents>本次工作階段尚無代理連線。</AB_NoAgents>
+  <AB_AgentLine>{0}：{1} 次請求，{2} 個錯誤，最近 {3}（{4} 秒前）</AB_AgentLine>
+  <AB_Section_Recent>最近的指令</AB_Section_Recent>
+  <AB_Overlay>代理 {0}：{1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge 可以傳送匿名使用統計與錯誤回報，以便盡快修正錯誤。不會收集個人資料、存檔名稱或檔案路徑。你可以隨時在 選項 → 模組設定 → Agent Bridge 中變更。</AB_ConsentText>
+  <AB_ConsentAccept>允許</AB_ConsentAccept>
+  <AB_ConsentDecline>不傳送</AB_ConsentDecline>
+</LanguageData>

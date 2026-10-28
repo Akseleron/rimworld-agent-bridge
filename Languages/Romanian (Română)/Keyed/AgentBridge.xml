@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AB_SettingsCategory>Agent Bridge</AB_SettingsCategory>
+  <AB_Status_Listening>Ascultă pe 127.0.0.1:{0} ({1} comenzi)</AB_Status_Listening>
+  <AB_Status_Off>Serverul este oprit</AB_Status_Off>
+  <AB_Status_Harmony>Funcții Harmony: {0}</AB_Status_Harmony>
+  <AB_On>pornite</AB_On>
+  <AB_Off>oprite</AB_Off>
+  <AB_Section_Server>Server</AB_Section_Server>
+  <AB_Enable>Pornește serverul pentru agenți</AB_Enable>
+  <AB_Enable_Tip>Permite agenților AI locali (Claude Code, Codex, scripturi) să controleze jocul prin 127.0.0.1. Nimic nu este accesibil din rețea.</AB_Enable_Tip>
+  <AB_Port>Port (se aplică după repornire)</AB_Port>
+  <AB_ReadOnly>Mod doar citire (agenții pot doar observa)</AB_ReadOnly>
+  <AB_AllowDev>Permite comenzi de dezvoltator (generare, daune, incidente)</AB_AllowDev>
+  <AB_AllowPower>Permite comenzi avansate (cod C#, reflecție)</AB_AllowPower>
+  <AB_RequireDevMode>Cere modul dezvoltator pentru comenzile de dezvoltator și avansate</AB_RequireDevMode>
+  <AB_ShowOverlay>Arată un indicator pe ecran cât timp acționează un agent</AB_ShowOverlay>
+  <AB_CopyMcp>Copiază comanda de configurare MCP</AB_CopyMcp>
+  <AB_CopyConnection>Copiază datele de conectare</AB_CopyConnection>
+  <AB_NewToken>Deconectează toți agenții (token nou)</AB_NewToken>
+  <AB_OpenTools>Deschide dosarul de unelte</AB_OpenTools>
+  <AB_Copied>Copiat în clipboard</AB_Copied>
+  <AB_Section_Privacy>Statistici și rapoarte de erori</AB_Section_Privacy>
+  <AB_Telemetry>Trimite statistici de utilizare anonime</AB_Telemetry>
+  <AB_Telemetry_Tip>Versiunea modului și a jocului, sistemul, limba, numărul de comenzi. Fără nume, salvări, căi de fișiere sau liste de moduri.</AB_Telemetry_Tip>
+  <AB_CrashReports>Trimite rapoarte de erori anonime</AB_CrashReports>
+  <AB_CrashReports_Tip>Tipul erorii și stiva de apeluri ale defecțiunilor Agent Bridge, fără căile utilizatorului.</AB_CrashReports_Tip>
+  <AB_NoEndpoint>În această versiune nu este configurat niciun server de colectare, deci încă nu se trimite nimic.</AB_NoEndpoint>
+  <AB_PreviewData>Arată ce s-ar trimite</AB_PreviewData>
+  <AB_ReportBug>Raportează o eroare pe GitHub</AB_ReportBug>
+  <AB_Section_Agents>Agenți conectați</AB_Section_Agents>
+  <AB_NoAgents>Niciun agent nu s-a conectat în această sesiune.</AB_NoAgents>
+  <AB_AgentLine>{0}: {1} cereri, {2} erori, ultima {3} (acum {4} s)</AB_AgentLine>
+  <AB_Section_Recent>Comenzi recente</AB_Section_Recent>
+  <AB_Overlay>Agent {0}: {1}</AB_Overlay>
+  <AB_ConsentTitle>Agent Bridge</AB_ConsentTitle>
+  <AB_ConsentText>Agent Bridge poate trimite statistici de utilizare și rapoarte de erori anonime, ca problemele să fie reparate rapid. Nu se colectează date personale, nume de salvări sau căi de fișiere. Poți schimba asta oricând din Opțiuni → Setări moduri → Agent Bridge.</AB_ConsentText>
+  <AB_ConsentAccept>Permite</AB_ConsentAccept>
+  <AB_ConsentDecline>Nu trimite</AB_ConsentDecline>
+</LanguageData>
