@@ -1,0 +1,8 @@
+/1.7/Assemblies/
+**/bin/
+**/obj/
+__pycache__/
+*.pyc
+.vs/
+.idea/
+*.user

@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- RimWorld 1.7 runs on .NET 10 (Waylith) on every platform; Krafs reference assemblies make the build machine-independent. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <AssemblyName>AgentBridge</AssemblyName>
+    <RootNamespace>AgentBridge</RootNamespace>
+    <OutputPath>bin/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <DebugType>none</DebugType>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <Deterministic>true</Deterministic>
+    <Version>0.4.0</Version>
+    <NoWarn>CS8600;CS8602;CS8603;CS8604;CS8618;CS8625;CS0649</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.7.4985-unstable" />
+    <PackageReference Include="Lib.Harmony" Version="2.4.3" ExcludeAssets="runtime" />
+  </ItemGroup>
+  <!-- Copies the DLL into the mod folder. Skip while RimWorld runs: pass -p:SkipModCopy=true
+       (overwriting an assembly the game has loaded can crash it). -->
+  <Target Name="CopyToMod" AfterTargets="Build" Condition="'$(SkipModCopy)' != 'true'">
+    <Copy SourceFiles="$(OutputPath)AgentBridge.dll" DestinationFolder="../1.7/Assemblies/" />
+  </Target>
+</Project>

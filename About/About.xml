@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Agent Bridge</name>
+  <author>Akseleron</author>
+  <packageId>akseleron.agentbridge</packageId>
+  <modVersion>0.4.0</modVersion>
+  <url>https://github.com/Akseleron/rimworld-agent-bridge</url>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <loadAfter>
+    <li>brrainz.harmony</li>
+  </loadAfter>
+  <description>Control RimWorld from AI agents and scripts — Claude Code, Codex, any MCP client or plain HTTP — without screenshots or mouse coordinates.
+
+A local JSON server (127.0.0.1 only, token-protected) exposes ~90 commands: observe the colony (snapshot, pawns, text map, alerts, events), give orders (draft, move, attack, gizmos with targeting, right-click menus, designations, construction, work priorities), manage time precisely (run N ticks, wait for events), handle dialogs and letters, save/load, run any Dev-mode debug action, and — for modders — reflect on live objects and run C# in the game.
+
+• Works in every language: commands use defNames and stable keys, not translated labels.
+• No required dependencies. Harmony, if present, adds cell targeting, exact tick stops and event hooks.
+• Other mods can add their own commands without depending on this one.
+• Mod settings: read-only mode, permission levels, connected-agent list, recent commands, on-screen indicator.
+• Optional anonymous statistics and error reports (can be turned off; see PRIVACY.md).
+
+Tools (CLI and MCP server) are in the Tools folder; see README on GitHub.</description>
+</ModMetaData>
