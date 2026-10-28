@@ -18,7 +18,7 @@ namespace AgentBridge
     public static class Telemetry
     {
         /// <summary>Collection endpoint (see telemetry/README.md). Empty = disabled. RWB_TELEMETRY_URL overrides.</summary>
-        public const string DefaultEndpoint = "";
+        public const string DefaultEndpoint = "https://agent-bridge-telemetry.ivanzhe03.workers.dev/v1/report";
         private static string Endpoint => Environment.GetEnvironmentVariable("RWB_TELEMETRY_URL") ?? DefaultEndpoint;
         public static bool HasEndpoint => !string.IsNullOrEmpty(Endpoint);
 

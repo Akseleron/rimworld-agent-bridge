@@ -71,8 +71,7 @@ commands, copy MCP command, regenerate token (disconnects everyone), statistics/
 ## Privacy
 
 Anonymous statistics and error reports are on by default and asked about once on first launch; they can be turned off
-at any time. See [PRIVACY.md](PRIVACY.md) for exactly what is collected. This build has no collection server configured,
-so nothing is sent yet; "Report a bug" opens a prefilled GitHub issue instead.
+at any time. See [PRIVACY.md](PRIVACY.md) for exactly what is collected. "Report a bug" opens a prefilled GitHub issue.
 
 ## Building
 

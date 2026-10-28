@@ -23,9 +23,9 @@ Both are **on by default**, asked about once on first launch, and can be turned 
 **Never collected**: names of pawns/colonies/saves, file paths, your user name, mod lists, game content, IP-based
 location (the receiving server does not store IPs).
 
-**Where it goes**: the collection endpoint is set in `Telemetry.DefaultEndpoint`. It is **empty in this build**, so
-nothing is sent. The reference receiver (`telemetry/worker.js`) aggregates counts and files de-duplicated error
-signatures as GitHub issues in this repository.
+**Where it goes**: `https://agent-bridge-telemetry.ivanzhe03.workers.dev` (Cloudflare Worker, source in
+`telemetry/worker.js`). It stores daily aggregate counts and files each new error signature once as a GitHub issue in
+this repository. Reports are sent at most every 30 minutes and on game exit.
 
 "Report a bug" sends nothing by itself: it opens a prefilled GitHub issue in your browser and copies the full report to
 your clipboard, so you can review it before posting.
