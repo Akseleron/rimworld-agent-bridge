@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+"""MCP stdio server for RimWorld via Agent Bridge (no dependencies). Register:
+  claude mcp add rimworld -- python3 /path/to/tools/rwb_mcp.py
+  codex mcp add rimworld -- python3 /path/to/tools/rwb_mcp.py
+"""
+import json, os, sys, traceback
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import rwb
+
+LIVE_HELP = ("Live control of the running RimWorld (Agent Bridge mod). Pass cmd plus its args. Call cmd='help' for the full list. "
+             "Observe: snapshot capabilities state map pawns pawn things cell area alerts letters feed windows gizmos menu inspect resources factions quests world "
+             "debug-list saves defs def mods perf patches research. Act: pause speed tick select camera draft move attack job-end gizmo target "
+             "menu-choose dialog window letter designate build zone bills work schedule research-set spawn destroy teleport kill damage heal hediff "
+             "need skill forbid equip drop quit incident weather condition godmode goodwill research-finish build-instant quest-accept debug save load quicktest main-menu screenshot. "
+             "Flow: wait (ticks|loaded|log|message|letter|incident|death|paused|no-hostiles) batch. Power: obj (reflect live objects), exec. Other mods may add commands (see capabilities.extensions). "
+             "Things are addressed by ThingID (e.g. Human123), cells by x,z. Start with cmd='snapshot'. Any command accepts "
+             "fields:[...] to shrink output and timeout (seconds) for waiting commands. Gizmos: prefer the language-independent 'key'.")
+TOOLS = [
+    {'name': 'rimworld', 'description': LIVE_HELP,
+     'inputSchema': {'type': 'object', 'properties': {'cmd': {'type': 'string'}, 'args': {'type': 'object', 'description': 'command arguments, e.g. {"ids":["Human12"],"x":40,"z":55}'}}, 'required': ['cmd']}},
+    {'name': 'rimworld_eval', 'description': 'Compile and run C# inside the running game on the main thread. Body of `static object Run(JsonElement args)`; '
+     'usings Verse, RimWorld, Verse.AI, RimWorld.Planet, UnityEngine, HarmonyLib, System.Linq included. A bare expression is returned. Requires DevMode.',
+     'inputSchema': {'type': 'object', 'properties': {'code': {'type': 'string'}, 'depth': {'type': 'integer', 'default': 2}, 'args': {'type': 'object'}}, 'required': ['code']}},
+    {'name': 'rimworld_source', 'description': 'Decompile a game or mod type (full name, e.g. Verse.Pawn, RimWorld.JobDriver_Wait). Optional grep regex returns matching lines with context.',
+     'inputSchema': {'type': 'object', 'properties': {'type': {'type': 'string'}, 'grep': {'type': 'string'}, 'assembly': {'type': 'string'}}, 'required': ['type']}},
+    {'name': 'rimworld_defs', 'description': 'Search XML Defs (game Data, Mods, Workshop) by regex on defName/Name/label; returns the XML.',
+     'inputSchema': {'type': 'object', 'properties': {'query': {'type': 'string'}, 'type': {'type': 'string', 'description': 'e.g. ThingDef'}, 'limit': {'type': 'integer', 'default': 20}, 'full': {'type': 'boolean', 'default': True}}, 'required': ['query']}},
+    {'name': 'rimworld_log', 'description': 'Read Player.log (works without the bridge, e.g. after a crash).',
+     'inputSchema': {'type': 'object', 'properties': {'lines': {'type': 'integer', 'default': 200}, 'grep': {'type': 'string'}, 'errors': {'type': 'boolean'}, 'previous': {'type': 'boolean'}}}},
+]
+
+
+CLIENT = 'mcp'
+
+
+def run_tool(name, a):
+    if name == 'rimworld':
+        payload = dict(a.get('args') or {}); payload['cmd'] = a['cmd']
+        return rwb.call(payload, agent=CLIENT)
+    if name == 'rimworld_eval': return rwb.eval_code(a['code'], a.get('depth', 2), a.get('args'))
+    if name == 'rimworld_source': return rwb.source(a['type'], a.get('assembly'), a.get('grep'))
+    if name == 'rimworld_defs': return rwb.defs(a['query'], a.get('type'), a.get('limit', 20), a.get('full', True))
+    if name == 'rimworld_log': return rwb.log(a.get('lines', 200), a.get('grep'), a.get('errors', False), a.get('previous', False))
+    raise KeyError(name)
+
+
+def reply(id_, result=None, error=None):
+    msg = {'jsonrpc': '2.0', 'id': id_}
+    if error: msg['error'] = error
+    else: msg['result'] = result
+    sys.stdout.write(json.dumps(msg, ensure_ascii=False) + '\n'); sys.stdout.flush()
+
+
+for line in sys.stdin:
+    if not line.strip(): continue
+    req = json.loads(line); method = req.get('method'); id_ = req.get('id')
+    if id_ is None: continue  # notifications
+    if method == 'initialize':
+        info = (req.get('params') or {}).get('clientInfo') or {}
+        CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
+        reply(id_, {'protocolVersion': req.get('params', {}).get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}},
+                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '0.4.0'}})
+    elif method == 'tools/list': reply(id_, {'tools': TOOLS})
+    elif method == 'tools/call':
+        p = req['params']
+        try:
+            out = run_tool(p['name'], p.get('arguments') or {}); err = not out.get('ok', True)
+        except OSError as e: out, err = {'ok': False, 'error': f'bridge not reachable (game running with Agent Bridge?): {e}'}, True
+        except Exception: out, err = {'ok': False, 'error': traceback.format_exc(limit=3)}, True
+        reply(id_, {'content': [{'type': 'text', 'text': json.dumps(out, ensure_ascii=False, separators=(',', ':'))}], 'isError': err})
+    elif method == 'ping': reply(id_, {})
+    else: reply(id_, error={'code': -32601, 'message': 'method not found'})
