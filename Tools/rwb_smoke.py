@@ -32,6 +32,8 @@ c(cmd='draft',ids=[a],on=True)
 sp=c(cmd='spawn',kind='Mech_Scyther',x=x+8,z=z,faction='Mechanoid')
 c(cmd='spawn',**{'def':'Steel'},count=200,x=x+2,z=z+2)
 c(cmd='spawn',**{'def':'Gun_Revolver'},x=x+1,z=z+1,quality='Legendary')
+c(cmd='spawn',**{'def':'Muffalo'},x=x+6,z=z+3,faction='player')  # reports #4/#5: a creature def is generated as a pawn
+c(cmd='spawn',**{'def':'Human'},x=x+6,z=z+4)
 if sp: c(cmd='attack',ids=[a],target=sp[0])
 c(cmd='tick',n=60)
 c(cmd='feed',after=0,limit=5)

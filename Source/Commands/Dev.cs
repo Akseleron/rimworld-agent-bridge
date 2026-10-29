@@ -16,9 +16,17 @@ namespace AgentBridge
         {
             var map = G.Map; var c = G.Cell(a); int count = Args.Clamp(a.Int("count", 1), 1, 100000);
             var ids = new List<string>();
-            if (a.Has("kind"))
+            ThingDef? def = a.Has("kind") ? null : G.Def<ThingDef>(a.Str("def"));
+            // Reports #4, #5: a pawn made by ThingMaker has no health, story or other trackers and crashes the game's own
+            // code (and mods' patches) on its first use. Pawns are always generated from a PawnKindDef.
+            PawnKindDef? kindForRace = def?.race == null ? null
+                : DefDatabase<PawnKindDef>.AllDefs.Where(k => k.race == def).OrderBy(k => k.defName == def.defName ? 0 : 1).FirstOrDefault()
+                  ?? throw new CommandError(def.defName + " is a creature with no pawn kind; spawn pawns with kind=<PawnKindDef>");
+            if (def != null && kindForRace == null && (def.IsCorpse || typeof(MinifiedThing).IsAssignableFrom(def.thingClass) || def.category == ThingCategory.Mote || def.category == ThingCategory.Projectile || def.category == ThingCategory.Ethereal || def.category == ThingCategory.Pawn))
+                throw new CommandError(def.defName + " (" + def.category + ") cannot be spawned directly; spawn the item, building or pawn kind instead");
+            if (a.Has("kind") || kindForRace != null)
             {
-                var kind = G.Def<PawnKindDef>(a.Str("kind"));
+                var kind = kindForRace ?? G.Def<PawnKindDef>(a.Str("kind"));
                 var faction = G.Faction(a) ?? (kind.defaultFactionDef != null ? Find.FactionManager.FirstFactionOfDef(kind.defaultFactionDef) : null);
                 for (int i = 0; i < Math.Min(count, 100); i++)
                 {
@@ -28,7 +36,7 @@ namespace AgentBridge
                 }
                 return ids;
             }
-            var def = G.Def<ThingDef>(a.Str("def"));
+            def ??= G.Def<ThingDef>(a.Str("def"));
             var stuff = a.Str("stuff") is string s ? G.Def<ThingDef>(s) : def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null;
             for (int left = count; left > 0 && ids.Count < 500;)
             {
@@ -159,6 +167,7 @@ namespace AgentBridge
         private static object BuildInstant(Args a)
         {
             var def = G.Def<ThingDef>(a.Str("def"));
+            if (def.category != ThingCategory.Building) throw new CommandError(def.defName + " is not a building; use spawn");
             var stuff = a.Str("stuff") is string s ? G.Def<ThingDef>(s) : def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null;
             var thing = ThingMaker.MakeThing(def, stuff); thing.SetFactionDirect(Faction.OfPlayer);
             return GenSpawn.Spawn(thing, G.Cell(a), G.Map, new Rot4(a.Int("rot", 0))).ThingID;

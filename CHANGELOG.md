@@ -2,6 +2,12 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.5
+- Reports #4 and #5 (Windows, Chinese): `spawn def=<creature>` built a pawn without health, story and other trackers,
+  and the game's own code (and other mods' patches) crashed on it. A creature def is now generated as a proper pawn
+  from its pawn kind; corpses, minified things, motes and projectiles get a clear error; `build-instant` only takes
+  buildings.
+
 ## 1.1.4
 Fixes from a second, wider review: what could go wrong for players, security, and fair play.
 - Fair play matches the game's own rules more closely:
