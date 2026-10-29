@@ -2,6 +2,17 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.2
+- Reports #2 and #3 (Windows, Chinese): an agent probing internals with `obj` set a get-only property and indexed past
+  a list's end. `obj` now writes get-only auto-properties through their backing field, explains computed read-only
+  properties and out-of-range indexes, and never throws on ambiguous names.
+- Errors caused by agent input in `obj`, `exec`/`eval` and other mods' commands are returned to the agent and are no
+  longer filed as Agent Bridge crash reports.
+- Hardening: a malformed or negative `Content-Length` closes the connection instead of terminating the game; JSON
+  nesting is capped at 128; at most 32 concurrent connections; any connection error is contained.
+- Fair play: developer windows cannot be operated with `window`.
+- Faster thing lookup: one ThingID index per frame instead of a scan of every thing per request.
+
 ## 1.1.1
 - "Open tools folder" and "Report a bug": proper file:// URI (Windows paths, spaces), short issue link (long URLs were
   rejected), the path / full report always copied to the clipboard, and an on-screen message saying where it points.

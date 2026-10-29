@@ -40,12 +40,31 @@ namespace AgentBridge
             if (name.StartsWith("["))
             {
                 int idx = int.Parse(name.Substring(1, name.Length - 2));
-                return owner is IList list ? list[idx] : (owner as IEnumerable)?.Cast<object>().ElementAt(idx);
+                if (!(owner is IEnumerable seq)) throw new CommandError(type.Name + " is not a list");
+                var items = owner as IList ?? seq.Cast<object>().ToList();
+                if (idx < 0 || idx >= items.Count) throw new CommandError("index " + idx + " out of range (count " + items.Count + ")");
+                return items[idx];
             }
-            var f = type.GetField(name, Any); if (f != null) return f.GetValue(f.IsStatic ? null : owner);
-            var p = type.GetProperty(name, Any); if (p != null) return p.GetValue(p.GetGetMethod(true).IsStatic ? null : owner, null);
-            var m = type.GetMethod(name, Any, null, Type.EmptyTypes, null); if (m != null) return m.Invoke(m.IsStatic ? null : owner, null);
-            throw new CommandError("no member " + name + " on " + type.Name);
+            var f = Field(type, name); if (f != null) return f.GetValue(f.IsStatic ? null : owner);
+            var p = Property(type, name); if (p != null && p.GetGetMethod(true) is MethodInfo get) return p.GetValue(get.IsStatic ? null : owner, null);
+            var m = type.GetMethods(Any).FirstOrDefault(x => x.Name == name && x.GetParameters().Length == 0 && !x.IsGenericMethodDefinition);
+            if (m != null) return m.Invoke(m.IsStatic ? null : owner, null);
+            throw new CommandError("no member " + name + " on " + type.Name + " (see op=members)");
+        }
+
+        // Name lookups that never throw AmbiguousMatchException (hidden members, indexers): most-derived wins.
+        private static FieldInfo? Field(Type type, string name) => type.GetFields(Any).FirstOrDefault(x => x.Name == name);
+        private static PropertyInfo? Property(Type type, string name) => type.GetProperties(Any).Where(x => x.Name == name && x.GetIndexParameters().Length == 0).OrderBy(x => x.DeclaringType == type ? 0 : 1).FirstOrDefault();
+
+        /// <summary>Writes a field or property. Get-only auto-properties are written through their backing field;
+        /// computed get-only properties cannot be set and say so.</summary>
+        private static void SetMember(object? owner, Type type, string name, object? raw)
+        {
+            if (Field(type, name) is FieldInfo f) { f.SetValue(f.IsStatic ? null : owner, Convert(raw, f.FieldType)); return; }
+            var p = Property(type, name) ?? throw new CommandError("no member " + name + " on " + type.Name);
+            if (p.GetSetMethod(true) is MethodInfo set) { p.SetValue(set.IsStatic ? null : owner, Convert(raw, p.PropertyType), null); return; }
+            if (Field(p.DeclaringType ?? type, "<" + name + ">k__BackingField") is FieldInfo backing) { backing.SetValue(backing.IsStatic ? null : owner, Convert(raw, backing.FieldType)); return; }
+            throw new CommandError(name + " is a read-only property (computed, no setter); set the field it reads instead (see op=members)");
         }
 
         private static object? Convert(object? v, Type t)
@@ -82,9 +101,7 @@ namespace AgentBridge
                     return new { type = t.FullName, members = t.GetMembers(Any).Where(m => m is FieldInfo || m is PropertyInfo || (m is MethodInfo mi && !mi.IsSpecialName)).Select(m => m.MemberType.ToString()[0] + " " + m.Name).Distinct().OrderBy(x => x).Take(500).ToList() };
                 case "set":
                     if (last == null) throw new CommandError("need path");
-                    var f = type.GetField(last, Any);
-                    if (f != null) f.SetValue(f.IsStatic ? null : owner, Convert(a.Get("value"), f.FieldType));
-                    else { var p = type.GetProperty(last, Any) ?? throw new CommandError("no member " + last); p.SetValue(p.GetGetMethod(true).IsStatic ? null : owner, Convert(a.Get("value"), p.PropertyType), null); }
+                    SetMember(owner, type, last, a.Get("value"));
                     return Plain.Dump(Member(owner, type, last), depth);
                 case "call":
                     if (last == null) throw new CommandError("need path");

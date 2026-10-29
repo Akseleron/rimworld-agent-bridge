@@ -59,7 +59,7 @@ for line in sys.stdin:
         info = (req.get('params') or {}).get('clientInfo') or {}
         CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
         reply(id_, {'protocolVersion': req.get('params', {}).get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}, 'prompts': {}},
-                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.1'}})
+                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.2'}})
     elif method == 'tools/list': reply(id_, {'tools': TOOLS})
     elif method == 'prompts/list':
         reply(id_, {'prompts': [{'name': 'play_rimworld', 'description': 'Play the running colony fairly (no cheats) as the player',

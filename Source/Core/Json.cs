@@ -16,7 +16,7 @@ namespace AgentBridge
         public static object? Parse(string text)
         {
             int i = 0;
-            var value = ReadValue(text, ref i);
+            var value = ReadValue(text, ref i, 0);
             SkipWs(text, ref i);
             if (i != text.Length) throw new FormatException("trailing characters at " + i);
             return value;
@@ -24,8 +24,12 @@ namespace AgentBridge
 
         private static void SkipWs(string s, ref int i) { while (i < s.Length && char.IsWhiteSpace(s[i])) i++; }
 
-        private static object? ReadValue(string s, ref int i)
+        // Real requests nest a few levels; the cap prevents a stack overflow (which would kill the game) on hostile input.
+        private const int MaxDepth = 128;
+
+        private static object? ReadValue(string s, ref int i, int depth)
         {
+            if (depth > MaxDepth) throw new FormatException("nesting deeper than " + MaxDepth);
             SkipWs(s, ref i);
             if (i >= s.Length) throw new FormatException("unexpected end");
             char c = s[i];
@@ -42,7 +46,7 @@ namespace AgentBridge
                         string key = ReadString(s, ref i);
                         SkipWs(s, ref i);
                         if (s[i++] != ':') throw new FormatException("expected : at " + i);
-                        obj[key] = ReadValue(s, ref i);
+                        obj[key] = ReadValue(s, ref i, depth + 1);
                         SkipWs(s, ref i);
                         if (s[i] == ',') { i++; continue; }
                         if (s[i] == '}') { i++; return obj; }
@@ -56,7 +60,7 @@ namespace AgentBridge
                     if (s[i] == ']') { i++; return list; }
                     while (true)
                     {
-                        list.Add(ReadValue(s, ref i));
+                        list.Add(ReadValue(s, ref i, depth + 1));
                         SkipWs(s, ref i);
                         if (s[i] == ',') { i++; continue; }
                         if (s[i] == ']') { i++; return list; }

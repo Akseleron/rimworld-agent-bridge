@@ -42,13 +42,32 @@ namespace AgentBridge
         public static Thing Thing(string id)
         {
             if (Current.Game == null) throw new CommandError("no game loaded");
-            foreach (var map in Find.Maps)
+            Thing? t = null;
+            // Pawns first: the usual target, a short list, and they include pawns that are carried or in containers.
+            foreach (var map in Find.Maps) if ((t = map.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == id)) != null) break;
+            if (t == null && ThingIndex().TryGetValue(id, out var cached) && !cached.Destroyed) t = cached;
+            // Miss: the thing may have been spawned after this frame's index was built (spawn + use in one batch).
+            if (t == null) foreach (var map in Find.Maps) if ((t = map.listerThings.AllThings.FirstOrDefault(x => x.ThingID == id)) != null) { index![id] = t; break; }
+            if (t == null) throw new CommandError("no thing '" + id + "' (ids look like Human123; see pawns/things)");
+            return Seen(t) ? t : throw new CommandError("no visible thing '" + id + "' (fog of war)");
+        }
+
+        private static Dictionary<string, Thing>? index;
+        private static int indexFrame = -1;
+        private static Game? indexGame;
+
+        /// <summary>ThingID index of all spawned things, built at most once per frame (maps hold tens of thousands of
+        /// things, and agents often look up several per frame via batch). Destroyed entries are skipped by callers.</summary>
+        private static Dictionary<string, Thing> ThingIndex()
+        {
+            if (index == null || indexFrame != UnityEngine.Time.frameCount || !ReferenceEquals(indexGame, Current.Game))
             {
-                // Pawns first: the usual target and a much shorter list than AllThings.
-                var t = (Thing?)map.mapPawns.AllPawns.FirstOrDefault(p => p.ThingID == id) ?? map.listerThings.AllThings.FirstOrDefault(x => x.ThingID == id);
-                if (t != null) return Seen(t) ? t : throw new CommandError("no visible thing '" + id + "' (fog of war)");
+                index = new Dictionary<string, Thing>();
+                foreach (var map in Find.Maps)
+                    foreach (var x in map.listerThings.AllThings) index[x.ThingID] = x;
+                indexFrame = UnityEngine.Time.frameCount; indexGame = Current.Game;
             }
-            throw new CommandError("no thing '" + id + "' (ids look like Human123; see pawns/things)");
+            return index;
         }
 
         public static List<Pawn> Pawns(Args a, string key = "ids")

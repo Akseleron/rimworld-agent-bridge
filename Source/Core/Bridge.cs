@@ -46,7 +46,7 @@ namespace AgentBridge
     [StaticConstructorOnStartup]
     public static class Bridge
     {
-        public const string Version = "1.1.1";
+        public const string Version = "1.1.2";
         public const string Protocol = "rwb-1";
         private static readonly Queue<Request> queue = new Queue<Request>();
         private static readonly List<Request> waiting = new List<Request>();
@@ -237,6 +237,9 @@ namespace AgentBridge
             catch (Exception e)
             {
                 var inner = e is System.Reflection.TargetInvocationException tie && tie.InnerException != null ? tie.InnerException : e;
+                // Reflection and agent-supplied code (obj, exec/eval, extension commands) fail on the agent's input,
+                // not on Agent Bridge: answer the agent, but do not file it as a mod crash.
+                if (cmd.Access == Access.Power || cmd.Access == Access.Inspect || cmd.Source != "core") return new CommandError(inner.GetType().Name + ": " + inner.Message);
                 Telemetry.ReportException(a.Cmd, inner);
                 Log.Warning("[AgentBridge] " + a.Cmd + ": " + inner);
                 return new CommandError(inner.GetType().Name + ": " + inner.Message);

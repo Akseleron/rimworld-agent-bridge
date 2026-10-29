@@ -133,6 +133,7 @@ namespace AgentBridge
             var all = Find.WindowStack.Windows;
             var w = a.Has("index") ? all.ElementAtOrDefault(a.Int("index", -1)) : windows.LastOrDefault();
             if (w == null) throw new CommandError("no window");
+            if (Bridge.Settings.fairPlay && w.IsDebug) throw new CommandError("fair-play mode: developer windows are off limits");
             string button = a.Str("button") ?? (a.Has("option") || a.Has("label") ? "option" : "close");
             if (button == "option")
             {

@@ -12,7 +12,7 @@
     <DebugType>none</DebugType>
     <GenerateDependencyFile>false</GenerateDependencyFile>
     <Deterministic>true</Deterministic>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
     <NoWarn>CS8605;CS8619;CS8601;SYSLIB0014;CS8600;CS8602;CS8603;CS8604;CS8618;CS8625;CS0649</NoWarn>
   </PropertyGroup>
   <ItemGroup>

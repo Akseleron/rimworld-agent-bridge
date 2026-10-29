@@ -18,6 +18,8 @@ namespace AgentBridge
         private readonly TcpListener listener;
         private readonly Handler handler;
         private volatile bool running = true;
+        private const int MaxConnections = 32;
+        private int active;
         public int Port { get; }
 
         private Server(TcpListener l, int port, Handler h) { listener = l; Port = port; handler = h; }
@@ -44,7 +46,9 @@ namespace AgentBridge
             {
                 TcpClient client;
                 try { client = listener.AcceptTcpClient(); } catch { return; }
-                new Thread(() => Serve(client)) { IsBackground = true, Name = "AgentBridge.Conn" }.Start();
+                // One thread per connection; a runaway client cannot exhaust threads.
+                if (System.Threading.Interlocked.Increment(ref active) > MaxConnections) { System.Threading.Interlocked.Decrement(ref active); client.Close(); continue; }
+                new Thread(() => { try { Serve(client); } finally { System.Threading.Interlocked.Decrement(ref active); } }) { IsBackground = true, Name = "AgentBridge.Conn" }.Start();
             }
         }
 
@@ -70,8 +74,10 @@ namespace AgentBridge
                             int colon = line!.IndexOf(':');
                             if (colon > 0) headers[line.Substring(0, colon).Trim()] = line.Substring(colon + 1).Trim();
                         }
-                        int length = headers.TryGetValue("Content-Length", out var cl) ? int.Parse(cl, CultureInfo.InvariantCulture) : 0;
-                        if (length > 8 * 1024 * 1024) return;
+                        // Malformed, negative or huge lengths close the connection instead of throwing: an unhandled
+                        // exception on this background thread would terminate the whole game process.
+                        int length = 0;
+                        if (headers.TryGetValue("Content-Length", out var cl) && (!int.TryParse(cl, NumberStyles.None, CultureInfo.InvariantCulture, out length) || length > 8 * 1024 * 1024)) return;
                         var buffer = new byte[length];
                         for (int read = 0; read < length;)
                         {
@@ -95,6 +101,7 @@ namespace AgentBridge
                 }
                 catch (IOException) { }
                 catch (ObjectDisposedException) { }
+                catch (Exception e) { Verse.Log.Warning("[AgentBridge] connection dropped: " + e.GetType().Name); }
             }
         }
 
