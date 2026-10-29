@@ -37,20 +37,25 @@ namespace AgentBridge
             switch (Get(n))
             {
                 case null: return d;
-                case long l: return (int)l;
-                case double x: return (int)x;
+                case long l when l >= int.MinValue && l <= int.MaxValue: return (int)l;
+                case double x when x >= int.MinValue && x <= int.MaxValue: return (int)x;
                 case string s when int.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out var i): return i;
                 case bool b: return b ? 1 : 0;
                 default: throw new CommandError("'" + n + "' must be an integer");
             }
         }
 
-        public long Long(string n, long d) => Get(n) switch { null => d, long l => l, double x => (long)x, string s => long.Parse(s, CultureInfo.InvariantCulture), _ => throw new CommandError("'" + n + "' must be an integer") };
+        public long Long(string n, long d) => Get(n) switch
+        {
+            null => d, long l => l, double x when x >= -9.2233720368547758E18 && x < 9.2233720368547758E18 => (long)x,
+            string s when long.TryParse(s, NumberStyles.Integer, CultureInfo.InvariantCulture, out var v) => v,
+            _ => throw new CommandError("'" + n + "' must be an integer"),
+        };
 
         public float Float(string n, float d) => Get(n) switch
         {
-            null => d, long l => l, double x => (float)x,
-            string s when float.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var f) => f,
+            null => d, long l => l, double x when Math.Abs(x) <= float.MaxValue => (float)x,  // also rejects NaN and values that overflow float
+            string s when float.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var f) && !float.IsNaN(f) && !float.IsInfinity(f) => f,
             _ => throw new CommandError("'" + n + "' must be a number"),
         };
 
@@ -69,16 +74,17 @@ namespace AgentBridge
         public IntVec3? Pair(string n)
         {
             if (!(Get(n) is List<object?> l) || l.Count < 2) return null;
-            int At(int i) => l[i] is long x ? (int)x : l[i] is double dd ? (int)dd : int.Parse(l[i]!.ToString(), CultureInfo.InvariantCulture);
+            int At(int i) => l[i] is long x && x >= int.MinValue && x <= int.MaxValue ? (int)x : l[i] is double dd && dd >= int.MinValue && dd <= int.MaxValue ? (int)dd
+                : int.TryParse(l[i]?.ToString(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var v) ? v : throw new CommandError("'" + n + "' must be [x, z] integers");
             return new IntVec3(At(0), 0, At(l.Count - 1));
         }
 
         public HashSet<string>? Fields => Has("fields") ? new HashSet<string>(Strings("fields")) : null;
 
         /// <summary>Deadline in seconds for waiting commands; the HTTP layer waits a little longer.</summary>
-        public double Timeout => Clamp(Get("timeout") switch { long l => l, double x => x, string s => double.Parse(s, CultureInfo.InvariantCulture), _ => 60 }, 1, 900);
+        public double Timeout => Clamp(Get("timeout") switch { long l => l, double x => x, string s when double.TryParse(s, NumberStyles.Float, CultureInfo.InvariantCulture, out var t) => t, null => 60, _ => throw new CommandError("'timeout' must be a number of seconds") }, 1, 900);
 
-        public static double Clamp(double v, double lo, double hi) => v < lo ? lo : v > hi ? hi : v;
+        public static double Clamp(double v, double lo, double hi) => double.IsNaN(v) || v < lo ? lo : v > hi ? hi : v;
         public static int Clamp(int v, int lo, int hi) => v < lo ? lo : v > hi ? hi : v;
 
         public Args With(string key, object? value) { var copy = new Dictionary<string, object?>(Raw) { [key] = value }; return new Args(copy); }

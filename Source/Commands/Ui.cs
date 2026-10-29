@@ -106,7 +106,18 @@ namespace AgentBridge
                         if (!source.CanHitTarget(target) || !source.ValidateTarget(target, false)) throw new CommandError("invalid target for this ability/verb");
                         source.OrderForceTarget(target);
                     }
-                    else if (action != null) action(target);
+                    else if (action != null)
+                    {
+                        // What Targeter does before calling its action: target parameters, the optional validator, fog.
+                        if (Bridge.Settings.fairPlay)
+                        {
+                            var parms = typeof(Targeter).GetField("targetParams", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public)?.GetValue(targeter) as TargetingParameters;
+                            var validator = typeof(Targeter).GetField("targetValidator", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public)?.GetValue(targeter) as Func<LocalTargetInfo, bool>;
+                            if (target.Cell.Fogged(G.Map) || (target.HasThing && !G.Seen(target.Thing)) || (parms != null && !parms.CanTarget(target.ToTargetInfo(G.Map))) || (validator != null && !validator(target)))
+                                throw new CommandError("invalid target");
+                        }
+                        action(target);
+                    }
                     else throw new CommandError("targeter has no action");
                     return 0;
                 });

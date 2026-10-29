@@ -74,12 +74,22 @@ namespace AgentBridge
         internal static bool MouseCell(ref IntVec3 __result) { if (!(MouseOverride is IntVec3 c)) return true; __result = c; return false; }
         internal static bool MouseMapPosition(ref Vector3 __result) { if (!(MouseOverride is IntVec3 c)) return true; __result = c.ToVector3Shifted(); return false; }
 
-        internal static void LogMessage(LogMessage msg) => Feed.Add("log", msg.type.ToString(), msg.text);
-        internal static void Message(Message msg) => Feed.Add("message", msg.def?.defName ?? "", msg.text);
-        internal static void Letter(Letter let) => Feed.Add("letter", let.def?.defName ?? "", let.Label.ToString() + ((let as ChoiceLetter)?.Text is TaggedString t ? ": " + t : ""));
-        internal static void Incident(IncidentWorker __instance, IncidentParms parms, bool __result) => Feed.Add("incident", __result ? "fired" : "failed", __instance.def.defName + " points=" + parms.points);
-        internal static void Death(Pawn __instance, DamageInfo? dinfo) =>
-            Feed.Add("death", __instance.Faction?.def.defName ?? "", __instance.ThingID + " " + __instance.LabelShort + (dinfo is DamageInfo d ? " by " + d.Def?.defName + (d.Instigator != null ? " from " + d.Instigator.ThingID : "") : ""));
+        // These run inside the game's own code (every death, letter, log line): a throw here would break it, so each is
+        // contained. The log hook swallows silently, a logged failure would re-enter it.
+        internal static void LogMessage(LogMessage msg) { try { Feed.Add("log", msg.type.ToString(), msg.text); } catch { } }
+        internal static void Message(Message msg) { try { Feed.Add("message", msg.def?.defName ?? "", msg.text); } catch { } }
+        internal static void Letter(Letter let) { try { Feed.Add("letter", let.def?.defName ?? "", let.Label.ToString() + ((let as ChoiceLetter)?.Text is TaggedString t ? ": " + t : "")); } catch { } }
+        internal static void Incident(IncidentWorker __instance, IncidentParms parms, bool __result) { try { Feed.Add("incident", __result ? "fired" : "failed", __instance.def.defName + " points=" + parms.points); } catch { } }
+        internal static void Death(Pawn __instance, DamageInfo? dinfo)
+        {
+            try
+            {
+                // Visible as a player sees it: on a map, not under fog, not psychically invisible.
+                bool hidden = __instance.MapHeld == null || __instance.PositionHeld.Fogged(__instance.MapHeld) || __instance.IsHiddenFromPlayer();
+                Feed.Add("death", __instance.Faction?.def.defName ?? "", __instance.ThingID + " " + __instance.LabelShort + (dinfo is DamageInfo d ? " by " + d.Def?.defName + (d.Instigator != null ? " from " + d.Instigator.ThingID : "") : ""), hidden);
+            }
+            catch { }
+        }
 
         // TickManagerUpdate breaks its loop as soon as Paused is set, so this stops on the exact tick at any speed.
         internal static void TickStop(TickManager __instance)

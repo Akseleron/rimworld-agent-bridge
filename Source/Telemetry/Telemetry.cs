@@ -67,7 +67,8 @@ namespace AgentBridge
         {
             string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             if (!string.IsNullOrEmpty(home)) text = text.Replace(home, "~");
-            text = text.Replace(Environment.UserName, "<user>");
+            string user = Environment.UserName;
+            if (user.Length >= 3) text = text.Replace(user, "<user>");
             text = Regex.Replace(text, @"([A-Za-z]:)?[\\/](?:[^\\/\s:""']+[\\/])+", "…/");
             return text;
         }
@@ -113,7 +114,8 @@ namespace AgentBridge
         private static void Send(bool final)
         {
             var s = Bridge.Settings;
-            if (!HasEndpoint || !(s.telemetry || s.crashReports)) return;
+            // Nothing leaves the machine until the player has answered the consent prompt.
+            if (!HasEndpoint || !s.consentAsked || !(s.telemetry || s.crashReports)) return;
             lastSent = DateTime.UtcNow;
             // The batch leaves the pending data while it is in flight; a failed delivery puts it back.
             Dictionary<string, int[]> sentCommands; Dictionary<string, ErrorInfo> sentErrors;
@@ -141,7 +143,7 @@ namespace AgentBridge
                 try
                 {
                     var req = (HttpWebRequest)WebRequest.Create(Endpoint);
-                    req.Method = "POST"; req.ContentType = "application/json"; req.Timeout = final ? 2000 : 5000;  // never hold up quitting the game
+                    req.Method = "POST"; req.ContentType = "application/json"; req.Timeout = req.ReadWriteTimeout = final ? 1500 : 5000;  // never hold up quitting the game
                     var bytes = Encoding.UTF8.GetBytes(body);
                     using (var stream = req.GetRequestStream()) stream.Write(bytes, 0, bytes.Length);
                     using (req.GetResponse()) LastStatus = "delivered " + DateTime.Now.ToString("HH:mm");
@@ -159,14 +161,16 @@ namespace AgentBridge
         }
 
         /// <summary>One-time consent prompt in the main menu; checkboxes default on as requested, the player decides.</summary>
+        private static bool consentShown;
+
         internal static void MaybeAskConsent()
         {
             var s = Bridge.Settings;
-            if (s.consentAsked || Current.ProgramState != ProgramState.Entry || LongEventHandler.AnyEventNowOrWaiting || Find.WindowStack == null) return;
-            s.consentAsked = true;
-            Find.WindowStack.Add(new Dialog_MessageBox("AB_ConsentText".Translate(), "AB_ConsentAccept".Translate(), () => { s.telemetry = s.crashReports = true; s.Write(); },
-                "AB_ConsentDecline".Translate(), () => { s.telemetry = s.crashReports = false; s.Write(); }, "AB_ConsentTitle".Translate()));
-            s.Write();
+            if (s.consentAsked || consentShown || Current.ProgramState != ProgramState.Entry || LongEventHandler.AnyEventNowOrWaiting || Find.WindowStack == null) return;
+            // Answered only by a button: closing the dialog or quitting asks again next session.
+            consentShown = true;
+            Find.WindowStack.Add(new Dialog_MessageBox("AB_ConsentText".Translate(), "AB_ConsentAccept".Translate(), () => { s.consentAsked = true; s.telemetry = s.crashReports = true; s.Write(); },
+                "AB_ConsentDecline".Translate(), () => { s.consentAsked = true; s.telemetry = s.crashReports = false; s.Write(); }, "AB_ConsentTitle".Translate()));
         }
     }
 

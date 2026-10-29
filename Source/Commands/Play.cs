@@ -85,7 +85,8 @@ namespace AgentBridge
         internal static Caravan CaravanArg(Args a, string key = "caravan")
         {
             string id = a.Need(key).Replace("caravan:", "");
-            return Find.WorldObjects.Caravans.FirstOrDefault(c => c.ID.ToString() == id || c.Name == id) ?? throw new CommandError("no caravan " + id + "; see caravans");
+            // Fair play: only your own caravans take orders (NPC traders are world objects too).
+            return Find.WorldObjects.Caravans.FirstOrDefault(c => (c.ID.ToString() == id || c.Name == id) && (!Bridge.Settings.fairPlay || c.IsPlayerControlled)) ?? throw new CommandError("no caravan " + id + "; see caravans");
         }
 
         [Command("caravans", Access.Read, "player caravans: tile, destination, pawns, mass, food days")]
@@ -196,6 +197,12 @@ namespace AgentBridge
             GlobalTargetInfo target = a.Has("object") ? new GlobalTargetInfo(Find.WorldObjects.AllWorldObjects.FirstOrDefault(o => o.ID == a.Int("object", -1)) ?? throw new CommandError("no world object"))
                 : new GlobalTargetInfo(a.Int("tile", -1));
             var action = (Func<GlobalTargetInfo, bool>)typeof(WorldTargeter).GetField("action", Inst)!.GetValue(wt);
+            // What WorldTargeter checks on a click: tiles only when allowed, and its target filter.
+            if (Bridge.Settings.fairPlay)
+            {
+                if (!target.HasWorldObject && typeof(WorldTargeter).GetField("canTargetTiles", Inst)?.GetValue(wt) is false) throw new CommandError("this targeting needs a world object, not a tile");
+                if (typeof(WorldTargeter).GetField("canSelectTarget", Inst)?.GetValue(wt) is Func<GlobalTargetInfo, bool> can && !can(target)) throw new CommandError("invalid target");
+            }
             bool done = action(target);
             if (done) wt.StopTargeting();
             return new { accepted = done };
@@ -275,6 +282,22 @@ namespace AgentBridge
         }
 
         // ---------------- prisoners ----------------
+        /// <summary>The prisoner tab's filter (ITab_Pawn_Visitor.CanUsePrisonerInteractionMode).</summary>
+        private static bool PrisonerModeShown(Pawn p, PrisonerInteractionModeDef mode)
+        {
+            if (!p.guest.Recruitable && mode.hideIfNotRecruitable) return false;
+            if (p.IsWildMan() && !mode.allowOnWildMan) return false;
+            if (mode.hideIfNoBloodfeeders && p.MapHeld != null && !(ModsConfig.BiotechActive && p.MapHeld.mapPawns.FreeColonistsAndPrisonersSpawned.Any(c => c.IsBloodfeeder()))) return false;
+            if (mode.hideOnHemogenicPawns && ModsConfig.BiotechActive && p.genes != null && p.genes.HasActiveGene(GeneDefOf.Hemogenic)) return false;
+            if (!mode.allowInClassicIdeoMode && Find.IdeoManager.classicMode) return false;
+            if (ModsConfig.AnomalyActive)
+            {
+                if (mode.hideIfNotStudiableAsPrisoner && !(p.TryGetComp<CompStudiable>(out var comp) && comp.EverStudiable() && p.kindDef.studiableAsPrisoner && !p.everLostEgo)) return false;
+                if (mode.hideIfGrayFleshNotAppeared && !Find.Anomaly.hasSeenGrayFlesh) return false;
+            }
+            return true;
+        }
+
         [Command("prisoner", Access.Act, "set a prisoner's interaction {id, mode: e.g. MaintainOnly|AttemptRecruit|ReduceResistance|Release|Execution|Enslave}; no mode lists modes")]
         private static object Prisoner(Args a)
         {
@@ -283,9 +306,10 @@ namespace AgentBridge
             if (a.Str("mode") is string m)
             {
                 var def = DefDatabase<PrisonerInteractionModeDef>.AllDefs.FirstOrDefault(d => d.defName.Equals(m, StringComparison.OrdinalIgnoreCase)) ?? throw new CommandError("no mode " + m);
+                if (Bridge.Settings.fairPlay && !PrisonerModeShown(p, def)) throw new CommandError("fair-play mode: " + def.defName + " is not offered for this prisoner");
                 p.guest.SetExclusiveInteraction(def);
             }
-            return new { mode = p.guest.ExclusiveInteractionMode?.defName, resistance = p.guest.resistance, will = p.guest.will, modes = a.Has("mode") ? null : DefDatabase<PrisonerInteractionModeDef>.AllDefs.Select(d => d.defName).ToList() };
+            return new { mode = p.guest.ExclusiveInteractionMode?.defName, resistance = p.guest.resistance, will = p.guest.will, modes = a.Has("mode") ? null : DefDatabase<PrisonerInteractionModeDef>.AllDefs.Where(d => !Bridge.Settings.fairPlay || PrisonerModeShown(p, d)).Select(d => d.defName).ToList() };
         }
 
         [Command("fair-play", Access.Act, "switch fair-play mode ON for this player (only the player can switch it off, in the mod settings)")]

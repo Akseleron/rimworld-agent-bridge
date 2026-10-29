@@ -52,7 +52,7 @@ def descriptor_path():
 
 
 def descriptor():
-    return json.loads(descriptor_path().read_text())
+    return json.loads(descriptor_path().read_text(encoding='utf-8-sig'))
 
 
 def game_root():
@@ -71,7 +71,10 @@ def call(payload, timeout=None, agent=None):
     global _conn, _conn_key
     d = descriptor()
     if timeout is None:
-        timeout = float(payload['timeout']) + 30 if 'timeout' in payload else 700 if payload.get('cmd') in ('newgame', 'page-next') else 90
+        try: wanted = float(payload['timeout'])
+        except (KeyError, TypeError, ValueError): wanted = None
+        if wanted is not None and not 1 <= wanted <= 900: wanted = min(max(wanted, 1), 900) if wanted == wanted else None  # the game clamps the same way; NaN = default
+        timeout = wanted + 30 if wanted is not None else 700 if payload.get('cmd') in ('newgame', 'page-next') else 90
     body = json.dumps(payload, separators=(',', ':')).encode()
     headers = {'X-Token': d['token'], 'X-Agent': agent or agent_name(), 'Content-Type': 'application/json'}
     try:
@@ -115,14 +118,14 @@ def compile_snippet(code):
     dll = work/'out'/f'rwb_eval_{digest}.dll'
     if dll.is_file(): return dll, None
     work.mkdir(parents=True, exist_ok=True)
-    (work/'Script.cs').write_text(code)
+    (work/'Script.cs').write_text(code, encoding='utf-8')
     items = ''.join(f'<Reference Include={quoteattr(Path(r).stem)} HintPath={quoteattr(r)} Private="false" />' for r in refs)
     (work/'eval.csproj').write_text(
         '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net10.0</TargetFramework><LangVersion>latest</LangVersion>'
         f'<AssemblyName>rwb_eval_{digest}</AssemblyName><Nullable>disable</Nullable><ImplicitUsings>disable</ImplicitUsings>'
         '<AllowUnsafeBlocks>true</AllowUnsafeBlocks><NoWarn>CS0168;CS0219;CS8019;CS1998</NoWarn><GenerateDocumentationFile>false</GenerateDocumentationFile>'
-        f'</PropertyGroup><ItemGroup>{items}</ItemGroup></Project>')
-    (work/'Directory.Build.props').write_text('<Project></Project>')
+        f'</PropertyGroup><ItemGroup>{items}</ItemGroup></Project>', encoding='utf-8')
+    (work/'Directory.Build.props').write_text('<Project></Project>', encoding='utf-8')
     r = subprocess.run(['dotnet', 'build', str(work/'eval.csproj'), '-c', 'Release', '-o', str(work/'out'), '--nologo', '-v', 'q'],
                        capture_output=True, text=True)
     if r.returncode or not dll.is_file():
@@ -168,7 +171,9 @@ def source(type_name, assembly=None, grep=None, context=6, limit=400):
 def def_roots():
     g = game_root()
     roots = [g/'Data', g/'Mods']
-    ws = g.parent.parent/'workshop/content/294100'
+    # steamapps/common/RimWorld[/RimWorldMac.app] -> steamapps/workshop/content/294100
+    steamapps = next((p for p in g.parents if p.name == 'steamapps'), g.parent.parent)
+    ws = steamapps/'workshop/content/294100'
     if ws.is_dir(): roots.append(ws)
     return roots
 
@@ -233,6 +238,7 @@ def main(argv):
 
 
 if __name__ == '__main__':
+    sys.stdout.reconfigure(encoding='utf-8')  # Windows consoles default to a legacy code page
     try: result = main(sys.argv[1:])
     except (FileNotFoundError, ConnectionError, urllib.error.URLError) as e:
         print(json.dumps({'ok': False, 'error': f'bridge not reachable (game running with Agent Bridge?): {e}'})); sys.exit(2)

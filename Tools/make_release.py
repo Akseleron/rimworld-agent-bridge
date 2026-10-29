@@ -14,7 +14,7 @@ if dest.exists():
     saved = keep.read_text() if keep.is_file() else None
     shutil.rmtree(dest)
 else: saved = None
-for item in ['About', '1.7', 'Languages', 'LICENSE', 'README.md', 'README.ru.md', 'PRIVACY.md', 'PRIVACY.ru.md', 'CHANGELOG.md', 'CHANGELOG.ru.md', 'docs/PLAYING.md', 'docs/PLAYING.ru.md']:
+for item in ['About', '1.7', 'Languages', 'LICENSE', 'README.md', 'README.ru.md', 'PRIVACY.md', 'PRIVACY.ru.md', 'CHANGELOG.md', 'CHANGELOG.ru.md', 'docs/PLAYING.md', 'docs/PLAYING.ru.md', 'docs/PROTOCOL.md', 'docs/PROTOCOL.ru.md', 'docs/EXTENDING.md', 'docs/EXTENDING.ru.md', 'docs/RELEASING.md', 'docs/RELEASING.ru.md']:
     src = root/item
     if src.is_dir(): shutil.copytree(src, dest/item)
     elif src.is_file(): (dest/item).parent.mkdir(parents=True, exist_ok=True); shutil.copy2(src, dest/item)

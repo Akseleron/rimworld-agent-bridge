@@ -47,7 +47,7 @@ namespace AgentBridge
     [StaticConstructorOnStartup]
     public static class Bridge
     {
-        public const string Version = "1.1.3";
+        public const string Version = "1.1.4";
         public const string Protocol = "rwb-1";
         private static readonly Queue<Request> queue = new Queue<Request>();
         private static readonly List<Request> waiting = new List<Request>();
@@ -62,6 +62,8 @@ namespace AgentBridge
         public static readonly List<LogEntry> RecentLog = new List<LogEntry>();
         public static int Port => server?.Port ?? 0;
         public static bool Running => server != null;
+        /// <summary>The port the running server was asked for (it may sit a few ports higher if that one was busy).</summary>
+        internal static int StartedFor;
         public static string Token => token;
         public static Settings Settings => AgentBridgeMod.Settings;
 
@@ -115,6 +117,7 @@ namespace AgentBridge
             string? fixedToken = Environment.GetEnvironmentVariable("RWB_TOKEN");
             if (fixedToken != null && fixedToken.Length >= 16) token = fixedToken;
             int wanted = int.TryParse(Environment.GetEnvironmentVariable("RWB_PORT"), out var p) ? p : Settings.port;
+            StartedFor = wanted;
             server = Server.Start(wanted, Handle);
             if (server == null) { Log.Error("[AgentBridge] No free port in " + wanted + ".." + (wanted + 9)); return; }
             WriteDescriptor();
@@ -124,7 +127,8 @@ namespace AgentBridge
         {
             generation++;
             server?.Stop(); server = null;
-            try { File.Delete(DescriptorPath); } catch { }
+            // A second game instance may own the descriptor now: delete only our own.
+            try { if (File.Exists(DescriptorPath) && File.ReadAllText(DescriptorPath).Contains("\"pid\":" + Process.GetCurrentProcess().Id + ",")) File.Delete(DescriptorPath); } catch { }
         }
 
         /// <summary>New token, all agents disconnected. A disabled server stays off.</summary>
@@ -133,28 +137,34 @@ namespace AgentBridge
         private static void WriteDescriptor()
         {
             string path = DescriptorPath, temp = path + ".tmp";
-            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            string dir = Path.GetDirectoryName(path)!;
+            // The descriptor holds the token: owner-only from creation, never readable by other local users for a moment.
+            if (IsWindows) Directory.CreateDirectory(dir);
+            else
+            {
+                var owner = UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute;
+                Directory.CreateDirectory(dir, owner);
+                // Default folder only (older versions created it 0755); a custom RWB_DESCRIPTOR folder is the user's choice.
+                if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("RWB_DESCRIPTOR"))) try { File.SetUnixFileMode(dir, owner); } catch { }
+            }
             var assemblies = LoadedModManager.RunningModsListForReading.SelectMany(m => m.assemblies.loadedAssemblies)
                 .Select(a => { try { return a.Location; } catch { return ""; } }).Where(l => !string.IsNullOrEmpty(l)).Distinct().ToList();
-            File.WriteAllText(temp, Json.Write(new
+            string json = Json.Write(new
             {
                 protocol = Protocol, version = Version, port = Port, token, pid = Process.GetCurrentProcess().Id,
                 gameRoot = Path.GetDirectoryName(GenFilePaths.ModsFolderPath.TrimEnd('/', '\\')),
                 managed = Path.GetDirectoryName(typeof(Game).Assembly.Location),
                 runtime = RuntimeName, os = Environment.OSVersion.Platform.ToString(), assemblies,
-            }));
-            if (!IsWindows) RestrictToOwner(temp);
+            });
+            File.Delete(temp);
+            var options = new FileStreamOptions { Mode = FileMode.CreateNew, Access = FileAccess.Write };
+            if (!IsWindows) options.UnixCreateMode = UnixFileMode.UserRead | UnixFileMode.UserWrite;
+            using (var w = new StreamWriter(new FileStream(temp, options))) w.Write(json);
             if (File.Exists(path)) File.Delete(path);
             File.Move(temp, path);
         }
 
         public static string RuntimeName => Type.GetType("Mono.Runtime") != null ? "mono" : "coreclr";
-
-        private static void RestrictToOwner(string file)
-        {
-            try { Process.Start(new ProcessStartInfo("chmod", "600 \"" + file + "\"") { UseShellExecute = false, CreateNoWindow = true })?.WaitForExit(2000); }
-            catch { }
-        }
 
         internal static string ErrorJson(string message) => Json.Write(new Dictionary<string, object?> { ["ok"] = false, ["error"] = message });
 
@@ -214,7 +224,11 @@ namespace AgentBridge
                 object? result;
                 try { result = w.Pending!.Poll(); }
                 catch (Exception error) { result = new CommandError(error.Message); }
-                if (result == null && Time.realtimeSinceStartup > w.Pending!.Deadline) result = w.Pending.OnTimeout();
+                if (result == null && Time.realtimeSinceStartup > w.Pending!.Deadline)
+                {
+                    try { result = w.Pending.OnTimeout(); }
+                    catch (Exception error) { result = new CommandError(error.Message); }
+                }
                 if (result != null) { waiting.RemoveAt(i); Finish(w, result); }
             }
             if (queue.Count == 0) return;
@@ -251,6 +265,8 @@ namespace AgentBridge
                 if (cmd.Access == Access.Power || cmd.Access == Access.Inspect || cmd.Source != "core") return new CommandError(inner.GetType().Name + ": " + inner.Message);
                 // Game commands sent from the main menu: the agent's timing, not a crash.
                 if (inner is NullReferenceException && Current.Game == null) return new CommandError("no game loaded (main menu?); start or load a colony first");
+                // Values the agent sent that do not parse (enum names, numbers): its input, not a crash.
+                if (inner is FormatException || inner is OverflowException || inner is InvalidCastException || (inner is ArgumentException && !(inner is ArgumentNullException))) return new CommandError(inner.GetType().Name + ": " + inner.Message);
                 Telemetry.ReportException(a.Cmd, inner);
                 Log.Warning("[AgentBridge] " + a.Cmd + ": " + inner);
                 return new CommandError(inner.GetType().Name + ": " + inner.Message);

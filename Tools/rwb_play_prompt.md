@@ -10,7 +10,7 @@ How the game reacts:
   with `dialog index=…` or `window button=A|B`. Letters (`letters`) may also need answers (open them with `letter`).
 - Start each round with `snapshot` (add after=<last feed seq> to get only new events). `colony` shows progress.
 - Things are addressed by ThingID (Human123), cells by x,z. `area x z radius` gives a text map (north row first).
-- Orders: draft, move, attack, equip, gizmos+gizmo (use the language-independent key), menu+menu-choose (any
+- Orders: draft, move and attack (drafted pawns only, as in the game), equip, gizmos+gizmo (use the language-independent key), menu+menu-choose (any
   right-click order: rescue, haul, trade, capture, prioritize), designate (Mine, PlantsCut, Deconstruct, Hunt…),
   build (blueprints), zone, bills, work, schedule, research-set, assign (apparel/food/drug policy, medical care,
   allowed area), area-edit, storage, prisoner.

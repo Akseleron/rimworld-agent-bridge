@@ -26,7 +26,13 @@ namespace AgentBridge
         public static bool DevOnly(string? label) => Bridge.Settings.fairPlay && label != null && label.IndexOf("dev:", StringComparison.OrdinalIgnoreCase) >= 0;
 
         /// <summary>Fair play: things under fog of war are invisible to the agent, as to the player.</summary>
-        public static bool Seen(Thing t) => !Bridge.Settings.fairPlay || !t.Spawned || !t.Position.Fogged(t.Map);
+        public static bool Seen(Thing t)
+        {
+            if (!Bridge.Settings.fairPlay) return true;
+            // Held things (in a casket, a container) count by their holder's cell; psychically invisible pawns stay hidden.
+            if (t.MapHeld != null && t.PositionHeld.Fogged(t.MapHeld)) return false;
+            return !(t is Pawn p && p.IsHiddenFromPlayer());
+        }
 
         /// <summary>Gizmo owners: things by ThingID, or world objects as caravan:ID / wo:ID.</summary>
         public static ISelectable Selectable(string id)
@@ -49,7 +55,8 @@ namespace AgentBridge
             // Miss: the thing may have been spawned after this frame's index was built (spawn + use in one batch).
             if (t == null) foreach (var map in Find.Maps) if ((t = map.listerThings.AllThings.FirstOrDefault(x => x.ThingID == id)) != null) { index![id] = t; break; }
             if (t == null) throw new CommandError("no thing '" + id + "' (ids look like Human123; see pawns/things)");
-            return Seen(t) ? t : throw new CommandError("no visible thing '" + id + "' (fog of war)");
+            // Hidden things answer exactly like missing ones: a different message would reveal them to id probing.
+            return Seen(t) ? t : throw new CommandError("no thing '" + id + "' (ids look like Human123; see pawns/things)");
         }
 
         private static Dictionary<string, Thing>? index;
@@ -91,6 +98,28 @@ namespace AgentBridge
         }
 
         public static Pawn OwnPawn(Args a) => OwnPawns(a).First();
+
+        /// <summary>Pawns taking direct orders (draft, move, attack, gear). In fair play the vanilla gate: a colonist not
+        /// in a mental state or a lord's control, or a controlled colony mech.</summary>
+        public static List<Pawn> ControlledPawns(Args a)
+        {
+            var pawns = OwnPawns(a);
+            if (Bridge.Settings.fairPlay)
+                foreach (var p in pawns)
+                    if (!p.IsColonistPlayerControlled && !p.IsColonyMechPlayerControlled && !p.IsColonySubhumanPlayerControlled) throw new CommandError("fair-play mode: " + p.ThingID + " does not take direct orders now (mental state, downed, lord duty or uncontrolled mech)");
+            return pawns;
+        }
+
+        public static Pawn ControlledPawn(Args a) => ControlledPawns(a).First();
+
+        /// <summary>Fair play: drafted move/attack orders need a drafted pawn, and a mech within its mechanitor's range.</summary>
+        public static string? CannotOrder(Pawn p, LocalTargetInfo target)
+        {
+            if (!Bridge.Settings.fairPlay) return null;
+            if (!p.Drafted) return "draft first";
+            if (p.IsColonyMech && !MechanitorUtility.InMechanitorCommandRange(p, target)) return "out of mechanitor command range";
+            return null;
+        }
 
         public static T Def<T>(string? name) where T : Def
             => DefDatabase<T>.GetNamedSilentFail(name ?? "") ?? throw new CommandError("no " + typeof(T).Name + " '" + name + "'; search with defs type=" + typeof(T).Name + " filter=...");

@@ -2,6 +2,41 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.4
+Fixes from a second, wider review: what could go wrong for players, security, and fair play.
+- Fair play matches the game's own rules more closely:
+  - only pawns that take orders in the game can be drafted, moved or armed (no berserk colonists, no mechs out of
+    their mechanitor's range or control);
+  - `move` and `attack` need a drafted pawn;
+  - targeting gizmos and world targeting check the game's own target rules;
+  - you can only order your own caravans;
+  - `equip` respects biocoding, role restrictions and body parts, and `drop` respects locked apparel;
+  - zones follow the zone tool's rules, and growing zones only take plants you can sow;
+  - `designate` offers only the designators the architect menu shows;
+  - `quest-accept` checks the quest's requirements and the accepter;
+  - `prisoner` offers only the interaction modes the prisoner tab shows.
+- Fair play no longer reveals what a player cannot see: invisible pawns, pawns inside fogged containers, hidden
+  quests and factions, deaths out of sight, fogged hostiles in counts, and the game log (a Dev-mode tool). A hidden
+  thing now answers exactly like a missing one.
+- Robustness:
+  - deep `def`/`obj` dumps are capped instead of freezing the game;
+  - a `wait` pattern cannot hang the main thread;
+  - out-of-range or non-numeric arguments get a clear error;
+  - an error in a waiting command's timeout no longer stalls the queue;
+  - event hooks can never break the game's own code.
+- Agent input errors such as bad numbers or enum names are no longer filed as crash reports.
+- Saves:
+  - `load` only opens saves from the load menu, never arbitrary paths;
+  - two saves with one name cannot overwrite each other;
+  - `main-menu` needs `confirm=true`, like `quit`.
+- Privacy and security:
+  - nothing is sent before the player answers the consent prompt;
+  - the connection file is owner-only from the moment it is created;
+  - a second game instance no longer deletes the first one's connection file.
+- Windows: the MCP server and `rwb.py` work with non-ASCII text and user names, and the in-game MCP command uses
+  `python`. A port change in the settings applies at once. README: Workshop path, Windows, Cursor, the .NET SDK
+  needed for `eval`; the linked docs now ship with the mod.
+
 ## 1.1.3
 Fixes from a full code review.
 - Safety: `obj` reads no longer call methods without power access (a read of `Verse.Root.Shutdown` could quit the

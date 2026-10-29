@@ -83,7 +83,7 @@ namespace AgentBridge
                 id = map.uniqueID, size = new[] { map.Size.x, map.Size.z }, biome = map.Biome.defName, weather = map.weatherManager.curWeather.defName,
                 outdoorTemp = map.mapTemperature.OutdoorTemp, season = GenLocalDate.Season(map).ToString(), hour = GenLocalDate.HourOfDay(map),
                 colonists = map.mapPawns.FreeColonistsSpawnedCount, wealth = map.wealthWatcher.WealthTotal,
-                hostiles = map.mapPawns.AllPawnsSpawned.Count(p => p.HostileTo(Faction.OfPlayer) && !p.Dead && !p.Downed),
+                hostiles = map.mapPawns.AllPawnsSpawned.Count(p => p.HostileTo(Faction.OfPlayer) && !p.Dead && !p.Downed && G.Seen(p)),
                 danger = map.dangerWatcher.DangerRating.ToString(),
                 conditions = map.gameConditionManager.ActiveConditions.Select(c => c.def.defName).ToList(),
             };
@@ -148,7 +148,7 @@ namespace AgentBridge
                 pos = c, terrain = c.GetTerrain(map)?.defName, roof = c.GetRoof(map)?.defName, fogged = c.Fogged(map) ? true : (bool?)null,
                 snow = map.snowGrid.GetDepth(c), temperature = c.GetTemperature(map), walkable = c.Walkable(map), standable = c.Standable(map),
                 zone = map.zoneManager.ZoneAt(c)?.label, room = c.GetRoom(map)?.Role?.defName,
-                things = c.GetThingList(map).Select(G.ThingBrief).ToList(),
+                things = c.GetThingList(map).Where(G.Seen).Select(G.ThingBrief).ToList(),
             };
         }
 
@@ -172,7 +172,7 @@ namespace AgentBridge
             if (!cell.InBounds(map)) return ' ';
             if (cell.Fogged(map)) return '?';
             var things = cell.GetThingList(map);
-            foreach (var t in things) if (t is Pawn pawn) return pawn.IsColonist ? 'C' : pawn.HostileTo(Faction.OfPlayer) ? 'H' : pawn.RaceProps.Animal ? 'a' : 'p';
+            foreach (var t in things) if (t is Pawn pawn && G.Seen(pawn)) return pawn.IsColonist ? 'C' : pawn.HostileTo(Faction.OfPlayer) ? 'H' : pawn.RaceProps.Animal ? 'a' : 'p';
             char ch = '.';
             foreach (var t in things)
             {
@@ -256,7 +256,7 @@ namespace AgentBridge
         }
 
         [Command("def", Access.Read, "dump a def's fields {type=ThingDef, name, depth=1}")]
-        private static object? Def(Args a) => Plain.Dump(G.AnyDef(a.Str("type") ?? "ThingDef", a.Need("name")), a.Int("depth", 1));
+        private static object? Def(Args a) => Plain.Dump(G.AnyDef(a.Str("type") ?? "ThingDef", a.Need("name")), Plain.Depth(a, 1));
 
         [Command("inspect", Access.Read, "inspect string, description and comps of a thing {id}")]
         private static object Inspect(Args a)
@@ -273,10 +273,10 @@ namespace AgentBridge
         private static object Resources(Args a) => G.Map.resourceCounter.AllCountedAmounts.Where(kv => kv.Value > 0).ToDictionary(kv => kv.Key.defName, kv => kv.Value);
 
         [Command("factions", Access.Read, "factions with goodwill and hostility")]
-        private static object Factions(Args a) => Find.FactionManager.AllFactionsListForReading.Select(f => new { id = f.loadID, name = f.Name, def = f.def.defName, goodwill = f.IsPlayer ? (int?)null : f.PlayerGoodwill, hostile = !f.IsPlayer && f.HostileTo(Faction.OfPlayer) ? true : (bool?)null, defeated = f.defeated ? true : (bool?)null }).ToList();
+        private static object Factions(Args a) => Find.FactionManager.AllFactionsListForReading.Where(f => !Bridge.Settings.fairPlay || !f.Hidden).Select(f => new { id = f.loadID, name = f.Name, def = f.def.defName, goodwill = f.IsPlayer ? (int?)null : f.PlayerGoodwill, hostile = !f.IsPlayer && f.HostileTo(Faction.OfPlayer) ? true : (bool?)null, defeated = f.defeated ? true : (bool?)null }).ToList();
 
         [Command("quests", Access.Read, "available and ongoing quests")]
-        private static object Quests(Args a) => Find.QuestManager.QuestsListForReading.Where(q => q.State == QuestState.NotYetAccepted || q.State == QuestState.Ongoing)
+        private static object Quests(Args a) => Find.QuestManager.QuestsListForReading.Where(q => (q.State == QuestState.NotYetAccepted || q.State == QuestState.Ongoing) && !q.hidden && !q.hiddenInUI)
             .Select(q => new { id = q.id, name = q.name, state = q.State.ToString(), desc = a.Bool("text", false) ? q.description.ToString() : null }).ToList();
 
         [Command("world", Access.Read, "world tile info {tile?}, player caravans and settlements")]

@@ -79,6 +79,7 @@ namespace AgentBridge
                         string? line;
                         while (!string.IsNullOrEmpty(line = ReadLine(stream)))
                         {
+                            if (headers.Count >= 100) return;  // an endless header stream would grow without bound
                             int colon = line!.IndexOf(':');
                             if (colon > 0) headers[line.Substring(0, colon).Trim()] = line.Substring(colon + 1).Trim();
                         }

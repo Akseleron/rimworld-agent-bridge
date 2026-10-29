@@ -70,6 +70,11 @@ claude mcp add rimworld -- python3 "<RimWorld>/Mods/AgentBridge/Tools/rwb_mcp.py
 codex mcp add rimworld -- python3 "<RimWorld>/Mods/AgentBridge/Tools/rwb_mcp.py"
 ```
 
+На Windows вместо `python3` пишите `python`. Копия из Steam Workshop лежит в
+`steamapps/workshop/content/294100/3828798135/Tools`; кнопка в игре всегда даёт верный путь. Другие MCP-клиенты
+(Cursor и т. п.): команда `python3`, аргумент — путь к `rwb_mcp.py`. Для `eval` нужен .NET 10 SDK (`dotnet`) в PATH,
+для `source` — `ilspycmd`.
+
 Инструменты:
 - `rimworld` — любая команда;
 - `rimworld_eval` — C# внутри игры;
@@ -109,7 +114,7 @@ dotnet build -c Release -p:SkipModCopy=true   # пока RimWorld запущен
 ```
 
 Референсные сборки берутся из NuGet (`Krafs.Rimworld.Ref`, `Lib.Harmony`), поэтому установленная игра для сборки не нужна.
-`python Tools/rwb_smoke.py` прогоняет живой тест ~70 команд на одноразовой колонии (`rwb.py quicktest`).
+`python Tools/rwb_smoke.py` прогоняет живой тест ~70+ команд на одноразовой колонии (`rwb.py quicktest`).
 Выпуск в Steam Workshop — [docs/RELEASING.ru.md](docs/RELEASING.ru.md).
 
 ## Лицензия

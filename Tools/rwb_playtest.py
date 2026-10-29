@@ -52,11 +52,18 @@ def main():
     refused('build', **{'def': 'FabricationBench'}, x=1, z=1)  # needs Fabrication research
     wild = [x['id'] for x in call(cmd='pawns', filter='animals')['result'] if not x.get('faction')]
     if wild: refused('drop', id=wild[0])  # only your own pawns take orders
+    r = call(cmd='main-menu'); check('main-menu needs confirm', not r.get('ok'), r.get('error'))
 
     r = call(cmd='tick', n=600)
     pawns = call(cmd='pawns')['result']
     check('colonists present', len(pawns) > 0, [x['id'] for x in pawns])
     ids = [x['id'] for x in pawns]; me = ids[0]; c = pawns[0]['pos']
+    call(cmd='draft', ids=[me], on=False)
+    r = call(cmd='move', ids=[me], x=c[0] + 2, z=c[1])
+    check('undrafted move refused', r.get('ok') and r['result'][0].get('error') == 'draft first', r.get('result'))
+    r = call(cmd='draft', ids=[me]); check('draft', r.get('ok') and r['result'][0].get('drafted'), r.get('result', r.get('error')))
+    r = call(cmd='move', ids=[me], x=c[0] + 2, z=c[1]); check('drafted move', r.get('ok') and r['result'][0].get('ok'), r.get('result'))
+    call(cmd='draft', ids=[me], on=False)
     check('snapshot', call(cmd='snapshot', fields=['state', 'colonists']).get('ok'))
     check('work priority', call(cmd='work', id=me, work='Construction', priority=1).get('ok'))
     check('schedule', call(cmd='schedule', id=me, hour=22, assignment='Sleep').get('ok'))

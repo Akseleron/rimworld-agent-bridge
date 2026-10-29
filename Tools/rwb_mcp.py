@@ -7,6 +7,10 @@ import json, os, sys, traceback
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rwb
 
+# MCP speaks UTF-8 JSON lines; Windows pipes default to the locale code page (cp1252, cp936...).
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8', newline='\n')
+
 LIVE_HELP = ("Live control of the running RimWorld (Agent Bridge mod). Pass cmd plus its args. Call cmd='help' for the full list. "
              "Observe: snapshot capabilities state map pawns pawn things cell area alerts letters feed windows gizmos menu inspect resources factions quests world "
              "debug-list saves defs def mods perf patches research. Act: pause speed tick select camera draft move attack job-end gizmo target "
@@ -18,7 +22,7 @@ LIVE_HELP = ("Live control of the running RimWorld (Agent Bridge mod). Pass cmd 
 TOOLS = [
     {'name': 'rimworld', 'description': LIVE_HELP,
      'inputSchema': {'type': 'object', 'properties': {'cmd': {'type': 'string'}, 'args': {'type': 'object', 'description': 'command arguments, e.g. {"ids":["Human12"],"x":40,"z":55}'}}, 'required': ['cmd']}},
-    {'name': 'rimworld_eval', 'description': 'Compile and run C# inside the running game on the main thread. Body of `static object Run(JsonElement args)`; '
+    {'name': 'rimworld_eval', 'description': 'Compile and run C# inside the running game on the main thread. Body of `static object Run(Dictionary<string, object> args)`; '
      'usings Verse, RimWorld, Verse.AI, RimWorld.Planet, UnityEngine, HarmonyLib, System.Linq included. A bare expression is returned. Requires DevMode.',
      'inputSchema': {'type': 'object', 'properties': {'code': {'type': 'string'}, 'depth': {'type': 'integer', 'default': 2}, 'args': {'type': 'object'}}, 'required': ['code']}},
     {'name': 'rimworld_source', 'description': 'Decompile a game or mod type (full name, e.g. Verse.Pawn, RimWorld.JobDriver_Wait). Optional grep regex returns matching lines with context.',
@@ -88,7 +92,7 @@ for line in sys.stdin:
             if not isinstance(info, dict): raise InvalidParams('clientInfo must be an object')
             CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
             reply(id_, {'protocolVersion': p.get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}, 'prompts': {}},
-                        'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.3'}})
+                        'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.4'}})
         elif method == 'tools/list': reply(id_, {'tools': TOOLS})
         elif method == 'prompts/list':
             reply(id_, {'prompts': [{'name': 'play_rimworld', 'description': 'Play the running colony fairly (no cheats) as the player',

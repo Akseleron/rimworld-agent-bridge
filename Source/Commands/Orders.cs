@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using RimWorld;
@@ -44,6 +45,7 @@ namespace AgentBridge
             }
             return new Pending(() =>
             {
+                if (!ReferenceEquals(Current.Game?.tickManager, tm)) return Done("game-changed");  // loaded or quit: release the stop target
                 if (tm.TicksGame >= target) return Done(null);
                 if (tm.TicksGame != last) { last = tm.TicksGame; stalledSince = Time.realtimeSinceStartup; return null; }
                 if (Find.WindowStack.WindowsForcePause) return Done("blocked-by-window");
@@ -56,21 +58,23 @@ namespace AgentBridge
         private static object Draft(Args a)
         {
             bool on = a.Bool("on", true);
-            return G.OwnPawns(a).Select(p =>
+            return G.ControlledPawns(a).Select(p =>
             {
                 if (p.drafter == null) return (object)new { id = p.ThingID, error = "cannot be drafted" };
+                if (on && Bridge.Settings.fairPlay && p.IsColonyMech && MechanitorUtility.CanDraftMech(p) is AcceptanceReport r && !r.Accepted) return (object)new { id = p.ThingID, error = r.Reason ?? "mech cannot be drafted" };
                 p.drafter.Drafted = on;
                 return new { id = p.ThingID, drafted = p.Drafted };
             }).ToList();
         }
 
-        [Command("move", Access.Act, "go to a cell {ids, x,z} (forced order; draft first for combat positioning)")]
+        [Command("move", Access.Act, "go to a cell {ids, x,z} (forced order; in fair play the pawn must be drafted, as in the game)")]
         private static object Move(Args a)
         {
             var c = G.Cell(a);
-            return G.OwnPawns(a).Select(p =>
+            return G.ControlledPawns(a).Select(p =>
             {
                 if (p.Downed || p.Dead) return (object)new { id = p.ThingID, error = p.Dead ? "dead" : "downed" };
+                if (G.CannotOrder(p, c) is string why) return (object)new { id = p.ThingID, error = why };
                 var dest = RCellFinder.BestOrderedGotoDestNear(c, p);
                 if (!dest.IsValid) return (object)new { id = p.ThingID, error = "unreachable" };
                 var job = JobMaker.MakeJob(JobDefOf.Goto, dest); job.playerForced = true;
@@ -78,13 +82,15 @@ namespace AgentBridge
             }).ToList();
         }
 
-        [Command("attack", Access.Act, "attack {ids, target:id | x,z, melee=false}")]
+        [Command("attack", Access.Act, "attack {ids, target:id | x,z, melee=false}; in fair play the pawn must be drafted")]
         private static object Attack(Args a)
         {
             var target = G.Target(a); bool melee = a.Bool("melee", false);
-            return G.OwnPawns(a).Select(p =>
+            if (target.HasThing && !G.Seen(target.Thing)) throw new CommandError("no such target");
+            return G.ControlledPawns(a).Select(p =>
             {
                 if (p.Downed || p.Dead) return (object)new { id = p.ThingID, error = p.Dead ? "dead" : "downed" };
+                if (G.CannotOrder(p, target) is string why) return (object)new { id = p.ThingID, error = why };
                 bool ranged = !melee && p.equipment?.Primary?.def.IsRangedWeapon == true;
                 var job = JobMaker.MakeJob(ranged ? JobDefOf.AttackStatic : JobDefOf.AttackMelee, target); job.playerForced = true;
                 return (object)new { id = p.ThingID, ok = p.jobs.TryTakeOrderedJob(job, JobTag.DraftedOrder), job = job.def.defName };
@@ -92,25 +98,35 @@ namespace AgentBridge
         }
 
         [Command("job-end", Access.Act, "interrupt current jobs {ids}")]
-        private static object JobEnd(Args a) { foreach (var p in G.OwnPawns(a)) p.jobs.EndCurrentJob(JobCondition.InterruptForced); return "ok"; }
+        private static object JobEnd(Args a) { foreach (var p in G.ControlledPawns(a)) p.jobs.EndCurrentJob(JobCondition.InterruptForced); return "ok"; }
 
         [Command("forbid", Access.Act, "forbid or allow items {ids, on=true}")]
-        private static object Forbid(Args a) { bool on = a.Bool("on", true); foreach (var id in a.Strings("ids")) G.Thing(id).SetForbidden(on, false); return on; }
+        private static object Forbid(Args a) { bool on = a.Bool("on", true); foreach (var id in a.Strings("ids")) { var t = G.Thing(id); if (!G.Seen(t)) throw new CommandError("no thing '" + id + "'"); t.SetForbidden(on, false); } return on; }
 
         [Command("equip", Access.Act, "walk to and equip a weapon / wear apparel {id, target}")]
         private static object Equip(Args a)
         {
-            var p = G.OwnPawn(a); var t = G.Thing(a.Need("target"));
+            var p = G.ControlledPawn(a); var t = G.Thing(a.Need("target"));
+            if (Bridge.Settings.fairPlay)
+            {
+                // The checks behind the vanilla Equip/Wear menu options: biocoding, role restrictions, body parts, forbidden.
+                if (!G.Seen(t)) throw new CommandError("no thing '" + t.ThingID + "'");
+                if (!EquipmentUtility.CanEquip(t, p, out string reason)) throw new CommandError("fair-play mode: cannot equip: " + reason);
+                if (t.def.IsApparel && !ApparelUtility.HasPartsToWear(p, t.def)) throw new CommandError("fair-play mode: missing body parts to wear " + t.def.defName);
+            }
             var job = JobMaker.MakeJob(t.def.IsApparel ? JobDefOf.Wear : JobDefOf.Equip, t); job.playerForced = true;
-            return p.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+            bool ok = p.jobs.TryTakeOrderedJob(job, JobTag.Misc);
+            if (ok) t.SetForbidden(false, false);  // the game's equip/wear order allows a forbidden item the same way
+            return ok;
         }
 
         [Command("drop", Access.Act, "drop the primary weapon or a worn apparel {id, target?}")]
         private static object? Drop(Args a)
         {
-            var p = G.OwnPawn(a); string? target = a.Str("target");
+            var p = G.ControlledPawn(a); string? target = a.Str("target");
             if (p.equipment?.Primary is ThingWithComps w && (target == null || target == w.ThingID)) { p.equipment.TryDropEquipment(w, out var d, p.Position); return d?.ThingID; }
             var ap = p.apparel?.WornApparel.FirstOrDefault(x => x.ThingID == target) ?? throw new CommandError("nothing to drop");
+            if (Bridge.Settings.fairPlay && p.apparel.IsLocked(ap)) throw new CommandError("fair-play mode: " + ap.ThingID + " is locked (quest or ritual)");
             p.apparel.TryDrop(ap, out var dropped);
             return dropped?.ThingID;
         }
@@ -118,7 +134,8 @@ namespace AgentBridge
         [Command("designate", Access.Act, "designate an area {designator: e.g. Mine|PlantsCut|Deconstruct|Hunt|Haul, x,z, x2?,z2?}; without designator lists them")]
         private static object Designate(Args a)
         {
-            var all = DefDatabase<DesignationCategoryDef>.AllDefs.SelectMany(d => d.AllResolvedDesignators).ToList();
+            // Fair play: only designators the architect menu shows (Designator_Build for locked buildings is hidden).
+            var all = DefDatabase<DesignationCategoryDef>.AllDefs.SelectMany(d => d.AllResolvedDesignators).Where(d => !Bridge.Settings.fairPlay || d.Visible).ToList();
             string Names() => string.Join(" ", all.Select(d => d.GetType().Name.Replace("Designator_", "")).Distinct().ToArray());
             string want = a.Str("designator") ?? throw new CommandError("need designator; have: " + Names());
             var des = all.FirstOrDefault(d => d.GetType().Name.Equals("Designator_" + want, StringComparison.OrdinalIgnoreCase) || d.GetType().Name.Equals(want, StringComparison.OrdinalIgnoreCase))
@@ -153,10 +170,20 @@ namespace AgentBridge
                 "dumping" => new Zone_Stockpile(StorageSettingsPreset.DumpingStockpile, map.zoneManager),
                 _ => new Zone_Stockpile(StorageSettingsPreset.DefaultStockpile, map.zoneManager),
             };
+            // Fair play: the zone tool's own rules (no fogged or edge cells, growing zones need fertile soil).
+            Designator? tool = !Bridge.Settings.fairPlay ? null : zone is Zone_Growing ? new Designator_ZoneAdd_Growing() : new Designator_ZoneAddStockpile_Resources();
+            var cells = CellRect.FromLimits(c1, c2).Cells.Where(x => map.zoneManager.ZoneAt(x) == null && x.Standable(map) && (tool == null || tool.CanDesignateCell(x).Accepted)).ToList();
             map.zoneManager.RegisterZone(zone);
-            foreach (var cell in CellRect.FromLimits(c1, c2).Cells.Where(x => map.zoneManager.ZoneAt(x) == null && x.Standable(map))) zone.AddCell(cell);
+            foreach (var cell in cells) zone.AddCell(cell);
             if (zone.Cells.Count == 0) { zone.Delete(); throw new CommandError("no free standable cells in that rectangle"); }
-            if (zone is Zone_Growing g && a.Str("plant") is string plant) g.SetPlantDefToGrow(G.Def<ThingDef>(plant));
+            if (zone is Zone_Growing g && a.Str("plant") is string plant)
+            {
+                var plantDef = G.Def<ThingDef>(plant);
+                // The plant picker offers only sowable plants whose research is done.
+                if (Bridge.Settings.fairPlay && (!PlantUtility.ValidPlantTypesForGrowers(new List<IPlantToGrowSettable> { g }).Contains(plantDef) || !PlantUtility.CanSowOnGrower(plantDef, g) || !plantDef.plant.sowResearchPrerequisites.NullOrEmpty() && !plantDef.plant.sowResearchPrerequisites.All(r => r.IsFinished)))
+                    throw new CommandError("fair-play mode: " + plantDef.defName + " cannot be sown here yet (research or soil)");
+                g.SetPlantDefToGrow(plantDef);
+            }
             return new { zone = zone.label, cells = zone.Cells.Count };
         }
 
@@ -164,6 +191,9 @@ namespace AgentBridge
         private static object Bills(Args a)
         {
             var bench = G.Thing(a.Need("id")) as IBillGiver ?? throw new CommandError("not a workbench");
+            // Buildings must be yours; pawns (medical operations) follow the health tab: colonists, prisoners, own animals.
+            if (Bridge.Settings.fairPlay && (bench is Pawn patient ? patient.Faction != Faction.OfPlayer && !patient.IsPrisonerOfColony && patient.HostFaction != Faction.OfPlayer : ((Thing)bench).Faction != Faction.OfPlayer))
+                throw new CommandError("fair-play mode: not your workbench or patient");
             var stack = bench.BillStack;
             switch (a.Str("op") ?? "list")
             {
@@ -216,34 +246,57 @@ namespace AgentBridge
             return Find.ResearchManager.GetProject()?.defName ?? "none";
         }
 
-        [Command("quest-accept", Access.Act, "accept quest {id}")]
+        [Command("quest-accept", Access.Act, "accept quest {id, pawn?: accepter ThingID when the quest needs one}")]
         private static object QuestAccept(Args a)
         {
-            var q = Find.QuestManager.QuestsListForReading.FirstOrDefault(x => x.id == a.Int("id", -1)) ?? throw new CommandError("no quest");
-            q.Accept(Find.Maps.SelectMany(m => m.mapPawns.FreeColonists).FirstOrDefault());
+            var q = Find.QuestManager.QuestsListForReading.FirstOrDefault(x => x.id == a.Int("id", -1) && !x.hidden && !x.hiddenInUI) ?? throw new CommandError("no quest");
+            // The quest tab's Accept button: still open, its requirements met, and an eligible accepter when required.
+            if (q.State != QuestState.NotYetAccepted) throw new CommandError("quest is " + q.State);
+            var can = QuestUtility.CanAcceptQuest(q);
+            if (!can.Accepted) throw new CommandError("cannot accept: " + (can.Reason ?? "requirements not met"));
+            Pawn? accepter = null;
+            if (q.RequiresAccepter)
+            {
+                // Candidates as in the quest tab: colonists on maps, in caravans and in travelling transporters.
+                var candidates = PawnsFinder.AllMapsCaravansAndTravellingTransporters_Alive_FreeColonists;
+                string? want = a.Str("pawn");
+                accepter = candidates.FirstOrDefault(p => (want == null || p.ThingID == want) && QuestUtility.CanPawnAcceptQuest(p, q));
+                if (accepter == null) throw new CommandError("no colonist can accept this quest" + (want != null ? " (that pawn is not eligible)" : ""));
+            }
+            q.Accept(accepter);
             return q.State.ToString();
         }
+
+        private static readonly HashSet<string> savesInFlight = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         [Command("save", Access.Act, "save game as a NEW file {name}; never overwrites")]
         private static object Save(Args a)
         {
             if (!G.Playing) throw new CommandError("no game to save");
-            string name = a.Need("name");
-            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) throw new CommandError("bad file name");
+            string name = a.Need("name").Trim();
+            if (name.Length == 0 || name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) throw new CommandError("bad file name");
             // Folder mods (RimSaves) prefix the physical name with "<folder>#§#"; match by suffix too.
             FileInfo? Match(DateTime after) => GenFilePaths.AllSavedGameFiles.FirstOrDefault(f => (Path.GetFileNameWithoutExtension(f.Name) == name || f.Name.EndsWith("#§#" + name + ".rws", StringComparison.Ordinal)) && f.LastWriteTimeUtc >= after);
             if (Match(DateTime.MinValue) is FileInfo existing) throw new CommandError("save exists (" + existing.Name + "); the bridge never overwrites");
+            // Two saves with one name in flight would both pass the existence check and the second would overwrite.
+            if (!savesInFlight.Add(name)) throw new CommandError("a save named '" + name + "' is already in progress");
             var started = DateTime.UtcNow.AddSeconds(-1);
             LongEventHandler.QueueLongEvent(() => GameDataSaveLoader.SaveGame(name), "SavingLongEvent", false, null);
-            return new Pending(() => !LongEventHandler.AnyEventNowOrWaiting && Match(started) is FileInfo f ? new { saved = Bridge.LastSave = Path.GetFileNameWithoutExtension(f.Name) } : null,
-                a.Timeout, () => new CommandError("save not confirmed within timeout"));
+            return new Pending(() =>
+            {
+                if (LongEventHandler.AnyEventNowOrWaiting || !(Match(started) is FileInfo f)) return null;
+                savesInFlight.Remove(name);
+                return new { saved = Bridge.LastSave = Path.GetFileNameWithoutExtension(f.Name) };
+            }, a.Timeout, () => { savesInFlight.Remove(name); return new CommandError("save not confirmed within timeout"); });
         }
 
         [Command("load", Access.Act, "load a save {name} (exact name from saves); waits until playable")]
         private static object Load(Args a)
         {
             string name = a.Need("name");
-            if (!File.Exists(GenFilePaths.FilePathForSavedGame(name))) throw new CommandError("no save '" + name + "'; see saves");
+            // Only saves the load menu lists: a path ("../x", absolute) could load any .rws on disk.
+            if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0 || !GenFilePaths.AllSavedGameFiles.Any(f => Path.GetFileNameWithoutExtension(f.Name) == name))
+                throw new CommandError("no save '" + name + "'; see saves");
             var before = Current.Game;
             GameDataSaveLoader.CheckVersionAndLoadGame(name);
             // Done only when a different Game is fully playing; the old one still reports Playing for a frame.
@@ -252,8 +305,12 @@ namespace AgentBridge
                 a.Timeout, () => new { loading = name, done = false, windows = Observe.Windows(a) });
         }
 
-        [Command("main-menu", Access.Act, "quit to main menu without saving")]
-        private static object MainMenu(Args a) { GenScene.GoToMainMenu(); return "ok"; }
+        [Command("main-menu", Access.Act, "quit to main menu without saving {confirm:true}")]
+        private static object MainMenu(Args a)
+        {
+            if (!a.Bool("confirm", false)) throw new CommandError("pass confirm=true; leaves the colony without saving");
+            GenScene.GoToMainMenu(); return "ok";
+        }
 
         [Command("quit", Access.Act, "quit RimWorld without saving {confirm:true}")]
         private static object Quit(Args a)

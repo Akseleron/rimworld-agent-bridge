@@ -59,6 +59,11 @@ claude mcp add rimworld -- python3 "<RimWorld>/Mods/AgentBridge/Tools/rwb_mcp.py
 codex mcp add rimworld -- python3 "<RimWorld>/Mods/AgentBridge/Tools/rwb_mcp.py"
 ```
 
+On Windows use `python` instead of `python3`. A Steam Workshop copy lives in
+`steamapps/workshop/content/294100/3828798135/Tools`; the in-game button always has the right path. Other MCP clients
+(Cursor, etc.): command `python3`, argument the path to `rwb_mcp.py`. `eval` needs the .NET 10 SDK (`dotnet`) on PATH,
+`source` needs `ilspycmd`.
+
 Tools: `rimworld` (any command), `rimworld_eval` (C# in the game), `rimworld_source` (decompile game/mod types),
 `rimworld_defs` (search XML defs), `rimworld_log` (read Player.log, works after a crash).
 
@@ -89,7 +94,7 @@ dotnet build -c Release -p:SkipModCopy=true   # while RimWorld runs: never overw
 
 Reference assemblies come from NuGet (`Krafs.Rimworld.Ref`, `Lib.Harmony`), so no game install is needed to build.
 Releasing to Steam Workshop: [docs/RELEASING.md](docs/RELEASING.md).
-`python Tools/rwb_smoke.py` runs a live test of ~70 commands against a throwaway colony (`rwb.py quicktest`).
+`python Tools/rwb_smoke.py` runs a live test of ~70+ commands against a throwaway colony (`rwb.py quicktest`).
 
 ## License
 

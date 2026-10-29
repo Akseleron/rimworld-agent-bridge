@@ -98,7 +98,7 @@ namespace AgentBridge
                 type = owner?.GetType() ?? throw new CommandError("null at " + parts[i]);
             }
             string? last = parts.Count > 0 ? parts[parts.Count - 1] : null;
-            int depth = a.Int("depth", 1);
+            int depth = Plain.Depth(a, 1);
             switch (op)
             {
                 case "members":
@@ -141,7 +141,7 @@ namespace AgentBridge
             object? result;
             try { result = m.Invoke(null, m.GetParameters().Length == 1 ? new object[] { (a.Get("args") as Dictionary<string, object?>) ?? new Dictionary<string, object?>() } : null); }
             catch (TargetInvocationException e) { throw new CommandError((e.InnerException ?? e).ToString()); }
-            return result is Pending pending ? pending : Plain.Dump(result, a.Int("depth", 2));
+            return result is Pending pending ? pending : Plain.Dump(result, Plain.Depth(a, 2));
         }
 
         [Command("wait", Access.Read, "wait for {until: ticks|loaded|paused|no-hostiles|log|message|letter|incident|death, n?, pattern? (regex), after? (feed seq, default now), timeout=60}")]
@@ -149,7 +149,10 @@ namespace AgentBridge
         {
             string until = a.Str("until") ?? "loaded";
             long from = a.Long("after", Feed.Last);
-            var rx = a.Str("pattern") is string pat ? new Regex(pat, RegexOptions.IgnoreCase) : null;
+            Regex? rx = null;
+            // Agent-supplied pattern runs on the main thread every frame: bounded so a pathological one cannot freeze the game.
+            try { if (a.Str("pattern") is string pat) rx = new Regex(pat, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(20)); }
+            catch (ArgumentException e) { throw new CommandError("bad pattern: " + e.Message); }
             int start = Current.Game?.tickManager?.TicksGame ?? 0, n = a.Int("n", 60);
             Func<object?> poll;
             switch (until)
@@ -157,9 +160,16 @@ namespace AgentBridge
                 case "loaded": poll = () => (Current.ProgramState == ProgramState.Playing || Current.ProgramState == ProgramState.Entry) && !LongEventHandler.AnyEventNowOrWaiting ? new { state = Current.ProgramState.ToString() } : null; break;
                 case "ticks": poll = () => G.Ticks.TicksGame >= start + n ? new { tick = G.Ticks.TicksGame } : null; break;
                 case "paused": poll = () => G.Ticks.Paused ? new { tick = G.Ticks.TicksGame } : null; break;
-                case "no-hostiles": poll = () => !G.Map.mapPawns.AllPawnsSpawned.Any(p => p.HostileTo(Faction.OfPlayer) && !p.Downed && !p.Dead) ? new { tick = G.Ticks.TicksGame } : null; break;
+                case "no-hostiles": poll = () => !G.Map.mapPawns.AllPawnsSpawned.Any(p => p.HostileTo(Faction.OfPlayer) && !p.Downed && !p.Dead && G.Seen(p)) ? new { tick = G.Ticks.TicksGame } : null; break;
                 case "incident" when Bridge.Settings.fairPlay: throw new CommandError("fair-play mode: incidents are only visible as letters");
-                case "log": case "message": case "letter": case "incident": case "death": poll = () => Feed.Find(from, until, rx); break;
+                case "log" when Bridge.Settings.fairPlay: throw new CommandError("fair-play mode: the game log is a Dev-mode tool; wait for a message or letter");
+                case "log": case "message": case "letter": case "incident": case "death": poll = () =>
+                {
+                    // Re-read each poll: fair play may be switched on while the wait is pending.
+                    bool fair = Bridge.Settings.fairPlay;
+                    if (fair && (until == "incident" || until == "log")) throw new CommandError("fair-play mode: " + until + " is hidden");
+                    return Feed.Find(from, until, rx, fair);
+                }; break;
                 default: throw new CommandError("until: ticks|loaded|paused|no-hostiles|log|message|letter|incident|death");
             }
             return new Pending(poll, a.Timeout, () => new { timedOut = true, tick = Current.Game?.tickManager?.TicksGame, last = Feed.Last });

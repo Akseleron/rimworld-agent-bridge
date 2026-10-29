@@ -54,11 +54,15 @@ namespace AgentBridge
             base.WriteSettings();
             if (Settings.enabled && !Bridge.Running) Bridge.Start();
             if (!Settings.enabled && Bridge.Running) Bridge.Stop();
+            // A new port takes effect at once (agents reconnect through the rewritten descriptor). RWB_PORT overrides the setting.
+            if (Settings.enabled && Bridge.Running && Bridge.StartedFor != Settings.port && !int.TryParse(Environment.GetEnvironmentVariable("RWB_PORT"), out _)) { Bridge.Stop(); Bridge.Start(); }
         }
 
         public static string ToolsDir => Path.Combine(Pack?.RootDir ?? "", "Tools");
-        public static string McpCommand => "claude mcp add rimworld -- python3 \"" + Path.Combine(ToolsDir, "rwb_mcp.py") + "\"\n" +
-                                           "codex mcp add rimworld -- python3 \"" + Path.Combine(ToolsDir, "rwb_mcp.py") + "\"";
+        // Windows has no python3 by default (it opens the Microsoft Store stub); the python.org installer adds "python".
+        private static string Python => Bridge.IsWindows ? "python" : "python3";
+        public static string McpCommand => "claude mcp add rimworld -- " + Python + " \"" + Path.Combine(ToolsDir, "rwb_mcp.py") + "\"\n" +
+                                           "codex mcp add rimworld -- " + Python + " \"" + Path.Combine(ToolsDir, "rwb_mcp.py") + "\"";
 
         // Two buttons per row keep the whole left column visible in the fixed-size settings window.
         private static bool ButtonPair(Listing_Standard l, string a, string b, out bool second)
