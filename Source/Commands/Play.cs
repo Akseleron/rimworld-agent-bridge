@@ -216,7 +216,7 @@ namespace AgentBridge
         private static object Assign(Args a)
         {
             T Find<T>(IEnumerable<T> all, string name, Func<T, string> label) => all.FirstOrDefault(x => label(x).Equals(name, StringComparison.OrdinalIgnoreCase)) ?? throw new CommandError("no policy '" + name + "'; see policies");
-            foreach (var p in G.Pawns(a))
+            foreach (var p in G.OwnPawns(a))
             {
                 if (a.Str("apparel") is string ap) p.outfits.CurrentApparelPolicy = Find(Current.Game.outfitDatabase.AllOutfits, ap, x => x.label);
                 if (a.Str("food") is string fo) p.foodRestriction.CurrentFoodPolicy = Find(Current.Game.foodRestrictionDatabase.AllFoodRestrictions, fo, x => x.label);

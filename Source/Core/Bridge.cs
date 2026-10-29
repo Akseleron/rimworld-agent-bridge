@@ -16,9 +16,10 @@ namespace AgentBridge
     {
         private readonly Func<object?> poll, onTimeout;
         public readonly float Deadline;
+        public readonly double Seconds;
         public Pending(Func<object?> poll, double seconds, Func<object?> onTimeout)
         {
-            this.poll = poll; this.onTimeout = onTimeout; Deadline = Time.realtimeSinceStartup + (float)seconds;
+            this.poll = poll; this.onTimeout = onTimeout; Seconds = seconds; Deadline = Time.realtimeSinceStartup + (float)seconds;
         }
         public object? Poll() => poll();
         public object? OnTimeout() => onTimeout();
@@ -46,13 +47,15 @@ namespace AgentBridge
     [StaticConstructorOnStartup]
     public static class Bridge
     {
-        public const string Version = "1.1.2";
+        public const string Version = "1.1.3";
         public const string Protocol = "rwb-1";
         private static readonly Queue<Request> queue = new Queue<Request>();
         private static readonly List<Request> waiting = new List<Request>();
         private static Server? server;
         private static string token = "";
         private static int lastPumpFrame = -1;
+        // Bumped on every stop: requests from a stopped server are answered with an error, never run.
+        private static volatile int generation;
         internal static string? LastSave;
         internal static bool HarmonyActive;
         public static readonly Dictionary<string, ClientInfo> Clients = new Dictionary<string, ClientInfo>();
@@ -119,11 +122,13 @@ namespace AgentBridge
 
         public static void Stop()
         {
+            generation++;
             server?.Stop(); server = null;
             try { File.Delete(DescriptorPath); } catch { }
         }
 
-        public static void RegenerateToken() { Stop(); Start(); }
+        /// <summary>New token, all agents disconnected. A disabled server stays off.</summary>
+        public static void RegenerateToken() { Stop(); if (Settings.enabled) Start(); }
 
         private static void WriteDescriptor()
         {
@@ -168,12 +173,15 @@ namespace AgentBridge
             // Shown in the settings window and the overlay: printable characters only, short.
             agent = new string(agent.Where(ch => !char.IsControl(ch) && ch != '<' && ch != '>').Take(48).ToArray());
             if (agent.Length == 0) agent = "unknown";
-            var request = new Request(new Args(raw), agent);
+            var request = new Request(new Args(raw), agent, generation);
             double timeout;
             try { timeout = request.Args.Timeout; } catch (Exception e) { return (400, ErrorJson(e.Message)); }
             lock (queue) queue.Enqueue(request);
-            if (!request.Done.WaitOne(TimeSpan.FromSeconds(timeout + 15)))
+            // Waiting commands may set a longer deadline than the requested timeout (newgame waits at least 600 s).
+            var waited = Stopwatch.StartNew();
+            while (!request.Done.WaitOne(TimeSpan.FromSeconds(1)))
             {
+                if (waited.Elapsed.TotalSeconds < Math.Max(timeout, request.PendingSeconds) + 15) continue;
                 request.Cancelled = true;  // the event stays alive: the main thread may still finish it
                 return (504, ErrorJson("main thread did not answer (game loading, frozen or minimized?)"));
             }
@@ -219,9 +227,10 @@ namespace AgentBridge
                 Request request;
                 lock (queue) { if (queue.Count == 0) break; request = queue.Dequeue(); }
                 if (request.Cancelled) continue;
+                if (request.Generation != generation) { Finish(request, new CommandError("Agent Bridge server was stopped")); continue; }
                 if (loading && !LoadSafe.Contains(request.Args.Cmd)) { deferred.Add(request); continue; }
                 object? result = Execute(request.Args);
-                if (result is Pending pending) { request.Pending = pending; waiting.Add(request); }
+                if (result is Pending pending) { request.Pending = pending; request.PendingSeconds = pending.Seconds; waiting.Add(request); }
                 else Finish(request, result);
             }
             if (deferred.Count > 0) lock (queue) foreach (var d in deferred) queue.Enqueue(d);
@@ -240,6 +249,8 @@ namespace AgentBridge
                 // Reflection and agent-supplied code (obj, exec/eval, extension commands) fail on the agent's input,
                 // not on Agent Bridge: answer the agent, but do not file it as a mod crash.
                 if (cmd.Access == Access.Power || cmd.Access == Access.Inspect || cmd.Source != "core") return new CommandError(inner.GetType().Name + ": " + inner.Message);
+                // Game commands sent from the main menu: the agent's timing, not a crash.
+                if (inner is NullReferenceException && Current.Game == null) return new CommandError("no game loaded (main menu?); start or load a colony first");
                 Telemetry.ReportException(a.Cmd, inner);
                 Log.Warning("[AgentBridge] " + a.Cmd + ": " + inner);
                 return new CommandError(inner.GetType().Name + ": " + inner.Message);
@@ -291,9 +302,11 @@ namespace AgentBridge
             public readonly DateTime Created = DateTime.UtcNow;
             public readonly ManualResetEvent Done = new ManualResetEvent(false);
             public string? Result;
+            public readonly int Generation;
             public volatile bool Cancelled;
             public Pending? Pending;
-            public Request(Args args, string agent) { Args = args; Agent = agent; }
+            public double PendingSeconds;  // written on the main thread, read by the waiting socket thread
+            public Request(Args args, string agent, int generation) { Args = args; Agent = agent; Generation = generation; }
         }
     }
 

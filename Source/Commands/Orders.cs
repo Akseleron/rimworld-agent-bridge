@@ -22,17 +22,23 @@ namespace AgentBridge
         [Command("speed", Access.Act, "set speed {speed 0..4} (4 = ultrafast; capped at 3 in fair play)")]
         private static object SetSpeed(Args a) => Speed((TimeSpeed)Args.Clamp(a.Int("speed", 1), 0, MaxSpeed));
 
+        // Expires on its own if the game unloads before the tick finishes.
+        private static float tickBusyUntil;
+
         [Command("tick", Access.Act, "run n ticks then pause {n, speed=3, timeout=60}; stops early with stop=blocked-by-window or paused-externally")]
         private static object Tick(Args a)
         {
             var tm = G.Ticks;
+            // One shared stop target: a second tick would overwrite it and the first would pause the second.
+            if (Time.realtimeSinceStartup < tickBusyUntil) throw new CommandError("another tick is already running; wait for it to finish");
             int n = Args.Clamp(a.Int("n", 60), 1, 60000 * 15), start = tm.TicksGame, target = start + n;
             Hooks.TickTarget = target;
+            tickBusyUntil = Time.realtimeSinceStartup + (float)a.Timeout + 1;
             tm.CurTimeSpeed = (TimeSpeed)Args.Clamp(a.Int("speed", 3), 1, MaxSpeed);
             int last = start; float stalledSince = Time.realtimeSinceStartup;
             object Done(string? stop)
             {
-                Hooks.TickTarget = -1;
+                Hooks.TickTarget = -1; tickBusyUntil = 0;
                 tm.CurTimeSpeed = TimeSpeed.Paused;
                 return new { tick = tm.TicksGame, ran = tm.TicksGame - start, stop, windows = stop == "blocked-by-window" ? Find.WindowStack.Windows.Where(w => w.forcePause).Select(w => w.GetType().Name).ToList() : null };
             }
@@ -50,7 +56,7 @@ namespace AgentBridge
         private static object Draft(Args a)
         {
             bool on = a.Bool("on", true);
-            return G.Pawns(a).Select(p =>
+            return G.OwnPawns(a).Select(p =>
             {
                 if (p.drafter == null) return (object)new { id = p.ThingID, error = "cannot be drafted" };
                 p.drafter.Drafted = on;
@@ -62,7 +68,7 @@ namespace AgentBridge
         private static object Move(Args a)
         {
             var c = G.Cell(a);
-            return G.Pawns(a).Select(p =>
+            return G.OwnPawns(a).Select(p =>
             {
                 if (p.Downed || p.Dead) return (object)new { id = p.ThingID, error = p.Dead ? "dead" : "downed" };
                 var dest = RCellFinder.BestOrderedGotoDestNear(c, p);
@@ -76,7 +82,7 @@ namespace AgentBridge
         private static object Attack(Args a)
         {
             var target = G.Target(a); bool melee = a.Bool("melee", false);
-            return G.Pawns(a).Select(p =>
+            return G.OwnPawns(a).Select(p =>
             {
                 if (p.Downed || p.Dead) return (object)new { id = p.ThingID, error = p.Dead ? "dead" : "downed" };
                 bool ranged = !melee && p.equipment?.Primary?.def.IsRangedWeapon == true;
@@ -86,7 +92,7 @@ namespace AgentBridge
         }
 
         [Command("job-end", Access.Act, "interrupt current jobs {ids}")]
-        private static object JobEnd(Args a) { foreach (var p in G.Pawns(a)) p.jobs.EndCurrentJob(JobCondition.InterruptForced); return "ok"; }
+        private static object JobEnd(Args a) { foreach (var p in G.OwnPawns(a)) p.jobs.EndCurrentJob(JobCondition.InterruptForced); return "ok"; }
 
         [Command("forbid", Access.Act, "forbid or allow items {ids, on=true}")]
         private static object Forbid(Args a) { bool on = a.Bool("on", true); foreach (var id in a.Strings("ids")) G.Thing(id).SetForbidden(on, false); return on; }
@@ -94,7 +100,7 @@ namespace AgentBridge
         [Command("equip", Access.Act, "walk to and equip a weapon / wear apparel {id, target}")]
         private static object Equip(Args a)
         {
-            var p = G.Pawn(a); var t = G.Thing(a.Need("target"));
+            var p = G.OwnPawn(a); var t = G.Thing(a.Need("target"));
             var job = JobMaker.MakeJob(t.def.IsApparel ? JobDefOf.Wear : JobDefOf.Equip, t); job.playerForced = true;
             return p.jobs.TryTakeOrderedJob(job, JobTag.Misc);
         }
@@ -102,7 +108,7 @@ namespace AgentBridge
         [Command("drop", Access.Act, "drop the primary weapon or a worn apparel {id, target?}")]
         private static object? Drop(Args a)
         {
-            var p = G.Pawn(a); string? target = a.Str("target");
+            var p = G.OwnPawn(a); string? target = a.Str("target");
             if (p.equipment?.Primary is ThingWithComps w && (target == null || target == w.ThingID)) { p.equipment.TryDropEquipment(w, out var d, p.Position); return d?.ThingID; }
             var ap = p.apparel?.WornApparel.FirstOrDefault(x => x.ThingID == target) ?? throw new CommandError("nothing to drop");
             p.apparel.TryDrop(ap, out var dropped);
@@ -130,6 +136,8 @@ namespace AgentBridge
         {
             var map = G.Map; var def = G.Def<ThingDef>(a.Str("def")); var c = G.Cell(a); var rot = new Rot4(a.Int("rot", 0));
             var stuff = a.Str("stuff") is string s ? G.Def<ThingDef>(s) : def.MadeFromStuff ? GenStuff.DefaultStuffFor(def) : null;
+            // Research, ideology and other unlocks are enforced by the build menu (Designator_Build.Visible), not by placement.
+            if (Bridge.Settings.fairPlay && !new Designator_Build(def).Visible) throw new CommandError("fair-play mode: " + def.defName + " is not available to build yet (research or other unlock missing)");
             var report = GenConstruct.CanPlaceBlueprintAt(def, c, rot, map, false, null, null, stuff);
             if (!report.Accepted) throw new CommandError("cannot place: " + report.Reason);
             return GenConstruct.PlaceBlueprintForBuild(def, c, map, rot, Faction.OfPlayer, stuff).ThingID;
@@ -160,7 +168,10 @@ namespace AgentBridge
             switch (a.Str("op") ?? "list")
             {
                 case "add":
-                    var bill = G.Def<RecipeDef>(a.Str("recipe")).MakeNewBill();
+                    var recipe = G.Def<RecipeDef>(a.Str("recipe"));
+                    if (!((Thing)bench).def.AllRecipes.Contains(recipe)) throw new CommandError(recipe.defName + " is not made at this workbench; see recipes");
+                    if (Bridge.Settings.fairPlay && !recipe.AvailableNow) throw new CommandError("fair-play mode: " + recipe.defName + " is not available yet (research missing)");
+                    var bill = recipe.MakeNewBill();
                     if (bill is Bill_Production bp && a.Has("count")) { bp.repeatMode = BillRepeatModeDefOf.RepeatCount; bp.repeatCount = a.Int("count", 1); }
                     stack.AddBill(bill); break;
                 case "remove": stack.Delete(stack.Bills[a.Int("index", 0)]); break;
@@ -172,7 +183,7 @@ namespace AgentBridge
         [Command("work", Access.Act, "work priorities {id, work?, priority 0..4?}; 1,2,4 switch on manual priorities")]
         private static object Work(Args a)
         {
-            var p = G.Pawn(a);
+            var p = G.OwnPawn(a);
             if (p.workSettings == null) throw new CommandError("pawn has no work settings");
             bool manualEnabled = false;
             if (a.Has("work"))
@@ -188,14 +199,22 @@ namespace AgentBridge
         [Command("schedule", Access.Act, "timetable {id, hour?, assignment: Anything|Work|Joy|Sleep|Meditate}")]
         private static object Schedule(Args a)
         {
-            var p = G.Pawn(a);
+            var p = G.OwnPawn(a);
             if (p.timetable == null) throw new CommandError("pawn has no schedule");
             if (a.Has("hour")) p.timetable.SetAssignment(a.Int("hour", 0), G.Def<TimeAssignmentDef>(a.Str("assignment") ?? "Anything"));
             return string.Join(" ", Enumerable.Range(0, 24).Select(h => p.timetable.GetAssignment(h).defName.Substring(0, 2)).ToArray());
         }
 
         [Command("research-set", Access.Act, "set current research project {def}")]
-        private static object ResearchSet(Args a) { Find.ResearchManager.SetCurrentProject(G.Def<ResearchProjectDef>(a.Str("def"))); return Find.ResearchManager.GetProject()?.defName ?? "none"; }
+        private static object ResearchSet(Args a)
+        {
+            var project = G.Def<ResearchProjectDef>(a.Str("def"));
+            // The research tab only offers projects whose prerequisites are done; SetCurrentProject does not check.
+            if (project.IsFinished) throw new CommandError(project.defName + " is already finished");
+            if (!project.CanStartNow) throw new CommandError(project.defName + " cannot be started yet (prerequisites or research bench missing)");
+            Find.ResearchManager.SetCurrentProject(project);
+            return Find.ResearchManager.GetProject()?.defName ?? "none";
+        }
 
         [Command("quest-accept", Access.Act, "accept quest {id}")]
         private static object QuestAccept(Args a)

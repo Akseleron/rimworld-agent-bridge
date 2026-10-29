@@ -84,26 +84,25 @@ namespace AgentBridge
             return "other";
         }
 
-        private static Dictionary<string, object?> Payload()
+        private static Dictionary<string, object?> Payload() { lock (gate) return Payload(commands, errors); }
+
+        private static Dictionary<string, object?> Payload(Dictionary<string, int[]> commands, Dictionary<string, ErrorInfo> errors)
         {
-            lock (gate)
+            return new Dictionary<string, object?>
             {
-                return new Dictionary<string, object?>
-                {
-                    ["schema"] = 1,
-                    ["install"] = Bridge.Settings.installId,
-                    ["mod"] = Bridge.Version,
-                    ["game"] = VersionControl.CurrentVersionString,
-                    ["runtime"] = Bridge.RuntimeName,
-                    ["os"] = Environment.OSVersion.Platform.ToString(),
-                    ["lang"] = LanguageDatabase.activeLanguage?.folderName,
-                    ["harmony"] = Bridge.HarmonyActive,
-                    ["minutes"] = (int)(DateTime.UtcNow - sessionStart).TotalMinutes,
-                    ["agents"] = Bridge.Settings.telemetry ? Bridge.Clients.Keys.Select(AgentKind).Distinct().ToList() : null,
-                    ["commands"] = Bridge.Settings.telemetry ? commands.ToDictionary(k => k.Key, k => k.Value.ToList()) : null,
-                    ["errors"] = Bridge.Settings.crashReports ? errors.Values.Select(e => new Dictionary<string, object?> { ["sig"] = e.signature, ["type"] = e.type, ["cmd"] = e.command, ["count"] = e.count, ["trace"] = e.trace }).ToList() : null,
-                };
-            }
+                ["schema"] = 1,
+                ["install"] = Bridge.Settings.installId,
+                ["mod"] = Bridge.Version,
+                ["game"] = VersionControl.CurrentVersionString,
+                ["runtime"] = Bridge.RuntimeName,
+                ["os"] = Environment.OSVersion.Platform.ToString(),
+                ["lang"] = LanguageDatabase.activeLanguage?.folderName,
+                ["harmony"] = Bridge.HarmonyActive,
+                ["minutes"] = (int)(DateTime.UtcNow - sessionStart).TotalMinutes,
+                ["agents"] = Bridge.Settings.telemetry ? Bridge.Clients.Keys.Select(AgentKind).Distinct().ToList() : null,
+                ["commands"] = Bridge.Settings.telemetry ? commands.ToDictionary(k => k.Key, k => k.Value.ToList()) : null,
+                ["errors"] = Bridge.Settings.crashReports ? errors.Values.Select(e => new Dictionary<string, object?> { ["sig"] = e.signature, ["type"] = e.type, ["cmd"] = e.command, ["count"] = e.count, ["trace"] = e.trace }).ToList() : null,
+            };
         }
 
         public static string Preview() => (HasEndpoint ? "" : "AB_NoEndpoint".Translate() + "\n\n") + Json.Write(Payload());
@@ -116,8 +115,27 @@ namespace AgentBridge
             var s = Bridge.Settings;
             if (!HasEndpoint || !(s.telemetry || s.crashReports)) return;
             lastSent = DateTime.UtcNow;
-            string body = Json.Write(Payload());
-            lock (gate) { commands.Clear(); errors.Clear(); }
+            // The batch leaves the pending data while it is in flight; a failed delivery puts it back.
+            Dictionary<string, int[]> sentCommands; Dictionary<string, ErrorInfo> sentErrors;
+            lock (gate)
+            {
+                sentCommands = new Dictionary<string, int[]>(commands); sentErrors = new Dictionary<string, ErrorInfo>(errors);
+                commands.Clear(); errors.Clear();
+            }
+            string body = Json.Write(Payload(sentCommands, sentErrors));
+            void Restore()
+            {
+                lock (gate)
+                {
+                    foreach (var kv in sentCommands)
+                    {
+                        if (!commands.TryGetValue(kv.Key, out var c)) commands[kv.Key] = c = new int[2];
+                        c[0] += kv.Value[0]; c[1] += kv.Value[1];
+                    }
+                    foreach (var kv in sentErrors)
+                        if (errors.TryGetValue(kv.Key, out var e)) e.count += kv.Value.count; else errors[kv.Key] = kv.Value;
+                }
+            }
             void Post()
             {
                 try
@@ -129,8 +147,13 @@ namespace AgentBridge
                     using (req.GetResponse()) LastStatus = "delivered " + DateTime.Now.ToString("HH:mm");
                 }
                 // 429 = the receiver already has a recent report from this install; the data is merged next time.
-                catch (WebException e) when (e.Response is HttpWebResponse r) { LastStatus = ((int)r.StatusCode == 429 ? "postponed " : "rejected (" + (int)r.StatusCode + ") ") + DateTime.Now.ToString("HH:mm"); }
-                catch (Exception e) { LastStatus = "offline (" + e.GetType().Name + ")"; /* best effort: never disturb the game */ }
+                catch (WebException e) when (e.Response is HttpWebResponse r)
+                {
+                    int code = (int)r.StatusCode;
+                    if (code == 429 || code >= 500) Restore();  // other 4xx: the receiver will never take this batch
+                    LastStatus = (code == 429 ? "postponed " : "rejected (" + code + ") ") + DateTime.Now.ToString("HH:mm");
+                }
+                catch (Exception e) { Restore(); LastStatus = "offline (" + e.GetType().Name + ")"; /* best effort: never disturb the game */ }
             }
             if (final) Post(); else new Thread(Post) { IsBackground = true }.Start();
         }

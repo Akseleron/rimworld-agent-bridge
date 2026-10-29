@@ -2,6 +2,23 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.3
+Fixes from a full code review.
+- Safety: `obj` reads no longer call methods without power access (a read of `Verse.Root.Shutdown` could quit the
+  game). Turning the server off now closes open connections and drops queued commands; "Disconnect all agents" keeps
+  a disabled server off.
+- Fair play: orders, `drop`, policies and context menus work only on your own pawns (enemies could be disarmed);
+  `build` respects research and other unlocks; bills accept only recipes of that workbench that are already
+  researched; `pawn` hides health conditions the player cannot see. `research-set` now checks prerequisites in every mode.
+- Python client: a command is never sent twice after a dropped connection or a timeout; the client waits as long as
+  the command does; paths with `&` no longer break `eval`. The MCP server answers bad requests with an error instead
+  of exiting.
+- Game commands sent from the main menu answer "no game loaded" instead of a NullReferenceException crash report.
+- `newgame` and `page-next` are no longer cut off after 75 seconds. A second `tick` while one is running is refused
+  instead of stopping both. `batch` rejects waiting commands before running them.
+- Telemetry: data from a failed delivery is kept for the next one. Receiver (telemetry/worker.js): a temporary
+  GitHub error no longer loses an automatic issue, and duplicates from simultaneous reports are much less likely.
+
 ## 1.1.2
 - Reports #2 and #3 (Windows, Chinese): an agent probing internals with `obj` set a get-only property and indexed past
   a list's end. `obj` now writes get-only auto-properties through their backing field, explains computed read-only

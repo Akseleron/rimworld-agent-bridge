@@ -15,9 +15,10 @@
 Values are parsed as JSON when possible (numbers, lists, true/false), else kept as strings.
 Output is JSON on stdout; exit code 1 on {"ok":false}, 2 if the bridge is unreachable.
 """
-import hashlib, http.client, json, os, re, shutil, subprocess, sys, urllib.error
+import hashlib, http.client, json, os, re, select, shutil, subprocess, sys, urllib.error
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from xml.sax.saxutils import quoteattr
 
 HOME = Path.home()
 WINDOWS = os.name == 'nt'
@@ -69,20 +70,31 @@ def call(payload, timeout=None, agent=None):
     Reuses one keep-alive connection per process (the MCP server sends many commands)."""
     global _conn, _conn_key
     d = descriptor()
-    if timeout is None: timeout = float(payload.get('timeout', 60)) + 20
+    if timeout is None:
+        timeout = float(payload['timeout']) + 30 if 'timeout' in payload else 700 if payload.get('cmd') in ('newgame', 'page-next') else 90
     body = json.dumps(payload, separators=(',', ':')).encode()
     headers = {'X-Token': d['token'], 'X-Agent': agent or agent_name(), 'Content-Type': 'application/json'}
-    for attempt in (0, 1):
+    try:
+        # An idle keep-alive socket the game closed (restart, 15-minute idle limit) reads as EOF: reconnect
+        # before sending instead of replaying the request afterwards.
+        if _conn is not None and _conn.sock is not None and select.select([_conn.sock], [], [], 0)[0]:
+            _conn.close(); _conn = None
         if _conn is None or _conn_key != (d['port'], d['token']):
+            if _conn is not None: _conn.close()
+            _conn = _conn_key = None
             _conn = http.client.HTTPConnection('127.0.0.1', d['port'], timeout=timeout); _conn_key = (d['port'], d['token'])
         _conn.timeout = timeout
         if _conn.sock: _conn.sock.settimeout(timeout)
-        try:
-            _conn.request('POST', '/', body, headers)
-            return json.loads(_conn.getresponse().read() or b'{"ok":false}')
-        except (http.client.HTTPException, ConnectionError, BrokenPipeError):
-            _conn.close(); _conn = None  # stale keep-alive after a game restart: retry once on a fresh socket
-            if attempt: raise
+        _conn.request('POST', '/', body, headers)
+        return json.loads(_conn.getresponse().read() or b'{"ok":false}')
+    except (OSError, http.client.HTTPException):
+        conn = _conn
+        _conn = _conn_key = None
+        if conn is not None:
+            try: conn.close()
+            except OSError: pass
+        # Even a send failure may follow a partial write. Never replay a mutating POST.
+        raise
 
 
 # ---------- eval: compile a C# snippet against the running game's assemblies, then exec it ----------
@@ -104,7 +116,7 @@ def compile_snippet(code):
     if dll.is_file(): return dll, None
     work.mkdir(parents=True, exist_ok=True)
     (work/'Script.cs').write_text(code)
-    items = ''.join(f'<Reference Include="{Path(r).stem}" HintPath="{r}" Private="false" />' for r in refs)
+    items = ''.join(f'<Reference Include={quoteattr(Path(r).stem)} HintPath={quoteattr(r)} Private="false" />' for r in refs)
     (work/'eval.csproj').write_text(
         '<Project Sdk="Microsoft.NET.Sdk"><PropertyGroup><TargetFramework>net10.0</TargetFramework><LangVersion>latest</LangVersion>'
         f'<AssemblyName>rwb_eval_{digest}</AssemblyName><Nullable>disable</Nullable><ImplicitUsings>disable</ImplicitUsings>'

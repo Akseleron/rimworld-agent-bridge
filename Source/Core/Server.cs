@@ -20,6 +20,7 @@ namespace AgentBridge
         private volatile bool running = true;
         private const int MaxConnections = 32;
         private int active;
+        private readonly HashSet<TcpClient> clients = new HashSet<TcpClient>();
         public int Port { get; }
 
         private Server(TcpListener l, int port, Handler h) { listener = l; Port = port; handler = h; }
@@ -38,7 +39,13 @@ namespace AgentBridge
             return null;
         }
 
-        public void Stop() { running = false; try { listener.Stop(); } catch { } }
+        /// <summary>Stops listening and drops every open connection, so a kept-alive client cannot send more.</summary>
+        public void Stop()
+        {
+            running = false;
+            try { listener.Stop(); } catch { }
+            lock (clients) { foreach (var c in clients) try { c.Close(); } catch { } clients.Clear(); }
+        }
 
         private void Accept()
         {
@@ -54,6 +61,7 @@ namespace AgentBridge
 
         private void Serve(TcpClient client)
         {
+            lock (clients) { if (!running) { client.Close(); return; } clients.Add(client); }
             using (client)
             {
                 client.NoDelay = true;
@@ -85,6 +93,7 @@ namespace AgentBridge
                             if (n <= 0) return;
                             read += n;
                         }
+                        if (!running) return;
                         (int status, string body) response;
                         try { response = handler(parts[0], parts[1], headers, Encoding.UTF8.GetString(buffer)); }
                         catch (Exception e) { response = (500, Bridge.ErrorJson(e.Message)); }
@@ -102,6 +111,7 @@ namespace AgentBridge
                 catch (IOException) { }
                 catch (ObjectDisposedException) { }
                 catch (Exception e) { Verse.Log.Warning("[AgentBridge] connection dropped: " + e.GetType().Name); }
+                finally { lock (clients) clients.Remove(client); }
             }
         }
 

@@ -51,29 +51,68 @@ def reply(id_, result=None, error=None):
     sys.stdout.write(json.dumps(msg, ensure_ascii=False) + '\n'); sys.stdout.flush()
 
 
+class InvalidParams(ValueError): pass
+
+
+def tool_params(p):
+    tool = next((t for t in TOOLS if t['name'] == p.get('name')), None)
+    if tool is None: raise InvalidParams('unknown or missing tool name')
+    a = p.get('arguments', {})
+    if not isinstance(a, dict): raise InvalidParams('arguments must be an object')
+    schema = tool['inputSchema']
+    for key in schema.get('required', []):
+        if key not in a: raise InvalidParams(f'missing argument: {key}')
+    types = {'string': str, 'object': dict, 'integer': int, 'boolean': bool}
+    for key, value in a.items():
+        kind = schema['properties'].get(key, {}).get('type')
+        if kind and (not isinstance(value, types[kind]) or (kind == 'integer' and isinstance(value, bool))):
+            raise InvalidParams(f'{key} must be {kind}')
+    return tool['name'], a
+
+
 for line in sys.stdin:
     if not line.strip(): continue
-    req = json.loads(line); method = req.get('method'); id_ = req.get('id')
-    if id_ is None: continue  # notifications
-    if method == 'initialize':
-        info = (req.get('params') or {}).get('clientInfo') or {}
-        CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
-        reply(id_, {'protocolVersion': req.get('params', {}).get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}, 'prompts': {}},
-                    'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.2'}})
-    elif method == 'tools/list': reply(id_, {'tools': TOOLS})
-    elif method == 'prompts/list':
-        reply(id_, {'prompts': [{'name': 'play_rimworld', 'description': 'Play the running colony fairly (no cheats) as the player',
-                                 'arguments': [{'name': 'goal', 'description': 'what to aim for', 'required': False}]}]})
-    elif method == 'prompts/get':
-        goal = ((req.get('params') or {}).get('arguments') or {}).get('goal') or 'Survive, grow, and work towards escaping the planet.'
-        text = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rwb_play_prompt.md'), encoding='utf-8').read()
-        reply(id_, {'messages': [{'role': 'user', 'content': {'type': 'text', 'text': text + '\n\nFirst call the rimworld tool with cmd=fair-play. Goal: ' + goal}}]})
-    elif method == 'tools/call':
-        p = req['params']
-        try:
-            out = run_tool(p['name'], p.get('arguments') or {}); err = not out.get('ok', True)
-        except OSError as e: out, err = {'ok': False, 'error': f'bridge not reachable (game running with Agent Bridge?): {e}'}, True
-        except Exception: out, err = {'ok': False, 'error': traceback.format_exc(limit=3)}, True
-        reply(id_, {'content': [{'type': 'text', 'text': json.dumps(out, ensure_ascii=False, separators=(',', ':'))}], 'isError': err})
-    elif method == 'ping': reply(id_, {})
-    else: reply(id_, error={'code': -32601, 'message': 'method not found'})
+    id_ = None
+    try:
+        req = json.loads(line)
+        if (not isinstance(req, dict) or req.get('jsonrpc') != '2.0'
+                or not isinstance(req.get('method'), str)
+                or ('id' in req and (isinstance(req['id'], (dict, list, bool))))):
+            reply(None, error={'code': -32600, 'message': 'invalid request'}); continue
+        method = req['method']; id_ = req.get('id')
+        if 'id' not in req: continue  # notifications
+        p = req.get('params', {} if method not in ('initialize', 'prompts/get', 'tools/call') else None)
+        if not isinstance(p, dict): raise InvalidParams('params must be an object')
+        if method == 'initialize':
+            info = p.get('clientInfo', {})
+            if not isinstance(info, dict): raise InvalidParams('clientInfo must be an object')
+            CLIENT = ('mcp:' + str(info.get('name', 'client')))[:48]
+            reply(id_, {'protocolVersion': p.get('protocolVersion', '2025-06-18'), 'capabilities': {'tools': {}, 'prompts': {}},
+                        'serverInfo': {'name': 'rimworld-agent-bridge', 'version': '1.1.3'}})
+        elif method == 'tools/list': reply(id_, {'tools': TOOLS})
+        elif method == 'prompts/list':
+            reply(id_, {'prompts': [{'name': 'play_rimworld', 'description': 'Play the running colony fairly (no cheats) as the player',
+                                     'arguments': [{'name': 'goal', 'description': 'what to aim for', 'required': False}]}]})
+        elif method == 'prompts/get':
+            if p.get('name') != 'play_rimworld': raise InvalidParams('unknown or missing prompt name')
+            a = p.get('arguments', {})
+            if not isinstance(a, dict) or not isinstance(a.get('goal', ''), str):
+                raise InvalidParams('prompt arguments must contain a string goal')
+            goal = a.get('goal') or 'Survive, grow, and work towards escaping the planet.'
+            text = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rwb_play_prompt.md'), encoding='utf-8').read()
+            reply(id_, {'messages': [{'role': 'user', 'content': {'type': 'text', 'text': text + '\n\nFirst call the rimworld tool with cmd=fair-play. Goal: ' + goal}}]})
+        elif method == 'tools/call':
+            name, a = tool_params(p)
+            try:
+                out = run_tool(name, a); err = not out.get('ok', True)
+            except OSError as e: out, err = {'ok': False, 'error': f'bridge not reachable (game running with Agent Bridge?): {e}'}, True
+            except Exception: out, err = {'ok': False, 'error': traceback.format_exc(limit=3)}, True
+            reply(id_, {'content': [{'type': 'text', 'text': json.dumps(out, ensure_ascii=False, separators=(',', ':'))}], 'isError': err})
+        elif method == 'ping': reply(id_, {})
+        else: reply(id_, error={'code': -32601, 'message': 'method not found'})
+    except json.JSONDecodeError:
+        reply(None, error={'code': -32700, 'message': 'parse error'})
+    except InvalidParams as e:
+        reply(id_, error={'code': -32602, 'message': str(e)})
+    except Exception:
+        reply(id_, error={'code': -32603, 'message': 'internal error'})

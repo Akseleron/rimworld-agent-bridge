@@ -48,7 +48,12 @@ namespace AgentBridge
             var f = Field(type, name); if (f != null) return f.GetValue(f.IsStatic ? null : owner);
             var p = Property(type, name); if (p != null && p.GetGetMethod(true) is MethodInfo get) return p.GetValue(get.IsStatic ? null : owner, null);
             var m = type.GetMethods(Any).FirstOrDefault(x => x.Name == name && x.GetParameters().Length == 0 && !x.IsGenericMethodDefinition);
-            if (m != null) return m.Invoke(m.IsStatic ? null : owner, null);
+            if (m != null)
+            {
+                // Calling a method can change the game (Root.Shutdown quits it): reads only follow methods with power access.
+                if (Bridge.Denied(Access.Power) is string why) throw new CommandError(name + " is a method; calling it needs power access: " + why);
+                return m.Invoke(m.IsStatic ? null : owner, null);
+            }
             throw new CommandError("no member " + name + " on " + type.Name + " (see op=members)");
         }
 
@@ -160,6 +165,8 @@ namespace AgentBridge
             return new Pending(poll, a.Timeout, () => new { timedOut = true, tick = Current.Game?.tickManager?.TicksGame, last = Feed.Last });
         }
 
+        private static readonly HashSet<string> Waiting = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "tick", "wait", "save", "load", "quicktest", "screenshot", "page-next", "newgame", "exec", "batch" };
+
         [Command("batch", Access.Read, "run several commands in one frame {cmds:[{cmd,...}], stopOnError=true}; each is access-checked")]
         private static object Batch(Args a)
         {
@@ -168,8 +175,11 @@ namespace AgentBridge
             foreach (var item in a.List("cmds"))
             {
                 if (!(item is Dictionary<string, object?> d)) { results.Add(new { ok = false, error = "not an object" }); if (stop) break; continue; }
-                var r = Bridge.Execute(new Args(d));
-                if (r is Pending) { results.Add(new { ok = false, error = "waiting commands are not allowed in batch" }); if (stop) break; continue; }
+                var args = new Args(d);
+                if (Waiting.Contains(args.Cmd)) { results.Add(new { ok = false, error = "waiting commands are not allowed in batch" }); if (stop) break; continue; }
+                var r = Bridge.Execute(args);
+                // Extension commands may still wait: undo what they started (tick clears its target and pauses).
+                if (r is Pending p) { try { p.OnTimeout(); } catch { } results.Add(new { ok = false, error = "waiting commands are not allowed in batch" }); if (stop) break; continue; }
                 if (r is CommandError e) { results.Add(new { ok = false, error = e.Message }); if (stop) break; continue; }
                 results.Add(new { ok = true, result = r });
             }

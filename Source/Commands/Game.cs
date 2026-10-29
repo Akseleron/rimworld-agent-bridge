@@ -80,6 +80,18 @@ namespace AgentBridge
 
         public static Pawn Pawn(Args a) => Pawns(a).First();
 
+        /// <summary>Pawns the agent gives orders to. In fair play only the player's own pawns, like the vanilla UI.</summary>
+        public static List<Pawn> OwnPawns(Args a, string key = "ids")
+        {
+            var pawns = Pawns(a, key);
+            if (Bridge.Settings.fairPlay)
+                foreach (var p in pawns)
+                    if (p.Faction != RimWorld.Faction.OfPlayer) throw new CommandError("fair-play mode: " + p.ThingID + " is not your pawn");
+            return pawns;
+        }
+
+        public static Pawn OwnPawn(Args a) => OwnPawns(a).First();
+
         public static T Def<T>(string? name) where T : Def
             => DefDatabase<T>.GetNamedSilentFail(name ?? "") ?? throw new CommandError("no " + typeof(T).Name + " '" + name + "'; search with defs type=" + typeof(T).Name + " filter=...");
 

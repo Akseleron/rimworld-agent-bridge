@@ -48,7 +48,7 @@ namespace AgentBridge
 
         internal static List<FloatMenuOption> MenuOptions(Args a)
         {
-            var pawns = G.Pawns(a, "pawns"); var c = MenuCell(a);
+            var pawns = G.OwnPawns(a, "pawns"); var c = MenuCell(a);
             return G.AtCell(c, () => FloatMenuMakerMap.GetOptions(pawns, c.ToVector3Shifted(), out _)).Where(o => !G.DevOnly(o.Label)).ToList();
         }
 

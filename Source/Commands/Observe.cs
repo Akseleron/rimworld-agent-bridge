@@ -113,7 +113,7 @@ namespace AgentBridge
             return new
             {
                 brief = G.PawnBrief(p),
-                hediffs = p.health.hediffSet.hediffs.Select(h => new { def = h.def.defName, label = h.LabelCap, part = h.Part?.Label, severity = h.Severity, bleed = h.BleedRate > 0 ? h.BleedRate : (float?)null }).ToList(),
+                hediffs = p.health.hediffSet.hediffs.Where(h => !Bridge.Settings.fairPlay || h.Visible).Select(h => new { def = h.def.defName, label = h.LabelCap, part = h.Part?.Label, severity = h.Severity, bleed = h.BleedRate > 0 ? h.BleedRate : (float?)null }).ToList(),
                 capacities = DefDatabase<PawnCapacityDef>.AllDefs.Where(d => d.showOnHumanlikes || !p.RaceProps.Humanlike).ToDictionary(d => d.defName, d => p.health.capacities.GetLevel(d)),
                 needs = p.needs?.AllNeeds.ToDictionary(n => n.def.defName, n => n.CurLevelPercentage),
                 skills = p.skills?.skills.ToDictionary(s => s.def.defName, s => s.TotallyDisabled ? -1 : s.Level),

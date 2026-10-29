@@ -49,6 +49,9 @@ def main():
     refused('debug-list')
     r = call(cmd='fair-play', on=False); check('agent cannot switch fair play off', not r.get('ok'), r.get('error'))
     r = call(cmd='speed', speed=4); check('speed capped at 3', r.get('ok') and r['result']['speed'] != 'Ultrafast', r.get('result'))
+    refused('build', **{'def': 'FabricationBench'}, x=1, z=1)  # needs Fabrication research
+    wild = [x['id'] for x in call(cmd='pawns', filter='animals')['result'] if not x.get('faction')]
+    if wild: refused('drop', id=wild[0])  # only your own pawns take orders
 
     r = call(cmd='tick', n=600)
     pawns = call(cmd='pawns')['result']
