@@ -1,0 +1,12 @@
+# Deploy: cd telemetry && npx wrangler deploy  (secret GITHUB_TOKEN is already set on the worker)
+name = "agent-bridge-telemetry"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "STATS"
+id = "a8ff99f9e00942678e5c62e5276f5f69"
+
+[vars]
+REPO = "Akseleron/rimworld-agent-bridge"
