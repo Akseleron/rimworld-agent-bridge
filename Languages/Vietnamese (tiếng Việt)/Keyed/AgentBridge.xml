@@ -9,7 +9,7 @@
   <AB_Section_Server>Máy chủ</AB_Section_Server>
   <AB_Enable>Bật máy chủ cho tác tử</AB_Enable>
   <AB_Enable_Tip>Cho phép các tác tử AI cục bộ (Claude Code, Codex, script) điều khiển trò chơi qua 127.0.0.1. Không thể truy cập từ mạng.</AB_Enable_Tip>
-  <AB_Port>Cổng (áp dụng sau khi khởi động lại)</AB_Port>
+  <AB_Port>Cổng</AB_Port>
   <AB_ReadOnly>Chế độ chỉ đọc (tác tử chỉ có thể quan sát)</AB_ReadOnly>
   <AB_AllowDev>Cho phép lệnh nhà phát triển (tạo, gây sát thương, sự kiện)</AB_AllowDev>
   <AB_AllowPower>Cho phép lệnh nâng cao (mã C#, phản chiếu)</AB_AllowPower>

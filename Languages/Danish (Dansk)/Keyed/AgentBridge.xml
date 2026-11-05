@@ -9,7 +9,7 @@
   <AB_Section_Server>Server</AB_Section_Server>
   <AB_Enable>Aktivér agentserver</AB_Enable>
   <AB_Enable_Tip>Lader lokale AI-agenter (Claude Code, Codex, scripts) styre spillet via 127.0.0.1. Intet kan nås fra netværket.</AB_Enable_Tip>
-  <AB_Port>Port (træder i kraft efter genstart)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Skrivebeskyttet tilstand (agenter kan kun observere)</AB_ReadOnly>
   <AB_AllowDev>Tillad udviklerkommandoer (spawn, skade, hændelser)</AB_AllowDev>
   <AB_AllowPower>Tillad avancerede kommandoer (C#-kode, refleksion)</AB_AllowPower>

@@ -12,8 +12,12 @@ Steam Workshop id 3828798135 (About/PublishedFileId.txt). English mod name "Agen
 - User's game settings: Dev mode OFF, fair play ON. If a test needs otherwise, edit Config/Prefs.xml and
   Config/Mod_AgentBridge_AgentBridgeMod.xml only while the game is closed, and restore them afterwards.
 - Release: bump About.xml modVersion, Source csproj Version, Bridge.Version, rwb_mcp version, CHANGELOG(.ru);
-  `python Tools/make_release.py` → ../AgentBridge-release; Steam update via SteamUGC from an in-game eval
-  (description docs/steam/description.bbcode, EN then RU); signed tag `git tag -s vX.Y.Z`, GitHub release with zip.
+  `python Tools/make_release.py` → ../AgentBridge-release; `python Tools/steam_upload.py "note"` with the game running
+  (needs fair play off and "require Dev mode" off in Agent Bridge settings — the user's game has both on; untick in
+  the in-game settings and tick them back after). Description docs/steam/description.bbcode (EN then RU); signed tag
+  `git tag -s vX.Y.Z`, GitHub release with zip (no `zip` binary: `shutil.make_archive`); close fixed issues.
+- Mods outside this repo (e.g. a broken Workshop mod) are fixed in Akseleron Session Fixes 1.7
+  (~/projects/rimworld-mod-lab/mods/akseleron.sessionfixes17), never in Agent Bridge.
 - Telemetry: auto error reports become GitHub issues (label auto-report). Agent-caused errors in Power/Inspect
   commands must not be reported as crashes.
 - Every user-facing string goes through Languages/*/Keyed/AgentBridge.xml (all 29 languages, `\n` for newlines).

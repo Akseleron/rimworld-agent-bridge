@@ -9,7 +9,7 @@
   <AB_Section_Server>服务器</AB_Section_Server>
   <AB_Enable>启用智能体服务器</AB_Enable>
   <AB_Enable_Tip>允许本地 AI 智能体（Claude Code、Codex、脚本）通过 127.0.0.1 控制游戏。网络上无法访问。</AB_Enable_Tip>
-  <AB_Port>端口（重启后生效）</AB_Port>
+  <AB_Port>端口</AB_Port>
   <AB_ReadOnly>只读模式（智能体只能观察）</AB_ReadOnly>
   <AB_AllowDev>允许开发者命令（生成、伤害、事件）</AB_AllowDev>
   <AB_AllowPower>允许高级命令（C# 代码、反射）</AB_AllowPower>

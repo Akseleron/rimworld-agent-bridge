@@ -9,7 +9,7 @@
   <AB_Section_Server>Сервер</AB_Section_Server>
   <AB_Enable>Включить сервер для агентов</AB_Enable>
   <AB_Enable_Tip>Позволяет локальным ИИ-агентам (Claude Code, Codex, скрипты) управлять игрой через 127.0.0.1. Из сети сервер недоступен.</AB_Enable_Tip>
-  <AB_Port>Порт (применяется после перезапуска)</AB_Port>
+  <AB_Port>Порт</AB_Port>
   <AB_ReadOnly>Режим только чтения (агенты могут лишь наблюдать)</AB_ReadOnly>
   <AB_AllowDev>Разрешить dev-команды (спавн, урон, события)</AB_AllowDev>
   <AB_AllowPower>Разрешить мощные команды (код C#, рефлексия)</AB_AllowPower>

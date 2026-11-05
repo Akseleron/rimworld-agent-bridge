@@ -9,7 +9,7 @@
   <AB_Section_Server>Server</AB_Section_Server>
   <AB_Enable>Enable agent server</AB_Enable>
   <AB_Enable_Tip>Lets local AI agents (Claude Code, Codex, scripts) control the game through 127.0.0.1. Nothing is reachable from the network.</AB_Enable_Tip>
-  <AB_Port>Port (applies after restart)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Read-only mode (agents can only observe)</AB_ReadOnly>
   <AB_AllowDev>Allow dev commands (spawn, damage, incidents)</AB_AllowDev>
   <AB_AllowPower>Allow power commands (C# code, reflection)</AB_AllowPower>

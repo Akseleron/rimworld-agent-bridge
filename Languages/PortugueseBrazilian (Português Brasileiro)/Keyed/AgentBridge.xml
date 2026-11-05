@@ -9,7 +9,7 @@
   <AB_Section_Server>Servidor</AB_Section_Server>
   <AB_Enable>Ativar servidor de agentes</AB_Enable>
   <AB_Enable_Tip>Permite que agentes de IA locais (Claude Code, Codex, scripts) controlem o jogo por 127.0.0.1. Nada fica acessível pela rede.</AB_Enable_Tip>
-  <AB_Port>Porta (aplicada após reiniciar)</AB_Port>
+  <AB_Port>Porta</AB_Port>
   <AB_ReadOnly>Modo somente leitura (agentes só podem observar)</AB_ReadOnly>
   <AB_AllowDev>Permitir comandos de desenvolvedor (gerar, dano, incidentes)</AB_AllowDev>
   <AB_AllowPower>Permitir comandos avançados (código C#, reflexão)</AB_AllowPower>

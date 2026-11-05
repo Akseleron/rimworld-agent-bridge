@@ -9,7 +9,7 @@
   <AB_Section_Server>サーバー</AB_Section_Server>
   <AB_Enable>エージェントサーバーを有効にする</AB_Enable>
   <AB_Enable_Tip>ローカルの AI エージェント（Claude Code、Codex、スクリプト）が 127.0.0.1 経由でゲームを操作できるようにします。ネットワークからはアクセスできません。</AB_Enable_Tip>
-  <AB_Port>ポート（再起動後に適用）</AB_Port>
+  <AB_Port>ポート</AB_Port>
   <AB_ReadOnly>読み取り専用モード（エージェントは観察のみ）</AB_ReadOnly>
   <AB_AllowDev>開発者コマンドを許可（生成、ダメージ、イベント）</AB_AllowDev>
   <AB_AllowPower>高度なコマンドを許可（C# コード、リフレクション）</AB_AllowPower>

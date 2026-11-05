@@ -9,7 +9,7 @@
   <AB_Section_Server>Server</AB_Section_Server>
   <AB_Enable>Agentserver inschakelen</AB_Enable>
   <AB_Enable_Tip>Laat lokale AI-agenten (Claude Code, Codex, scripts) het spel besturen via 127.0.0.1. Niets is bereikbaar vanaf het netwerk.</AB_Enable_Tip>
-  <AB_Port>Poort (geldt na herstart)</AB_Port>
+  <AB_Port>Poort</AB_Port>
   <AB_ReadOnly>Alleen-lezenmodus (agenten kunnen alleen observeren)</AB_ReadOnly>
   <AB_AllowDev>Ontwikkelaarsopdrachten toestaan (spawnen, schade, gebeurtenissen)</AB_AllowDev>
   <AB_AllowPower>Krachtige opdrachten toestaan (C#-code, reflectie)</AB_AllowPower>

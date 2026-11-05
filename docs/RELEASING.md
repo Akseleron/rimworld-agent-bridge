@@ -9,4 +9,6 @@
 5. Steam Workshop: put the release folder into `RimWorld/Mods` (only one copy of the packageId may be installed),
    enable Dev mode, Mods menu → select Agent Bridge → *Upload to Steam Workshop*. The first upload creates
    `About/PublishedFileId.txt`; commit it so later uploads update the same item.
+   Updates without the button: with the game running, `python Tools/steam_upload.py "change note"` uploads
+   `../AgentBridge-release` through SteamUGC (needs power commands: fair play off, Dev mode on or "require Dev mode" off).
 See RELEASING.ru.md for the detailed first-time walkthrough, telemetry server and signing key setup.

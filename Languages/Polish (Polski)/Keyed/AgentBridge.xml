@@ -9,7 +9,7 @@
   <AB_Section_Server>Serwer</AB_Section_Server>
   <AB_Enable>Włącz serwer agentów</AB_Enable>
   <AB_Enable_Tip>Pozwala lokalnym agentom AI (Claude Code, Codex, skrypty) sterować grą przez 127.0.0.1. Nic nie jest dostępne z sieci.</AB_Enable_Tip>
-  <AB_Port>Port (działa po ponownym uruchomieniu)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Tryb tylko do odczytu (agenci mogą tylko obserwować)</AB_ReadOnly>
   <AB_AllowDev>Zezwalaj na polecenia deweloperskie (tworzenie, obrażenia, zdarzenia)</AB_AllowDev>
   <AB_AllowPower>Zezwalaj na zaawansowane polecenia (kod C#, refleksja)</AB_AllowPower>

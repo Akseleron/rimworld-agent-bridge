@@ -9,7 +9,7 @@
   <AB_Section_Server>Server</AB_Section_Server>
   <AB_Enable>Zapnout server pro agenty</AB_Enable>
   <AB_Enable_Tip>Umožní místním AI agentům (Claude Code, Codex, skripty) ovládat hru přes 127.0.0.1. Ze sítě není nic dostupné.</AB_Enable_Tip>
-  <AB_Port>Port (projeví se po restartu)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Režim jen pro čtení (agenti mohou jen sledovat)</AB_ReadOnly>
   <AB_AllowDev>Povolit vývojářské příkazy (spawn, poškození, události)</AB_AllowDev>
   <AB_AllowPower>Povolit pokročilé příkazy (kód C#, reflexe)</AB_AllowPower>

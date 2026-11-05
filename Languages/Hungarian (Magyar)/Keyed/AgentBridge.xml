@@ -9,7 +9,7 @@
   <AB_Section_Server>Szerver</AB_Section_Server>
   <AB_Enable>Ügynökszerver bekapcsolása</AB_Enable>
   <AB_Enable_Tip>Lehetővé teszi, hogy helyi MI-ügynökök (Claude Code, Codex, szkriptek) a 127.0.0.1 címen át irányítsák a játékot. Hálózatról semmi sem érhető el.</AB_Enable_Tip>
-  <AB_Port>Port (újraindítás után érvényes)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Csak olvasható mód (az ügynökök csak megfigyelhetnek)</AB_ReadOnly>
   <AB_AllowDev>Fejlesztői parancsok engedélyezése (létrehozás, sebzés, események)</AB_AllowDev>
   <AB_AllowPower>Haladó parancsok engedélyezése (C#-kód, reflexió)</AB_AllowPower>

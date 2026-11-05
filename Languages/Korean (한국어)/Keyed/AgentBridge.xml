@@ -9,7 +9,7 @@
   <AB_Section_Server>서버</AB_Section_Server>
   <AB_Enable>에이전트 서버 사용</AB_Enable>
   <AB_Enable_Tip>로컬 AI 에이전트(Claude Code, Codex, 스크립트)가 127.0.0.1을 통해 게임을 제어할 수 있게 합니다. 네트워크에서는 접근할 수 없습니다.</AB_Enable_Tip>
-  <AB_Port>포트 (재시작 후 적용)</AB_Port>
+  <AB_Port>포트</AB_Port>
   <AB_ReadOnly>읽기 전용 모드 (에이전트는 관찰만 가능)</AB_ReadOnly>
   <AB_AllowDev>개발자 명령 허용 (생성, 피해, 사건)</AB_AllowDev>
   <AB_AllowPower>고급 명령 허용 (C# 코드, 리플렉션)</AB_AllowPower>

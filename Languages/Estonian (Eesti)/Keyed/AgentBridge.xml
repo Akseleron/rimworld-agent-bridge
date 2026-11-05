@@ -9,7 +9,7 @@
   <AB_Section_Server>Server</AB_Section_Server>
   <AB_Enable>Lülita agendiserver sisse</AB_Enable>
   <AB_Enable_Tip>Lubab kohalikel tehisintellekti agentidel (Claude Code, Codex, skriptid) mängu juhtida aadressi 127.0.0.1 kaudu. Võrgust pole midagi kättesaadav.</AB_Enable_Tip>
-  <AB_Port>Port (kehtib pärast taaskäivitust)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Ainult lugemise režiim (agendid saavad ainult jälgida)</AB_ReadOnly>
   <AB_AllowDev>Luba arendajakäsud (tekitamine, kahju, sündmused)</AB_AllowDev>
   <AB_AllowPower>Luba võimsad käsud (C#-kood, refleksioon)</AB_AllowPower>

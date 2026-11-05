@@ -212,8 +212,11 @@ namespace AgentBridge
         {
             string name = a.Str("name") ?? "agentbridge-" + DateTime.Now.ToString("yyyyMMdd-HHmmss");
             if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) throw new CommandError("bad name");
+            // Agents shoot often: the default name has one-second precision and names get reused, so a taken name
+            // gets a number (telemetry: 42% of screenshot calls failed with "exists"). Files are never overwritten.
             string path = Path.Combine(GenFilePaths.ScreenshotFolderPath, name + ".png");
-            if (File.Exists(path)) throw new CommandError("exists: " + path);
+            string requested = name;
+            for (int n = 2; File.Exists(path); n++) path = Path.Combine(GenFilePaths.ScreenshotFolderPath, (name = requested + "-" + n) + ".png");
             ScreenshotTaker.TakeNonSteamShot(name);
             return new Pending(() => File.Exists(path) && new FileInfo(path).Length > 0 ? new { path } : null, Math.Min(a.Timeout, 15), () => new CommandError("screenshot not written (renderer may not support capture)"));
         }

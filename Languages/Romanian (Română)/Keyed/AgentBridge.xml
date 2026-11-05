@@ -9,7 +9,7 @@
   <AB_Section_Server>Server</AB_Section_Server>
   <AB_Enable>Pornește serverul pentru agenți</AB_Enable>
   <AB_Enable_Tip>Permite agenților AI locali (Claude Code, Codex, scripturi) să controleze jocul prin 127.0.0.1. Nimic nu este accesibil din rețea.</AB_Enable_Tip>
-  <AB_Port>Port (se aplică după repornire)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Mod doar citire (agenții pot doar observa)</AB_ReadOnly>
   <AB_AllowDev>Permite comenzi de dezvoltator (generare, daune, incidente)</AB_AllowDev>
   <AB_AllowPower>Permite comenzi avansate (cod C#, reflecție)</AB_AllowPower>

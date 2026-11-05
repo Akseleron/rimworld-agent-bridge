@@ -9,7 +9,7 @@
   <AB_Section_Server>Sunucu</AB_Section_Server>
   <AB_Enable>Ajan sunucusunu etkinleştir</AB_Enable>
   <AB_Enable_Tip>Yerel yapay zekâ ajanlarının (Claude Code, Codex, betikler) oyunu 127.0.0.1 üzerinden kontrol etmesini sağlar. Ağdan hiçbir şeye erişilemez.</AB_Enable_Tip>
-  <AB_Port>Port (yeniden başlatınca geçerli)</AB_Port>
+  <AB_Port>Port</AB_Port>
   <AB_ReadOnly>Salt okunur mod (ajanlar yalnızca gözlemleyebilir)</AB_ReadOnly>
   <AB_AllowDev>Geliştirici komutlarına izin ver (oluşturma, hasar, olaylar)</AB_AllowDev>
   <AB_AllowPower>Gelişmiş komutlara izin ver (C# kodu, yansıma)</AB_AllowPower>

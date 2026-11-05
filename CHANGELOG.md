@@ -2,6 +2,13 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.7
+- `screenshot` no longer fails when the name is taken: the default name had one-second precision, so a second shot in
+  the same second failed with "exists" (42% of all screenshot calls in the statistics). A taken name now gets a number
+  (`name-2.png`, …); files are still never overwritten.
+- Settings: the port label no longer says "applies after restart" (since 1.1.4 a new port applies at once).
+- Release tooling: `Tools/steam_upload.py` updates the Workshop item from the running game.
+
 ## 1.1.6
 - Report #6 (Windows, Russian): `world-tile` with a tile id outside the world grid crashed with a
   NullReferenceException. Every command that takes a world tile (`world-tile`, `world`, `world-objects near`,

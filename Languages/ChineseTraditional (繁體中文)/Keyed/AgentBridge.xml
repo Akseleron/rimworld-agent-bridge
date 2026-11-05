@@ -9,7 +9,7 @@
   <AB_Section_Server>伺服器</AB_Section_Server>
   <AB_Enable>啟用代理伺服器</AB_Enable>
   <AB_Enable_Tip>允許本機 AI 代理（Claude Code、Codex、腳本）透過 127.0.0.1 控制遊戲。網路上無法存取。</AB_Enable_Tip>
-  <AB_Port>連接埠（重新啟動後生效）</AB_Port>
+  <AB_Port>連接埠</AB_Port>
   <AB_ReadOnly>唯讀模式（代理只能觀察）</AB_ReadOnly>
   <AB_AllowDev>允許開發者指令（生成、傷害、事件）</AB_AllowDev>
   <AB_AllowPower>允許進階指令（C# 程式碼、反射）</AB_AllowPower>

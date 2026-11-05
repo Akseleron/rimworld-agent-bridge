@@ -9,7 +9,7 @@
   <AB_Section_Server>Сервер</AB_Section_Server>
   <AB_Enable>Увімкнути сервер для агентів</AB_Enable>
   <AB_Enable_Tip>Дозволяє локальним ШІ-агентам (Claude Code, Codex, скрипти) керувати грою через 127.0.0.1. З мережі сервер недоступний.</AB_Enable_Tip>
-  <AB_Port>Порт (застосовується після перезапуску)</AB_Port>
+  <AB_Port>Порт</AB_Port>
   <AB_ReadOnly>Режим лише читання (агенти можуть лише спостерігати)</AB_ReadOnly>
   <AB_AllowDev>Дозволити dev-команди (спавн, шкода, події)</AB_AllowDev>
   <AB_AllowPower>Дозволити потужні команди (код C#, рефлексія)</AB_AllowPower>
