@@ -54,6 +54,9 @@ c(cmd='obj',target='map',path='mapPawns.AllPawnsCount')
 c(cmd='obj',target='thing:'+a,path='skills',op='members')
 c(cmd='obj',target='static:Verse.Prefs',path='AutosaveIntervalDays')
 # issue #2/#3: agent mistakes must come back as clean errors, not crashes
+for t in (99999999, -5):  # report #6: a tile outside the world grid
+    r=rwb.call({'cmd':'world-tile','tile':t}); print('ERR-EXPECTED' if not r['ok'] and 'no world tile' in r['error'] else 'BAD', 'world-tile', t, r)
+c(cmd='world-tile')
 r=rwb.call({'cmd':'obj','target':'map','path':'mapPawns.AllPawns[999999]'}); print('ERR-EXPECTED' if not r['ok'] and 'out of range' in r['error'] else 'BAD', 'obj index', r)
 r=rwb.call({'cmd':'obj','target':'map','path':'Biome','op':'set','value':'x'}); print('ERR-EXPECTED' if not r['ok'] and ('read-only' in r['error'] or 'no ' in r['error']) else 'BAD', 'obj set get-only', r)
 c(cmd='obj',target='static:Verse.Prefs',path='DevMode')

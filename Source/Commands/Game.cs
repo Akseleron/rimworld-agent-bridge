@@ -99,6 +99,20 @@ namespace AgentBridge
 
         public static Pawn OwnPawn(Args a) => OwnPawns(a).First();
 
+        /// <summary>A world tile from the agent (surface layer), or the current map's tile. Report #6: an id outside the
+        /// grid made WorldGrid return null and the command crash.</summary>
+        public static RimWorld.Planet.PlanetTile Tile(Args a, string key = "tile")
+        {
+            if (Find.World == null) throw new CommandError("no world loaded");
+            RimWorld.Planet.PlanetTile fallback = Find.CurrentMap?.Tile ?? Find.WorldObjects.Caravans.FirstOrDefault(c => c.IsPlayerControlled)?.Tile ?? RimWorld.Planet.PlanetTile.Invalid;
+            if (!a.Has(key))
+                return fallback.Valid ? fallback : throw new CommandError("need '" + key + "' (world tile id)");
+            var tile = new RimWorld.Planet.PlanetTile(a.Int(key, -1));
+            if (!tile.Valid || !Find.WorldGrid.InBounds(tile) || Find.WorldGrid[tile] == null)
+                throw new CommandError("no world tile " + a.Str(key) + "; ids are 0.." + (Find.WorldGrid.TilesCount - 1) + " (see world-objects)");
+            return tile;
+        }
+
         /// <summary>Pawns taking direct orders (draft, move, attack, gear). In fair play the vanilla gate: a colonist not
         /// in a mental state or a lord's control, or a controlled colony mech.</summary>
         public static List<Pawn> ControlledPawns(Args a)

@@ -2,6 +2,12 @@
 
 **English** · [Русский](CHANGELOG.ru.md)
 
+## 1.1.6
+- Report #6 (Windows, Russian): `world-tile` with a tile id outside the world grid crashed with a
+  NullReferenceException. Every command that takes a world tile (`world-tile`, `world`, `world-objects near`,
+  `caravan-form`, `caravan-move`, `world-menu`, `world-target`) now checks it and answers "no world tile N; ids are
+  0..max".
+
 ## 1.1.5
 - Reports #4 and #5 (Windows, Chinese): `spawn def=<creature>` built a pawn without health, story and other trackers,
   and the game's own code (and other mods' patches) crashed on it. A creature def is now generated as a proper pawn

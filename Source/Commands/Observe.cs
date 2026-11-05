@@ -282,10 +282,10 @@ namespace AgentBridge
         [Command("world", Access.Read, "world tile info {tile?}, player caravans and settlements")]
         private static object World(Args a)
         {
-            int tile = a.Int("tile", Find.CurrentMap?.Tile ?? 0);
+            var tile = G.Tile(a);
             return new
             {
-                tile, biome = Find.WorldGrid[tile].PrimaryBiome?.defName, temperature = Find.World.tileTemperatures.GetOutdoorTemp(tile),
+                tile = (int)tile, biome = Find.WorldGrid[tile].PrimaryBiome?.defName, temperature = Find.World.tileTemperatures.GetOutdoorTemp(tile),
                 caravans = Find.WorldObjects.Caravans.Where(c => c.IsPlayerControlled).Select(c => new { id = c.ID, name = c.Name, tile = (int)c.Tile, pawns = c.PawnsListForReading.Select(p => p.ThingID).ToList() }).ToList(),
                 settlements = Find.WorldObjects.Settlements.Where(s => s.Faction == Faction.OfPlayer).Select(s => new { id = s.ID, name = s.Name, tile = (int)s.Tile }).ToList(),
             };

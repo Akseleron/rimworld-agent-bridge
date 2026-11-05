@@ -100,7 +100,7 @@ namespace AgentBridge
         [Command("world-objects", Access.Read, "settlements and sites {near: tile (default home/caravan), radius=30, kind?, faction?}")]
         private static object WorldObjects(Args a)
         {
-            int origin = a.Int("near", Find.CurrentMap?.Tile ?? Find.WorldObjects.Caravans.FirstOrDefault(c => c.IsPlayerControlled)?.Tile ?? 0);
+            int origin = G.Tile(a, "near");
             float radius = a.Float("radius", 30); string? kind = a.Str("kind"), fac = a.Str("faction");
             return Find.WorldObjects.AllWorldObjects
                 .Select(o => new { o, dist = Find.WorldGrid.ApproxDistanceInTiles(origin, o.Tile) })
@@ -113,11 +113,11 @@ namespace AgentBridge
         [Command("world-tile", Access.Read, "world tile details {tile}: biome, terrain, temperature, travel speed, objects")]
         private static object WorldTile(Args a)
         {
-            int tile = a.Int("tile", Find.CurrentMap?.Tile ?? 0);
+            var tile = G.Tile(a);
             var t = Find.WorldGrid[tile];
             return new
             {
-                tile, biome = t.PrimaryBiome?.defName, hilliness = t.hilliness.ToString(), temperature = Find.World.tileTemperatures.GetOutdoorTemp(tile),
+                tile = (int)tile, biome = t.PrimaryBiome?.defName, hilliness = t.hilliness.ToString(), temperature = Find.World.tileTemperatures.GetOutdoorTemp(tile),
                 growingDays = GenTemperature.TwelfthsInAverageTemperatureRange(tile, 6f, 42f)?.Count * 5,
                 movementDifficulty = WorldPathGrid.CalculatedMovementDifficultyAt(tile, false), objects = Find.WorldObjects.ObjectsAt(tile).Select(o => o.LabelCap.ToString()).ToList(),
             };
@@ -133,7 +133,7 @@ namespace AgentBridge
             Find.WindowStack.Add(dialog);  // PostOpen builds transferables and starts the route planner, as for the player
             try
             {
-                if (a.Has("tile")) dialog.Notify_ChoseRoute(a.Int("tile", -1));
+                if (a.Has("tile")) dialog.Notify_ChoseRoute(G.Tile(a));
                 if (Find.WorldRoutePlanner.Active) Find.WorldRoutePlanner.Stop();
                 var trans = dialog.transferables;
                 foreach (var t in trans) t.AdjustTo(0);
@@ -168,13 +168,13 @@ namespace AgentBridge
         [Command("caravan-move", Access.Act, "send a caravan to a tile {caravan, tile}")]
         private static object CaravanMove(Args a)
         {
-            var c = CaravanArg(a); int tile = a.Int("tile", -1);
+            var c = CaravanArg(a); var tile = G.Tile(a);
             if (!c.pather.StartPath(tile, null, true)) throw new CommandError("no path to tile " + tile);
             return new { caravan = c.ID, destination = tile, eta = CaravanArrivalTimeEstimator.EstimatedTicksToArrive(c, true) / 2500f + "h" };
         }
 
         [Command("world-menu", Access.Read, "right-click options for a caravan at a world tile {caravan, tile} (enter, attack, trade, settle…)")]
-        private static List<FloatMenuOption> WorldOptions(Args a) => FloatMenuMakerWorld.ChoicesAtFor(a.Int("tile", -1), CaravanArg(a)).Where(o => !G.DevOnly(o.Label)).ToList();
+        private static List<FloatMenuOption> WorldOptions(Args a) => FloatMenuMakerWorld.ChoicesAtFor(G.Tile(a), CaravanArg(a)).Where(o => !G.DevOnly(o.Label)).ToList();
 
         private static object WorldMenu(Args a) => WorldOptions(a).Select((o, i) => new { index = i, label = o.Label, disabled = o.Disabled ? true : (bool?)null }).ToList();
 
@@ -195,7 +195,7 @@ namespace AgentBridge
             var wt = Find.WorldTargeter;
             if (!wt.IsTargeting) throw new CommandError("not targeting on the world map; press the gizmo first");
             GlobalTargetInfo target = a.Has("object") ? new GlobalTargetInfo(Find.WorldObjects.AllWorldObjects.FirstOrDefault(o => o.ID == a.Int("object", -1)) ?? throw new CommandError("no world object"))
-                : new GlobalTargetInfo(a.Int("tile", -1));
+                : new GlobalTargetInfo(G.Tile(a));
             var action = (Func<GlobalTargetInfo, bool>)typeof(WorldTargeter).GetField("action", Inst)!.GetValue(wt);
             // What WorldTargeter checks on a click: tiles only when allowed, and its target filter.
             if (Bridge.Settings.fairPlay)

@@ -2,6 +2,12 @@
 
 [English](CHANGELOG.md) · **Русский**
 
+## 1.1.6
+- Отчёт #6 (Windows, русский язык): `world-tile` с номером клетки за пределами карты мира падал с
+  NullReferenceException. Теперь все команды с клеткой мира (`world-tile`, `world`, `world-objects near`,
+  `caravan-form`, `caravan-move`, `world-menu`, `world-target`) проверяют её и отвечают «no world tile N; ids are
+  0..max».
+
 ## 1.1.5
 - Отчёты #4 и #5 (Windows, китайский язык): `spawn def=<существо>` создавал пешку без здоровья, истории и других
   компонентов, и на ней падал код самой игры (и патчи других модов). Теперь существо создаётся как полноценная пешка

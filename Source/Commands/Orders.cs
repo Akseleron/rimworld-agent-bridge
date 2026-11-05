@@ -218,10 +218,13 @@ namespace AgentBridge
             bool manualEnabled = false;
             if (a.Has("work"))
             {
+                var work = G.Def<WorkTypeDef>(a.Str("work"));
                 int priority = Args.Clamp(a.Int("priority", 3), 0, 4);
+                // The work tab cannot enable a work type the pawn is incapable of; SetPriority would log an error.
+                if (priority != 0 && p.WorkTypeIsDisabled(work)) throw new CommandError(p.LabelShort + " is incapable of " + work.defName + " (disabled by traits, backstory or health)");
                 if (priority != 0 && priority != 3 && !Find.PlaySettings.useWorkPriorities) { Find.PlaySettings.useWorkPriorities = true; manualEnabled = true; }
                 if (!p.workSettings.EverWork) p.workSettings.EnableAndInitialize();
-                p.workSettings.SetPriority(G.Def<WorkTypeDef>(a.Str("work")), priority);
+                p.workSettings.SetPriority(work, priority);
             }
             return new { manual = Find.PlaySettings.useWorkPriorities, manualEnabled = manualEnabled ? true : (bool?)null, priorities = DefDatabase<WorkTypeDef>.AllDefs.ToDictionary(w => w.defName, w => p.WorkTypeIsDisabled(w) ? -1 : p.workSettings.GetPriority(w)) };
         }
